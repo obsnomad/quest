@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('public.index');
-});
+Route::get('/', 'HomeController@schedule');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', 'HomeController@index');
+});
+
