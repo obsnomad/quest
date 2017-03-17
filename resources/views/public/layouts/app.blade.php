@@ -23,7 +23,7 @@
         ]) !!};
     </script>
 </head>
-<body>
+<body class="@yield('body_class')">
 <div class="header">
     <div class="container">
         <h1>Camera<br>Obscura</h1>
@@ -46,9 +46,9 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="{{ route('login') }}">Главная</a></li>
-                <li><a href="{{ route('register') }}">Квест "Матрица"</a></li>
-                <li><a href="{{ route('register') }}">Контакты</a></li>
+                <li><a href="{{ route('index') }}">Главная</a></li>
+                <li><a href="{{ route('matrix') }}">Квест "Матрица"</a></li>
+                <li><a href="{{ route('contacts') }}">Контакты</a></li>
             </ul>
         </div>
     </div>

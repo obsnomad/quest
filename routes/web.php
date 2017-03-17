@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@schedule');
+Route::get('/', ['as' => 'index', 'uses' => 'HomeController@schedule']);
+Route::get('/matrix', ['as' => 'matrix', 'uses' => 'HomeController@matrix']);
+Route::get('/contacts', ['as' => 'contacts', 'uses' => 'HomeController@contacts']);
 
 Auth::routes();
 

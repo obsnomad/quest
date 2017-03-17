@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -18,11 +16,43 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
      * @return \Illuminate\Http\Response
      */
     public function schedule()
+    {
+        $schedule = Schedule::orderBy('week_day')
+            ->orderBy('time')
+            ->get()
+            ->groupBy('week_day_name')
+            ->map(function(Collection $value) {
+                return $value->groupBy('price');
+            });
+        return view('public.index', [
+            'schedule' => $schedule,
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function matrix()
+    {
+        $schedule = Schedule::orderBy('week_day')
+            ->orderBy('time')
+            ->get()
+            ->groupBy('week_day_name')
+            ->map(function(Collection $value) {
+                return $value->groupBy('price');
+            });
+        return view('public.matrix', [
+            'schedule' => $schedule,
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function contacts()
     {
         $schedule = Schedule::orderBy('week_day')
             ->orderBy('time')

@@ -10,6 +10,11 @@ body {
     background-repeat: no-repeat;
     background-position: center top;
     background-attachment: fixed;
+
+    &.matrix {
+        background-image: url(images/bg-matrix.png);
+        background-color: $matrix-body-bg;
+    }
 }
 
 button {
@@ -26,6 +31,10 @@ button {
 
     &:hover {
         top: -2px;
+    }
+
+    .matrix & {
+        background-color: lighten($matrix-panel-bg, 20%);
     }
 }
 
@@ -90,6 +99,10 @@ button {
 
     & + & {
         margin-top: $grid-gutter-width;
+    }
+
+    .matrix & {
+        background-color: $matrix-panel-bg;
     }
 }
 
