@@ -1,0 +1,130 @@
+.quests {
+  &-item {
+    a {
+      display: block;
+      height: 350px;
+      text-decoration: none;
+      background: $body-lighter;
+      position: relative;
+      color: #fff;
+      padding: 20px;
+
+      &:hover {
+        .quests-item-data:after {
+          opacity: 1;
+        }
+
+        h3 {
+          color: $second-color;
+        }
+      }
+    }
+
+    &-special {
+      position: absolute;
+      top: 15px;
+      left: -10px;
+      background: $second-color-darker;
+      color: #fff;
+      z-index: 5;
+      padding: 3px 10px;
+      text-transform: uppercase;
+      font-weight: 500;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 0;
+        border-color: transparent;
+        border-right-color: darken($second-color-darker, 30);
+      }
+
+      &-red {
+        background: #da2b14;
+        &:before {
+          border-right-color: darken(#da2b14, 30);
+        }
+      }
+
+      &-dark {
+        background: #305448;
+        &:before {
+          border-right-color: darken(#305448, 25);
+        }
+      }
+    }
+
+    &-data {
+      background: center center no-repeat;
+      background-size: cover;
+      height: 200px;
+      list-style: none;
+      margin: -20px -20px 10px;
+      padding: 60px 20px 20px;
+      position: relative;
+      font-size: 14px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 150px;
+        max-width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0) 100%);
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+      }
+
+      li {
+        padding: 5px 0;
+        color: #ccc;
+        position: relative;
+        z-index: 2;
+      }
+
+      span {
+        width: 20px;
+        text-align: center;
+        margin-right: 5px;
+      }
+    }
+
+    h3 {
+      margin: 0 0 20px;
+      transition: all 0.2s ease-in-out;
+      font-size: 22px;
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid #fff;
+      transition: all 0.2s ease-in-out;
+      padding: 10px 15px;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+
+      &:hover {
+        background: $main-color;
+        border-color: $main-color;
+      }
+    }
+  }
+}

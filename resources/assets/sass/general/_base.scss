@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&subset=cyrillic');
+
+body {
+  font-weight: 300;
+}
+
+footer {
+  padding: 20px $grid-gutter-width;
+  text-align: center;
+  font-size: 0.9em;
+  color: $text-color-darker;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h1, h2 {
+  font-weight: 700;
+}
+
+h2 {
+  margin: 0 0 35px;
+}
+
+.h3-bigger {
+  font-size: 32px;
+}
+
+.text-shadow {
+  text-shadow: 0 0 5px #000;
+}
+
+.btn {
+  transition: all 0.2s ease-in-out;
+
+  &-warning:hover {
+    background: $main-color;
+    border-color: $main-color;
+  }
+
+  .far, .fas, .fab {
+    margin-right: 5px;
+  }
+}
+
+.buttons-pad {
+  margin: 40px 0;
+}
+
+.wide-light {
+  background: $body-lighter;
+}
+
+.wide-fix {
+  background: center top no-repeat fixed;
+  background-size: cover;
+}
+
+.pad {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.higlight-text {
+  color: $second-color;
+}

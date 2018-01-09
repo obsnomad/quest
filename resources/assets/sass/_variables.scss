@@ -1,7 +1,10 @@
-
 // Body
-$panel-bg: #181833;
-$body-bg: #010101;
+$main-color: #44a;
+$second-color: #ffb561;
+$second-color-darker: #da7420;
+$panel-bg: $main-color;
+$body-bg: #161629;
+$body-lighter: lighten($body-bg, 10);
 
 $matrix-panel-bg: #113615;
 $matrix-body-bg: #000;
@@ -22,24 +25,31 @@ $brand-danger: #bf5329;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: Roboto, sans-serif;
+$font-family-sans-serif: 'Rubik', sans-serif;
 $font-size-base: 16px;
-$line-height-base: 1.6;
+$line-height-base: 1.4;
 $text-color: #fff;
 $text-color-darker: #9d9d9d;
-$headings-color: #fff;
-$headings-font-family: Podkova, serif;
-$headings-font-weight: bold;
 
 // Navbar
-$navbar-inverse-bg: transparent;
-$navbar-inverse-border: #ccc;
+$navbar-default-bg: transparent;
+$navbar-inverse-bg: $main-color;
+$navbar-font-size: 16px;
+$navbar-layer: 10;
+$navbar-height: 70px;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: $second-color;
+$navbar-inverse-height: 60px;
 $navbar-margin-bottom: 0;
-$navbar-font-size: 18px;
-$navbar-inverse-link-color: #ccc;
+$navbar-border-radius: 0;
 
 // Buttons
 $btn-default-color: $text-color;
+$btn-border-radius-base: 0;
+$btn-border-radius-large: 0;
+$btn-border-radius-small: 0;
+$btn-font-weight: 100;
+$btn-warning-bg: $second-color-darker;
 
 // Inputs
 $input-border: lighten($text-color, 40%);

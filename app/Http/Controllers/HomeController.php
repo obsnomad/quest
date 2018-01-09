@@ -27,8 +27,41 @@ class HomeController extends Controller
             ->map(function(Collection $value) {
                 return $value->groupBy('price');
             });
+
+        $quests = [
+            (object)[
+                'name' => 'Лечебница',
+                'image' => '/images/slides-main-1.jpg',
+                'level' => 'Простой',
+                'time' => '60 минут',
+                'players' => '2-5 игроков',
+                'money' => 'от 1600 рублей',
+            ],
+            (object)[
+                'name' => 'Фантом',
+                'image' => '/images/slides-main-1.jpg',
+                'level' => 'Сложный',
+                'time' => '90 минут',
+                'players' => '2-4 игрока',
+                'money' => 'от 2000 рублей',
+                'special' => 'С закрытыми глазами',
+                'specialStyle' => 'red',
+            ],
+            (object)[
+                'name' => 'Книга мёртвых',
+                'image' => '/images/slides-main-1.jpg',
+                'level' => 'Несложный',
+                'time' => '60 минут',
+                'players' => '2-5 игроков',
+                'money' => 'от 1600 рублей',
+                'special' => 'Страшный',
+                'specialStyle' => 'dark',
+            ],
+        ];
+
         return view('public.index', [
             'schedule' => $schedule,
+            'quests' => $quests,
         ]);
     }
 

@@ -8,61 +8,63 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Underdog" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Podkova:700" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css" rel="stylesheet">
+    @stack('css')
 
     <!-- Scripts -->
     <script>
-        window.Laravel = {!! json_encode([
+        window.Laravel = @json([
             'csrfToken' => csrf_token(),
-        ]) !!};
+        ]);
     </script>
 </head>
-<body class="@yield('body_class')">
-<div class="header">
-    <div class="container">
-        <h1>Camera<br>Obscura</h1>
+<body>
+
+<header class="@yield('header-class')">
+    <div class="header-additional">
+        <div class="container">
+            <div class="navbar-right">
+                <a href="#" class="fab fa-vk"></a>
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-instagram"></a>
+            </div>
+            Забронировать игру: <span>+7 (904) 080-57-47</span>
+        </div>
     </div>
+
+    <div class="navbar navbar-default" data-fixable data-fixable-class="navbar-inverse" data-fixable-remove-class="navbar-default">
+        <div class="container">
+            <nav>
+                <img src="images/logo.svg" alt="Квест-проект «Тёмная комната»" class="logo" />
+                {!! $menuIcon->asUl(['class' => 'navbar-right']) !!}
+                {!! $menuMain->asUl(['id' => 'navbar-navigation-menu', 'class' => 'navbar-navigation-menu navbar-right']) !!}
+            </nav>
+        </div>
+    </div>
+
+    <div class="header-content">
+        @yield('header-content')
+    </div>
+</header>
+
+<div class="body-container">
+    @yield('content')
 </div>
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                <li><a href="{{ route('index') }}">Главная</a></li>
-                <li><a href="{{ route('matrix') }}">Квест "Матрица"</a></li>
-                <li><a href="{{ route('contacts') }}">Контакты</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-@yield('content')
 
 <footer>
     <div class="container">
-        &copy; 2017 {{ ($date = date('Y')) > 2017 ? "- $date" : '' }} Квест-проект "Тёмная комната"
+        &copy; 2018 {{ ($date = date('Y')) > 2018 ? "- $date" : '' }} Квест-проект «Тёмная комната»
     </div>
 </footer>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+@stack('js')
 </body>
 </html>
