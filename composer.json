@@ -12,11 +12,12 @@
     ],
     "require": {
         "php": ">=5.6.4",
+        "jenssegers/date": "^3.2",
+        "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "lavary/laravel-menu": "dev-master",
         "laravelcollective/html": "^5.2",
-        "jenssegers/date": "^3.2"
+        "lavary/laravel-menu": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",
