@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScheduleTable extends Migration
+class CreateScheduleExceptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,10 @@ class CreateScheduleTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('schedule_exceptions', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('quest_id')->unsigned()->index('quest_idx');
-            $table->tinyInteger('week_day')->unsigned();
-            $table->time('time');
-            $table->integer('price')->unsigned();
+            $table->date('date');
+            $table->tinyInteger('treat_as')->unsigned();
         });
     }
 
@@ -28,6 +26,6 @@ class CreateScheduleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule');
+        Schema::dropIfExists('schedule_exceptions');
     }
 }

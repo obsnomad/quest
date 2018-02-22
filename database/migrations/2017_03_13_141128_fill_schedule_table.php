@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class FillScheduleTable extends Migration
@@ -36,7 +34,7 @@ class FillScheduleTable extends Migration
                 ];
             }
         }
-        \DB::table('schedule')->insert($records);
+        DB::table('schedule')->insert($records);
     }
 
     /**
@@ -46,6 +44,6 @@ class FillScheduleTable extends Migration
      */
     public function down()
     {
-        \DB::table('schedule')->truncate();
+        DB::table('schedule')->truncate();
     }
 }

@@ -2,48 +2,62 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\BaseModel as Eloquent;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 
 /**
- * App\User
+ * Class User
  *
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @mixin \Eloquent
  * @property int $id
+ * @property int $role_id
+ * @property int $roleId
  * @property string $name
  * @property string $email
  * @property string $password
  * @property string $remember_token
+ * @property string $rememberToken
  * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $createdAt
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
+ * @property \Carbon\Carbon $updatedAt
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereRoleId($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereUpdatedAt($value)
  */
-class User extends Authenticatable
+class User extends Eloquent implements
+    AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
-    use Notifiable;
+    use Authenticatable, Authorizable, CanResetPassword;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    public $timestamps = false;
+    protected $perPage = 20;
+    protected $casts = [
+        'role_id' => 'int'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token'
+    ];
+
+    protected $fillable = [
+        'role_id',
+        'name',
+        'email',
+        'password',
+        'remember_token'
     ];
 }

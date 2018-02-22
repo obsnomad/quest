@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Iber\Generator\ModelGeneratorProvider;
 use Illuminate\Support\ServiceProvider;
+use Reliese\Coders\CodersServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,9 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
+        if ($this->app->environment() == 'local') {
             $this->app->register(IdeHelperServiceProvider::class);
-            $this->app->register(ModelGeneratorProvider::class);
+            $this->app->register(CodersServiceProvider::class);
         }
     }
 }

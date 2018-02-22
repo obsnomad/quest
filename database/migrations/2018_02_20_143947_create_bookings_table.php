@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScheduleTable extends Migration
+class CreateBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class CreateScheduleTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('quest_id')->unsigned()->index('quest_idx');
-            $table->tinyInteger('week_day')->unsigned();
-            $table->time('time');
+            $table->integer('quest_id')->unsigned();
+            $table->integer('client_id')->unsigned();
+            $table->smallInteger('status_id')->unsigned();
+            $table->dateTime('date');
             $table->integer('price')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +30,6 @@ class CreateScheduleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule');
+        Schema::dropIfExists('bookings');
     }
 }
