@@ -61,7 +61,7 @@
                             {{ Form::hidden('client_id', old('client_id', $booking->clientId), ['id' => 'client_id']) }}
                         </div>
                     </div>
-                    <div id="client_new" class="panel panel-primary" style="display: {{ old('client_id', $booking->clientId) ? 'none' : 'block' }}">
+                    <div id="client_new" class="panel panel-default" style="display: {{ old('client_id', $booking->clientId) ? 'none' : 'block' }}">
                         <div class="panel-heading">
                             <div class="panel-title">
                                 Новый клиент
@@ -186,6 +186,20 @@
                 wildcard: '%QUERY'
             }
         });
+        function setClient(event, id, value) {
+            $(event.target).typeahead('val', value);
+            var target = $($(event.target).data('target'));
+            if (target.length > 0) {
+                target.val(id);
+            }
+            target = $($(event.target).data('hide'));
+            if (target.length > 0) {
+                id > 0 ? target.slideUp('fast') : target.slideDown('fast');
+            }
+        }
+        if($('#client_id').val().length === 0 && $('#client_new').is(':hidden') === true) {
+            $('#client_new').show();
+        }
         $('#client').typeahead({
             hint: true,
             highlight: true,
@@ -203,25 +217,9 @@
                     '</div>')
             }
         }).bind('typeahead:select', function (event, data) {
-            $(event.target).typeahead('val', data.full_name);
-            var target = $($(event.target).data('target'));
-            if (target.length > 0) {
-                target.val(data.id);
-            }
-            target = $($(event.target).data('hide'));
-            if (target.length > 0) {
-                target.slideUp('fast');
-            }
+            setClient(event, data.id, data.full_name);
         }).bind('change', function (event) {
-            $(event.target).typeahead('val', '');
-            var target = $($(event.target).data('target'));
-            if (target.length > 0) {
-                target.val('');
-            }
-            target = $($(event.target).data('hide'));
-            if (target.length > 0) {
-                target.slideDown('fast');
-            }
+            setClient(event, '', '');
         });
     </script>
 @endsection
