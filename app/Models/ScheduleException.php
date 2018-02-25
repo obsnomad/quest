@@ -10,7 +10,6 @@ use Illuminate\Database\Query\Builder;
  * 
  * @property int $id
  * @property \Carbon\Carbon $date
- * @property int $treat_as
  * @property int $treatAs
  * @method static Builder|ScheduleException whereId($value)
  * @method static Builder|ScheduleException whereDate($value)

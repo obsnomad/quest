@@ -11,11 +11,9 @@ use Illuminate\Support\Collection;
  * Class Schedule
  *
  * @property int $id
- * @property int $quest_id
  * @property int $questId
- * @property int $week_day
+ * @property Quest $quest
  * @property int $weekDay
- * @property int $week_day_name
  * @property int $weekDayName
  * @property \Carbon\Carbon $time
  * @property int $price

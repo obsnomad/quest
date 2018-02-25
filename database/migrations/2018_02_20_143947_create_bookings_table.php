@@ -19,8 +19,20 @@ class CreateBookingsTable extends Migration
             $table->smallInteger('status_id')->unsigned();
             $table->dateTime('date');
             $table->integer('price')->unsigned();
+            $table->tinyInteger('amount')->unsigned();
             $table->timestamps();
         });
+        DB::table('bookings')->insert([
+            'id' => 1,
+            'quest_id' => 1,
+            'client_id' => 1,
+            'status_id' => 1,
+            'date' => DB::raw('now()'),
+            'price' => 1600,
+            'amount' => 4,
+            'created_at' => DB::raw('now()'),
+            'updated_at' => DB::raw('now()'),
+        ]);
     }
 
     /**

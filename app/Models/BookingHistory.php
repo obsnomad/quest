@@ -9,16 +9,16 @@ use Illuminate\Database\Query\Builder;
  * Class BookingHistory
  * 
  * @property int $id
- * @property int $booking_id
  * @property int $bookingId
- * @property int $status_id
+ * @property Booking $booking
  * @property int $statusId
- * @property int $client_id
+ * @property Status $status
  * @property int $clientId
+ * @property Client $client
  * @property \Carbon\Carbon $date
  * @property int $price
+ * @property int $amount
  * @property string $comment
- * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $createdAt
  * @method static Builder|BookingHistory whereId($value)
  * @method static Builder|BookingHistory whereBookingId($value)

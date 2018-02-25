@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Booking;
+use App\Models\Client;
 use App\Models\Quest;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 
-class BookingController extends Controller implements Resource
+class ClientController extends Controller implements Resource
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +18,25 @@ class BookingController extends Controller implements Resource
      */
     public function index()
     {
-        $bookings = Booking::query()
-            ->with('quest', 'client', 'status')
-            ->orderBy('date', 'asc');
-        if($date = $this->filterDate()) {
-            $bookings->where('date', '>=', Carbon::parse($date[0]));
-            if($date[1] = Carbon::parse(@$date[1])) {
-                $bookings->where('date', '<=', "{$date[1]} 23:59:59");
-            }
+        $clients = Client::query()
+            ->orderBy('last_name')
+            ->orderBy('first_name');
+        if(\Request::ajax()){
+           if($query = $this->filterQuery()) {
+                $clients
+                    ->where('first_name', 'like', $query)
+                    ->orWhere('last_name', 'like', $query)
+                    ->orWhere(\DB::raw("concat(first_name, ' ', last_name)"), 'like', $query)
+                    ->orWhere('email', 'like', $query)
+                    ->orWhere('phone', 'like', $query)
+                    ->orWhere('vk_account_id', 'like', $query);
+           }
+           return response()->json($clients->limit(10)->get());
         }
-        $bookings = $bookings
+        $clients = $clients
             ->paginate(self::PAGE_COUNT);
         return view('admin.bookings.index', [
-            'bookings' => $bookings,
+            'bookings' => $clients,
         ]);
     }
 

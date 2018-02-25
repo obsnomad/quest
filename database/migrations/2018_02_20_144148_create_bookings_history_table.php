@@ -19,6 +19,7 @@ class CreateBookingsHistoryTable extends Migration
             $table->integer('client_id')->unsigned();
             $table->dateTime('date');
             $table->integer('price')->unsigned();
+            $table->tinyInteger('amount')->unsigned();
             $table->text('comment');
             $table->dateTime('created_at');
         });

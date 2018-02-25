@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Models\BaseModel as Eloquent;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Permission
  * 
  * @property int $id
  * @property string $name
+ * @property RolePermission[]|Collection $links
  * @method static Builder|Permission whereId($value)
  * @method static Builder|Permission whereName($value)
  */

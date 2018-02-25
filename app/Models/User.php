@@ -15,16 +15,13 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
  * Class User
  *
  * @property int $id
- * @property int $role_id
  * @property int $roleId
+ * @property Role $role
  * @property string $name
  * @property string $email
  * @property string $password
- * @property string $remember_token
  * @property string $rememberToken
- * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $createdAt
- * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $updatedAt
  * @method static Builder|User whereId($value)
  * @method static Builder|User whereRoleId($value)
@@ -60,4 +57,38 @@ class User extends Eloquent implements
         'password',
         'remember_token'
     ];
+
+    protected $with = [
+        'role.links.permission',
+    ];
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_id')->withDefault();
+    }
+
+    /**
+     * @return array
+     */
+    public function permissions() {
+        return $this->role->links->map(function($value) {
+            /**
+             * @var RolePermission $value
+             */
+            return $value->permission->name;
+        })->toArray();
+    }
+
+    /**
+     * Check if user has appropriate permissions
+     * @param mixed $codes
+     * @param string $type Should be 'and' or 'or'. Default is 'and'.
+     * @return bool
+     */
+    public function hasPermissions($codes, $type = 'and') {
+        if($this->roleId == 1) {
+            return true;
+        }
+        $count = count(array_intersect((array)$codes, $this->permissions()));
+        return $type == 'or' ? $count > 0 : $count == count($codes);
+    }
 }

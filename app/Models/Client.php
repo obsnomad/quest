@@ -4,23 +4,22 @@ namespace App\Models;
 
 use App\Models\BaseModel as Eloquent;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Client
  * 
  * @property int $id
- * @property string $first_name
  * @property string $firstName
- * @property string $last_name
  * @property string $lastName
+ * @property string $fullName
  * @property string $email
  * @property int $phone
- * @property int $vk_account_id
+ * @property string $phoneFormatted
  * @property int $vkAccountId
- * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $createdAt
- * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $updatedAt
+ * @property Booking[]|Collection $bookings
  * @method static Builder|Client whereId($value)
  * @method static Builder|Client whereFirstName($value)
  * @method static Builder|Client whereLastName($value)
@@ -37,7 +36,7 @@ class Client extends Eloquent
 
 	protected $casts = [
 		'phone' => 'int',
-		'vk_account_id' => 'int'
+		'vk_account_id' => 'int',
 	];
 
 	protected $fillable = [
@@ -45,8 +44,13 @@ class Client extends Eloquent
 		'last_name',
 		'email',
 		'phone',
-		'vk_account_id'
+		'vk_account_id',
 	];
+
+	protected $appends = [
+	    'full_name',
+	    'phone_formatted',
+    ];
 
     public function bookings()
     {
@@ -54,5 +58,13 @@ class Client extends Eloquent
             ->orderBy('date', 'desc')
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc');
+    }
+
+    public function getFullNameAttribute() {
+        return trim($this->firstName . ' ' . $this->lastName);
+    }
+
+    public function getPhoneFormattedAttribute() {
+        return '+7' . $this->phone;
     }
 }

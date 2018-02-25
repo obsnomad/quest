@@ -1,8 +1,8 @@
 var adminValues = $.cookie('adminValues') ? JSON.parse($.cookie('adminValues')) : {};
 adminValues = $.extend({
     menuCollapsed: false,
-    gameActiveTab: 0,
-    gameTableMode: 'show',
+    bookingActiveTab: 0,
+    gameTableMode: 'show'
 }, adminValues);
 $.cookie.raw = true;
 
@@ -15,7 +15,7 @@ function setAdminValue(key, value) {
     $.cookie('adminValues', JSON.stringify(adminValues));
 }
 
-function getStorageValue(key, json = true) {
+function getStorageValue(key, json) {
     var data = localStorage.getItem(key);
     if (json) {
         data = data ? JSON.parse(data) : null;
@@ -23,7 +23,7 @@ function getStorageValue(key, json = true) {
     return data;
 }
 
-function setStorageValue(key, value, json = true) {
+function setStorageValue(key, value, json) {
     if (json) {
         value = JSON.stringify(value);
     }

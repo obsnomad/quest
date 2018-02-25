@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BaseModel as Eloquent;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Quest
@@ -11,6 +12,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $id
  * @property string $name
  * @property bool $active
+ * @property Booking[]|Collection $bookings
  * @method static Builder|Quest whereId($value)
  * @method static Builder|Quest whereName($value)
  * @method static Builder|Quest whereActive($value)

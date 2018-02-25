@@ -15,7 +15,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Blade::if('permissions', function() {
+            return \Auth::user()->hasPermissions(func_get_args());
+        });
+        \Blade::if('anypermission', function() {
+            return \Auth::user()->hasPermissions(func_get_args(), 'or');
+        });
     }
 
     /**

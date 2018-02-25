@@ -8,8 +8,10 @@ use Illuminate\Database\Query\Builder;
 /**
  * Class RolePermission
  * 
- * @property int $role_id
- * @property int $permission_id
+ * @property int $roleId
+ * @property Role $role
+ * @property int $permissionId
+ * @property Permission $permission
  * @method static Builder|RolePermission whereRoleId($value)
  * @method static Builder|RolePermission wherePermissionId($value)
  */

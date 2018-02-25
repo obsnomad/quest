@@ -12,6 +12,7 @@ use Illuminate\Database\Query\Builder;
  * @property string $name
  * @property string $type
  * @property int $sort
+ * @property string $labelClass
  * @method static Builder|Status whereId($value)
  * @method static Builder|Status whereName($value)
  * @method static Builder|Status whereType($value)
@@ -31,4 +32,19 @@ class Status extends Eloquent
 		'type',
 		'sort'
 	];
+
+	public function getLabelClassAttribute() {
+	    switch($this->attributes['type']) {
+            case 'pending':
+                return 'warning';
+            case 'approved':
+                return 'info';
+            case 'success':
+                return 'success';
+            case 'failed':
+                return 'danger';
+            default:
+                return 'default';
+        }
+    }
 }

@@ -4,22 +4,24 @@ namespace App\Models;
 
 use App\Models\BaseModel as Eloquent;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Booking
  *
  * @property int $id
- * @property int $quest_id
  * @property int $questId
- * @property int $client_id
+ * @property Quest $quest
  * @property int $clientId
- * @property int $status_id
+ * @property Client $client
  * @property int $statusId
+ * @property Status $status
  * @property \Carbon\Carbon $date
+ * @property string $dateFormatted
  * @property int $price
- * @property \Carbon\Carbon $created_at
+ * @property int $amount
+ * @property BookingHistory[]|Collection $history
  * @property \Carbon\Carbon $createdAt
- * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $updatedAt
  * @method static Builder|Booking whereId($value)
  * @method static Builder|Booking whereQuestId($value)
@@ -70,8 +72,12 @@ class Booking extends Eloquent
 
     public function history()
     {
-        return $this->hasMany(BookingsHistory::class, 'booking_id')
+        return $this->hasMany(BookingHistory::class, 'booking_id')
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc');
+    }
+
+    public function getDateFormattedAttribute() {
+        return $this->date->format('d.m.Y H:i');
     }
 }
