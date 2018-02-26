@@ -100,7 +100,7 @@ class ClientController extends Controller implements Resource
          */
         $client = new Client();
 
-        return view('admin.bookings.show', [
+        return view('admin.clients.show', [
             'client' => $client,
             'title' => 'Новый клиент',
         ]);
