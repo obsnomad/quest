@@ -17,9 +17,11 @@ class CreateBookingsTable extends Migration
             $table->integer('quest_id')->unsigned();
             $table->integer('client_id')->unsigned();
             $table->smallInteger('status_id')->unsigned();
-            $table->dateTime('date');
-            $table->integer('price')->unsigned();
-            $table->tinyInteger('amount')->unsigned();
+            $table->dateTime('date')->nullable();
+            $table->integer('price')->unsigned()->nullable();
+            $table->tinyInteger('amount')->unsigned()->nullable();
+            $table->text('comment')->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
         DB::table('bookings')->insert([

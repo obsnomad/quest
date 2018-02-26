@@ -20,7 +20,10 @@ use Illuminate\Support\Collection;
  * @property string $dateFormatted
  * @property int $price
  * @property int $amount
+ * @property string $comment
  * @property BookingHistory[]|Collection $history
+ * @property int $updatedBy
+ * @property User $user
  * @property \Carbon\Carbon $createdAt
  * @property \Carbon\Carbon $updatedAt
  * @method static Builder|Booking whereId($value)
@@ -52,7 +55,14 @@ class Booking extends Eloquent
         'client_id',
         'status_id',
         'date',
-        'price'
+        'price',
+        'amount',
+        'comment',
+        'updated_by',
+    ];
+
+    protected $dispatchesEvents = [
+        ''
     ];
 
     public function quest()
@@ -78,6 +88,11 @@ class Booking extends Eloquent
     }
 
     public function getDateFormattedAttribute() {
-        return $this->date->format('d.m.Y H:i');
+        return $this->date ? $this->date->format('d.m.Y H:i') : '';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'updated_by')->withDefault();
     }
 }

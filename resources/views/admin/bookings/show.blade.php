@@ -5,10 +5,13 @@
 
 @extends('admin.layouts.app')
 
-@section('title', "Брони - {$booking->quest->name} - {$booking->dateFormatted}")
+@section('title', $title)
 
 @section('content_header')
-    <h1>{{ $booking->quest->name . ' - ' . $booking->dateFormatted }}</h1>
+    <div class="pull-right">
+        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">Список</a>
+    </div>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('content')
@@ -26,13 +29,15 @@
                     <h4>Данные брони</h4>
                 </a>
             </li>
-            @permissions('booking_history')
-            <li {!! $adminValues->bookingActiveTab == 1 ? 'class="active"' : '' !!}>
-                <a href="#tab_2" data-toggle="tab">
-                    <h4>История изменений</h4>
-                </a>
-            </li>
-            @endpermissions
+            @if($booking->id)
+                @permissions('booking_history')
+                <li {!! $adminValues->bookingActiveTab == 1 ? 'class="active"' : '' !!}>
+                    <a href="#tab_2" data-toggle="tab">
+                        <h4>История изменений</h4>
+                    </a>
+                </li>
+                @endpermissions
+            @endif
         </ul>
         <div class="tab-content">
             <div class="tab-pane {{ !$adminValues->bookingActiveTab ? 'active' : '' }}" id="tab_1">
@@ -58,10 +63,11 @@
                         <label for="client" class="col-sm-4 control-label">Клиент</label>
                         <div class="col-sm-8">
                             {{ Form::text('client', old('client', $booking->client->fullName), ['id' => 'client', 'class' => 'form-control', 'data-target' => '#client_id', 'data-hide' => '#client_new']) }}
-                            {{ Form::hidden('client_id', old('client_id', $booking->clientId), ['id' => 'client_id']) }}
+                            {{ Form::hidden('client_id', old('client_id', $booking->client->id), ['id' => 'client_id']) }}
                         </div>
                     </div>
-                    <div id="client_new" class="panel panel-default" style="display: {{ old('client_id', $booking->clientId) ? 'none' : 'block' }}">
+                    <div id="client_new" class="panel panel-default"
+                         style="display: {{ old('client_id', $booking->client->id) ? 'none' : 'block' }}">
                         <div class="panel-heading">
                             <div class="panel-title">
                                 Новый клиент
@@ -120,9 +126,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date" class="col-sm-4 control-label">Цена</label>
+                        <label for="price" class="col-sm-4 control-label">Цена</label>
                         <div class="col-sm-8">
                             {{ Form::text('price', old('price', $booking->price), ['id' => 'price', 'class' => 'form-control']) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment" class="col-sm-4 control-label">Комментарий</label>
+                        <div class="col-sm-8">
+                            {{ Form::textarea('comment', old('comment', $booking->comment), ['id' => 'comment', 'class' => 'form-control', 'rows' => 4]) }}
                         </div>
                     </div>
                 </div>
@@ -135,10 +147,46 @@
                 </div>
                 {{ Form::close() }}
             </div>
-            @permissions('booking_history')
-            <div class="tab-pane {{ $adminValues->bookingActiveTab == 1 ? 'active' : '' }}" id="tab_2">
-            </div>
-            @endpermissions
+            @if($booking->id)
+                @permissions('booking_history')
+                <div class="tab-pane {{ $adminValues->bookingActiveTab == 1 ? 'active' : '' }}" id="tab_2">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover no-margin">
+                            <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Количество игроков</th>
+                                <th>Статус</th>
+                                <th>Дата</th>
+                                <th>Цена</th>
+                                <th>Комментарий</th>
+                                <th>Изменил</th>
+                                <th>Дата изменения</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($booking->history as $history)
+                                <tr>
+                                    <td>{{ $history->client->fullName }}</td>
+                                    <td>{{ $history->amount }}</td>
+                                    <td>
+                                <span class="label label-{{ $history->status->labelClass }}">
+                                {{ $history->status->name }}
+                                </span>
+                                    </td>
+                                    <td>{{ $history->date }}</td>
+                                    <td>{{ $history->price }}</td>
+                                    <td>{!! nl2br($history->comment) !!}</td>
+                                    <td>{{ $history->user->name }}</td>
+                                    <td>{{ $history->createdAt }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endpermissions
+            @endif
         </div>
     </div>
 @stop
@@ -186,6 +234,7 @@
                 wildcard: '%QUERY'
             }
         });
+
         function setClient(event, id, value) {
             $(event.target).typeahead('val', value);
             var target = $($(event.target).data('target'));
@@ -197,7 +246,8 @@
                 id > 0 ? target.slideUp('fast') : target.slideDown('fast');
             }
         }
-        if($('#client_id').val().length === 0 && $('#client_new').is(':hidden') === true) {
+
+        if ($('#client_id').val().length === 0 && $('#client_new').is(':hidden') === true) {
             $('#client_new').show();
         }
         $('#client').typeahead({

@@ -8,7 +8,7 @@
     <div class="pull-right">
         <a href="{{ route('admin.bookings.create') }}" class="btn btn-success">Создать</a>
     </div>
-    <h1>Игры</h1>
+    <h1>Брони</h1>
 @stop
 
 @section('content')

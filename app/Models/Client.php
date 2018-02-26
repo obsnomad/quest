@@ -35,7 +35,6 @@ class Client extends Eloquent
 	public $timestamps = true;
 
 	protected $casts = [
-		'phone' => 'int',
 		'vk_account_id' => 'int',
 	];
 

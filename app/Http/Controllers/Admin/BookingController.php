@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Booking;
+use App\Models\Client;
 use App\Models\Quest;
 use App\Models\Status;
 use Carbon\Carbon;
@@ -40,35 +41,63 @@ class BookingController extends Controller implements Resource
      */
     public function create()
     {
-        $game = new Game();
-        $game->name = 'Новая игра';
+        /**
+         * @var Booking $booking
+         */
+        $booking = new Booking();
 
         return view('admin.bookings.show', [
-            'game' => $game,
-            'types' => GameType::getSelectList('name'),
-            'locations' => Location::getSelectList('name'),
-            'teams' => Team::getSelectList('name'),
+            'booking' => $booking,
+            'title' => 'Новая бронь',
+            'quests' => Quest::getSelectList('name', false),
+            'statuses' => Status::getSelectList('sort', false),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store()
     {
-        $data = $request->validate([
-            'start_at' => 'date_format:d.m.Y H:i',
-            'location_id' => 'integer',
-            'type_id' => 'integer',
-            'name' => 'string',
+        $data = \Request::validate([
+            'quest_id' => 'required|integer',
+            'status_id' => 'required|integer',
+            'client_id' => 'nullable|integer',
+            'date' => 'required|date_format:d.m.Y H:i',
+            'amount' => 'nullable|integer',
+            'price' => 'nullable|integer',
+            'comment' => 'nullable|string',
         ]);
-        $data['start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data['start_at']);
-        $data = new Game($data);
-        $data->save();
-        return redirect()->route('admin.bookings.show', ['id' => $data->id]);
+        $dataClient = \Request::validate([
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
+            'email' => 'nullable|string|email',
+            'phone' => 'nullable|string',
+            'vk_account_id' => 'nullable|string',
+        ]);
+        $data['date'] = Carbon::parse($data['date']);
+
+        \DB::beginTransaction();
+        try {
+            if(!$data['client_id'] && array_filter($dataClient)) {
+                $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
+                $client = Client::create($dataClient);
+                $data['client_id'] = $client->id;
+            }
+            $booking = Booking::create($data);
+        }
+        catch(\Exception $e) {
+            \DB::rollBack();
+            return redirect()->back()->withErrors([
+                'Возникла ошибка при сохранении',
+                $e->getMessage(),
+            ]);
+        }
+        \DB::commit();
+        return redirect()->route('admin.bookings.show', ['id' => $booking->id]);
     }
 
     /**
@@ -79,16 +108,20 @@ class BookingController extends Controller implements Resource
      */
     public function show($id)
     {
+        /**
+         * @var Booking $booking
+         */
         $booking = Booking::query()
-            ->with('quest', 'client', 'status')
+            ->with('quest', 'client', 'status', 'history')
             ->find($id);
 
         if (!$booking) {
-            return redirect()->route('admin.bookings.create');
+            abort(404, 'Бронь не найдена');
         }
 
         return view('admin.bookings.show', [
             'booking' => $booking,
+            'title' => $booking->quest->name . ' - ' . $booking->dateFormatted,
             'quests' => Quest::getSelectList('name', false),
             'statuses' => Status::getSelectList('sort', false),
         ]);
@@ -108,48 +141,63 @@ class BookingController extends Controller implements Resource
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update($id)
     {
-        $game = Game::find($id);
-        if (!$game) {
-            return redirect()->route('admin.bookings.index');
-        }
-        $data = $request->validate([
-            'start_at' => 'nullable|date_format:d.m.Y H:i',
-            'location_id' => 'integer',
-            'type_id' => 'integer',
-            'name' => 'string',
-            'image' => 'nullable|image',
+        $data = \Request::validate([
+            'quest_id' => 'required|integer',
+            'status_id' => 'required|integer',
+            'client_id' => 'nullable|integer',
+            'date' => 'required|date_format:d.m.Y H:i',
+            'amount' => 'nullable|integer',
+            'price' => 'nullable|integer',
+            'comment' => 'nullable|string',
         ]);
-        $data['start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data['start_at']);
-        $file = @$data['image'];
-        if ($game->image && ($file || $request->input('image_remove'))) {
-            \Storage::delete($game->imagePath);
-            $data['image'] = '';
+        $dataClient = \Request::validate([
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
+            'email' => 'nullable|string|email',
+            'phone' => 'nullable|string',
+            'vk_account_id' => 'nullable|string',
+        ]);
+        $data['date'] = Carbon::parse($data['date']);
+
+        $booking = Booking::find($id);
+        if (!$booking) {
+            return redirect()->back()->withErrors([
+                'Бронь не найдена',
+            ]);
         }
-        if ($file) {
-            /**
-             * @var UploadedFile $file
-             */
-            $data['image'] = $file->hashName();
-            $file->storeAs($game->imageRoot, $data['image']);
+        \DB::beginTransaction();
+        try {
+            if(!$data['client_id'] && array_filter($dataClient)) {
+                $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
+                $client = Client::create($dataClient);
+                $data['client_id'] = $client->id;
+            }
+            $booking->update($data);
         }
-        Game::find($id)->update($data);
-        return redirect()->route('admin.bookings.show', ['id' => $id]);
+        catch(\Exception $e) {
+            \DB::rollBack();
+            return redirect()->back()->withErrors([
+                'Возникла ошибка при сохранении',
+                $e->getMessage(),
+            ]);
+        }
+        \DB::commit();
+        return redirect()->route('admin.bookings.show', ['id' => $booking->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        return abort(404);
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Booking;
+use App\Observers\BookingObserver;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Reliese\Coders\CodersServiceProvider;
 
@@ -15,12 +18,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Booking::observe(BookingObserver::class);
+
         \Blade::if('permissions', function() {
             return \Auth::user()->hasPermissions(func_get_args());
         });
         \Blade::if('anypermission', function() {
             return \Auth::user()->hasPermissions(func_get_args(), 'or');
         });
+
+        Carbon::setToStringFormat('d.m.Y H:i:s');
     }
 
     /**

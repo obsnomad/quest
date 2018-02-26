@@ -19,6 +19,8 @@ use Illuminate\Database\Query\Builder;
  * @property int $price
  * @property int $amount
  * @property string $comment
+ * @property int $createdBy
+ * @property User $user
  * @property \Carbon\Carbon $createdAt
  * @method static Builder|BookingHistory whereId($value)
  * @method static Builder|BookingHistory whereBookingId($value)
@@ -54,7 +56,9 @@ class BookingHistory extends Eloquent
 		'client_id',
 		'date',
 		'price',
-		'comment'
+        'amount',
+        'comment',
+        'created_by',
 	];
 
     public function booking()
@@ -70,5 +74,10 @@ class BookingHistory extends Eloquent
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id')->withDefault();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by')->withDefault();
     }
 }

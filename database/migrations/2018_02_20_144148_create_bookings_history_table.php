@@ -14,14 +14,15 @@ class CreateBookingsHistoryTable extends Migration
     {
         Schema::create('booking_history', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('booking_id')->unsigned();
-            $table->tinyInteger('status_id')->unsigned();
-            $table->integer('client_id')->unsigned();
-            $table->dateTime('date');
-            $table->integer('price')->unsigned();
-            $table->tinyInteger('amount')->unsigned();
-            $table->text('comment');
-            $table->dateTime('created_at');
+            $table->integer('booking_id')->unsigned()->nullable();
+            $table->tinyInteger('status_id')->unsigned()->nullable();
+            $table->integer('client_id')->unsigned()->nullable();
+            $table->dateTime('date')->nullable();
+            $table->integer('price')->unsigned()->nullable();
+            $table->tinyInteger('amount')->unsigned()->nullable();
+            $table->text('comment')->nullable();
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->dateTime('created_at')->useCurrent();
         });
     }
 
