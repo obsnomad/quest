@@ -7,7 +7,6 @@ use App\Models\Client;
 use App\Models\Quest;
 use App\Models\Status;
 use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
 
 class BookingController extends Controller implements Resource
 {
@@ -21,16 +20,25 @@ class BookingController extends Controller implements Resource
         $bookings = Booking::query()
             ->with('quest', 'client', 'status')
             ->orderBy('date', 'asc');
-        if($date = $this->filterDate()) {
-            $bookings->where('date', '>=', Carbon::parse($date[0]));
-            if($date[1] = Carbon::parse(@$date[1])) {
-                $bookings->where('date', '<=', "{$date[1]} 23:59:59");
-            }
+        $date = $this->filterDate();
+        if (!$date) {
+            $date = [
+                Carbon::now()->format('d.m.Y'),
+                Carbon::now()->addDays(13)->format('d.m.Y'),
+            ];
+        }
+        if (@$date[0] && ($dateStart = Carbon::parse($date[0])->toDateTimeString())) {
+            $bookings->where('date', '>=', $dateStart);
+        }
+        if (@$date[1] && ($dateEnd = Carbon::parse($date[1])->addDay()->toDateTimeString())) {
+            $bookings->where('date', '<', $dateEnd);
         }
         $bookings = $bookings
             ->paginate(self::PAGE_COUNT);
         return view('admin.bookings.index', [
             'bookings' => $bookings,
+            'date' => $date,
+            'filter' => \Request::input('filter'),
         ]);
     }
 
@@ -82,15 +90,14 @@ class BookingController extends Controller implements Resource
 
         \DB::beginTransaction();
         try {
-            if(!$data['client_id'] && array_filter($dataClient)) {
+            if (!$data['client_id'] && array_filter($dataClient)) {
                 $dataClient['vk_account_id'] = ClientController::getVkAccountId($dataClient['vk_account_id']);
                 $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
                 $client = Client::create($dataClient);
                 $data['client_id'] = $client->id;
             }
             $booking = Booking::create($data);
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             \DB::rollBack();
             return redirect()->back()->withErrors([
                 'Возникла ошибка при сохранении',
@@ -175,15 +182,14 @@ class BookingController extends Controller implements Resource
         }
         \DB::beginTransaction();
         try {
-            if(!$data['client_id'] && array_filter($dataClient)) {
+            if (!$data['client_id'] && array_filter($dataClient)) {
                 $dataClient['vk_account_id'] = ClientController::getVkAccountId($dataClient['vk_account_id']);
                 $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
                 $client = Client::create($dataClient);
                 $data['client_id'] = $client->id;
             }
             $booking->update($data);
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             \DB::rollBack();
             return redirect()->back()->withErrors([
                 'Возникла ошибка при сохранении',

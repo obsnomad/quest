@@ -57,12 +57,41 @@ class Schedule extends Eloquent
     public static function getNextDays($questId, $withBookings = true, $days = 14)
     {
         $days = max(1, (int)$days);
+        $exceptions = ScheduleException::query()
+            ->where('date', '>=', \DB::raw('date(now())'))
+            ->where('date', '<', \DB::raw("date(now() + interval $days day)"));
+        if (is_array($questId)) {
+            $exceptions->whereIn('quest_id', $questId);
+        } else {
+            $exceptions->where('quest_id', $questId);
+        }
+        $exceptions = $exceptions->get()
+            ->groupBy('quest_id')
+            ->map(function ($value) {
+                /**
+                 * @var Collection $value
+                 */
+                return $value
+                    ->keyBy('date')
+                    ->map(function ($value) {
+                        /**
+                         * @var ScheduleException $value
+                         */
+                        return $value->treatAs;
+                    });
+            });
+
         $bookings = collect();
         if ($withBookings) {
             $bookings = Booking::query()
                 ->where('date', '>=', \DB::raw('date(now())'))
-                ->where('date', '<', \DB::raw("date(now() + interval $days day)"))
-                ->get()
+                ->where('date', '<', \DB::raw("date(now() + interval $days day)"));
+            if (is_array($questId)) {
+                $bookings->whereIn('quest_id', $questId);
+            } else {
+                $bookings->where('quest_id', $questId);
+            }
+            $bookings = $bookings->get()
                 ->groupBy('quest_id')
                 ->map(function ($value) {
                     /**
@@ -73,7 +102,7 @@ class Schedule extends Eloquent
                             /**
                              * @var Booking $value
                              */
-                            return $value->date;
+                            return $value->date->toDateTimeString();
                         });
                 });
         }
@@ -88,7 +117,7 @@ class Schedule extends Eloquent
         $result = $query
             ->get()
             ->groupBy('quest_id')
-            ->map(function ($value, $id) use ($days, $bookings, $startTime, $endTime) {
+            ->map(function ($value, $id) use ($days, $exceptions, $bookings, $startTime, $endTime) {
                 /**
                  * @var Collection $value
                  */
@@ -102,14 +131,20 @@ class Schedule extends Eloquent
                     });
                 $data = collect();
                 for ($time = $startTime; $time < $endTime; $time += 86400) {
-                    $week_day = (int)date('w', $time);
+                    $dayFull = date('d.m.Y H:i:s', $time);
+                    if($exceptions->offsetExists($id) && $exceptions[$id]->offsetExists($dayFull)) {
+                        $week_day = $exceptions[$id][$dayFull];
+                    }
+                    else {
+                        $week_day = (int)date('w', $time);
+                    }
                     $week_day = $week_day ?: 7;
                     $day = date('Y-m-d', $time);
                     $data[$day] = $values[$week_day]->map(function ($value) use ($bookings, $id, $day) {
                         $date = $day . ' ' . $value->attributes['time'];
                         return (object)[
                             'price' => $value->price,
-                            'booked' => $bookings->offsetExists($id) && in_array($date, $bookings[$id]),
+                            'booked' => $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
                         ];
                     });
                 }

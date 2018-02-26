@@ -22,7 +22,9 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control pull-right" id="booking-time" name="filter[date]"/>
+                            <input type="text" class="form-control pull-right" id="booking-time" name="filter[date]"
+                                   value="{{ @$filter['date'] }}" data-start="{{ @$date[0] }}"
+                                   data-end="{{ @$date[1] }}"/>
                         </div>
                     </div>
                 </div>
@@ -90,7 +92,8 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script>
         $('#booking-time').daterangepicker({
-            endDate: moment().add(2, 'week'),
+            startDate: $('#booking-time').data('start'),
+            endDate: $('#booking-time').data('end'),
             format: 'DD.MM.YYYY',
             locale: {
                 format: "DD.MM.YYYY",

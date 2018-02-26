@@ -8,6 +8,37 @@ use Illuminate\Support\Collection;
 class ClientController extends Controller implements Resource
 {
     /**
+     * @param $vkAccountId
+     * @param string $return
+     * @return $this
+     * @throws \bafoed\VKAPI\Facades\VkApiException
+     */
+    public static function getVkAccountId($vkAccountId, $return = 'redirect')
+    {
+        if ($vkAccountId) {
+            $vkAccountId = preg_replace('/.*vk\.com\//', '', $vkAccountId);
+            try {
+                $vkAccount = collect(\VKAPI::call('users.get', [
+                    'user_ids' => $vkAccountId,
+                    'fields' => 'screen_name',
+                ]))->first();
+                if ($return != 'redirect') {
+                    return $vkAccount[$return];
+                }
+                return $vkAccount['uid'];
+            } catch (\Exception $e) {
+                if ($return == 'redirect') {
+                    return redirect()->back()->withErrors([
+                        'Не удалось получить данные из VK. Удалить значение в поле "Аккаунт VK".',
+                        $e->getMessage(),
+                    ]);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -195,35 +226,5 @@ class ClientController extends Controller implements Resource
     public function destroy($id)
     {
         return abort(404);
-    }
-
-    /**
-     * @param $vkAccountId
-     * @param string $return
-     * @return $this
-     * @throws \bafoed\VKAPI\Facades\VkApiException
-     */
-    public static function getVkAccountId($vkAccountId, $return = 'redirect') {
-        if($vkAccountId) {
-            $vkAccountId = preg_replace('/.*vk\.com\//', '', $vkAccountId);
-            try {
-                $vkAccount = collect(\VKAPI::call('users.get', [
-                    'user_ids' => $vkAccountId,
-                    'fields' => 'screen_name',
-                ]))->first();
-                if($return != 'redirect') {
-                    return $vkAccount[$return];
-                }
-                return $vkAccount['uid'];
-            } catch (\Exception $e) {
-                if($return == 'redirect') {
-                    return redirect()->back()->withErrors([
-                        'Не удалось получить данные из VK. Удалить значение в поле "Аккаунт VK".',
-                        $e->getMessage(),
-                    ]);
-                }
-            }
-        }
-        return null;
     }
 }

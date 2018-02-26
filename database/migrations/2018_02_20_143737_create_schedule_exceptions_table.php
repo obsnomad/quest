@@ -14,6 +14,7 @@ class CreateScheduleExceptionsTable extends Migration
     {
         Schema::create('schedule_exceptions', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+            $table->integer('quest_id')->unsigned();
             $table->date('date');
             $table->tinyInteger('treat_as')->unsigned();
         });

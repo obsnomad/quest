@@ -9,6 +9,8 @@ use Illuminate\Database\Query\Builder;
  * Class ScheduleException
  * 
  * @property int $id
+ * @property int $questId
+ * @property Quest $quest
  * @property \Carbon\Carbon $date
  * @property int $treatAs
  * @method static Builder|ScheduleException whereId($value)
@@ -32,4 +34,9 @@ class ScheduleException extends Eloquent
 		'date',
 		'treat_as'
 	];
+
+    public function quest()
+    {
+        return $this->belongsTo(Quest::class, 'quest_id')->withDefault();
+    }
 }
