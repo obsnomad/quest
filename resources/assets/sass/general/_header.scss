@@ -13,7 +13,7 @@
     position: absolute;
   }
 
-  a {
+  ul a {
     text-decoration: none;
     display: block;
     padding: #{($navbar-height - $line-height-base * $font-size-base) / 2} 15px;
@@ -129,7 +129,7 @@
 }
 
 header {
-  background: center center no-repeat #343434;
+  background: center top no-repeat #343434 fixed;
   background-size: cover;
   position: relative;
 
@@ -149,6 +149,16 @@ header {
     margin-bottom: 200px;
 
     h1 {
+      margin: 60px 0 30px;
+    }
+  }
+
+  &.header-schedule {
+    background-image: url(/images/header-main.jpg);
+    min-height: 300px;
+
+    h1 {
+      font-size: 40px;
       margin: 60px 0 30px;
     }
   }
@@ -261,7 +271,7 @@ header {
     }
 
     .carousel-main-quests {
-      background-image: url(/images/slides-main-2.jpg);
+      background-image: url(/images/slides-main-4.jpg);
     }
 
     .carousel-main-gift {

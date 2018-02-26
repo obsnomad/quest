@@ -1,0 +1,68 @@
+.carousel-days.owl-theme {
+  border-bottom: 1px solid #fff;
+
+  .carousel-days-item {
+    height: 60px;
+    display: block;
+    text-decoration: none;
+    font-size: $font-size-base * 0.8;
+    text-align: center;
+    color: $text-color;
+    padding: 13px;
+    transition: all 0.2s ease-in-out;
+
+    h3 {
+      margin: 0;
+      font-weight: 300;
+      font-size: $font-size-base;
+    }
+
+    span {
+      color: #ccc;
+    }
+
+    &:hover, &.active {
+      background: $main-color;
+
+      span {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.schedule-prices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+  text-align: center;
+
+  li {
+    padding: 10px 15px 10px 25px;
+    font-size: $font-size-base * 0.9;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  &-0:before {
+    background: #e7a677;
+  }
+
+  &-1:before {
+    background: #a1ec8f;
+  }
+
+  &-2:before {
+    background: #8cb0ec;
+  }
+}

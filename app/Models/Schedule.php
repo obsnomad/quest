@@ -49,12 +49,12 @@ class Schedule extends Eloquent
     /**
      * Получить список на следующие {$days} дней
      *
-     * @param int $questId
+     * @param null|array|int $questId
      * @param bool $withBookings
      * @param int $days
-     * @return Collection
+     * @return object
      */
-    public static function getNextDays($questId, $withBookings = true, $days = 14)
+    public static function getNextDays($questId = null, $withBookings = true, $days = 14)
     {
         $days = max(1, (int)$days);
         $exceptions = ScheduleException::query()
@@ -62,7 +62,7 @@ class Schedule extends Eloquent
             ->where('date', '<', \DB::raw("date(now() + interval $days day)"));
         if (is_array($questId)) {
             $exceptions->whereIn('quest_id', $questId);
-        } else {
+        } elseif ($questId) {
             $exceptions->where('quest_id', $questId);
         }
         $exceptions = $exceptions->get()
@@ -88,7 +88,7 @@ class Schedule extends Eloquent
                 ->where('date', '<', \DB::raw("date(now() + interval $days day)"));
             if (is_array($questId)) {
                 $bookings->whereIn('quest_id', $questId);
-            } else {
+            } elseif ($questId) {
                 $bookings->where('quest_id', $questId);
             }
             $bookings = $bookings->get()
@@ -109,15 +109,16 @@ class Schedule extends Eloquent
         $query = self::query();
         if (is_array($questId)) {
             $query->whereIn('quest_id', $questId);
-        } else {
+        } elseif ($questId) {
             $query->where('quest_id', $questId);
         }
         $startTime = strtotime(date('Y-m-d 00:00:00'));
         $endTime = $startTime + $days * 86400;
+        $prices = [];
         $result = $query
             ->get()
             ->groupBy('quest_id')
-            ->map(function ($value, $id) use ($days, $exceptions, $bookings, $startTime, $endTime) {
+            ->map(function ($value, $id) use ($days, $exceptions, $bookings, $startTime, $endTime, &$prices) {
                 /**
                  * @var Collection $value
                  */
@@ -130,30 +131,57 @@ class Schedule extends Eloquent
                         return $value->keyBy('time');
                     });
                 $data = collect();
+                $pricesQuest = [];
                 for ($time = $startTime; $time < $endTime; $time += 86400) {
                     $dayFull = date('d.m.Y H:i:s', $time);
-                    if($exceptions->offsetExists($id) && $exceptions[$id]->offsetExists($dayFull)) {
+                    if ($exceptions->offsetExists($id) && $exceptions[$id]->offsetExists($dayFull)) {
                         $week_day = $exceptions[$id][$dayFull];
-                    }
-                    else {
+                    } else {
                         $week_day = (int)date('w', $time);
                     }
                     $week_day = $week_day ?: 7;
                     $day = date('Y-m-d', $time);
-                    $data[$day] = $values[$week_day]->map(function ($value) use ($bookings, $id, $day) {
+                    $data[$day] = $values[$week_day]->map(function ($value) use ($bookings, $id, $day, &$prices, &$pricesQuest) {
                         $date = $day . ' ' . $value->attributes['time'];
+                        $prices[] = $value->price;
+                        $pricesQuest[] = $value->price;
                         return (object)[
                             'price' => $value->price,
                             'booked' => $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
                         ];
                     });
                 }
+                $pricesQuest = array_unique($pricesQuest);
+                sort($pricesQuest);
+                $data->transform(function ($value, $day) use ($startTime, $pricesQuest) {
+                    $day = Carbon::parse($day);
+                    $startTime = Carbon::createFromTimestamp($startTime);
+                    $dayRead = $day->formatLocalized('%e %b');
+                    $weekDayRead = $day->formatLocalized('%a');
+                    $diff = $day->diffInDays($startTime);
+                    if (!$diff) {
+                        $weekDayRead = 'Сегодня';
+                    } elseif ($diff == 1) {
+                        $weekDayRead = 'Завтра';
+                    }
+                    return (object)[
+                        'day' => $dayRead,
+                        'weekDay' => $weekDayRead,
+                        'prices' => $pricesQuest,
+                        'items' => $value,
+                    ];
+                });
                 return $data;
             });
-        if (!is_array($questId)) {
-            return $result->first();
+        if (!is_array($questId) && !is_null($questId)) {
+            $result = $result->first();
         }
-        return $result;
+        $prices = array_unique($prices);
+        sort($prices);
+        return (object)[
+            'items' => $result,
+            'prices' => $prices,
+        ];
     }
 
     public function getWeekDayNameAttribute()

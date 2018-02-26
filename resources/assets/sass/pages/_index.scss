@@ -8,6 +8,7 @@
       position: relative;
       color: #fff;
       padding: 20px;
+      margin-bottom: $grid-gutter-width;
 
       &:hover {
         .quests-item-data:after {

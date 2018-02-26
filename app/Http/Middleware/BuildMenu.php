@@ -25,7 +25,7 @@ class BuildMenu
 		});
 		Menu::make('menuMain', function ($menu) {
 			$menu
-				->add('Расписание', ['route' => ['index', 'absolute' => false]])
+				->add('Расписание', ['route' => ['schedule', 'absolute' => false]])
 				->active('schedule/*');
 			$menu
 				->add('Квесты', ['route' => ['index', 'absolute' => false]])
