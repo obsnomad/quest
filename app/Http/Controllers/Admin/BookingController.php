@@ -58,7 +58,7 @@ class BookingController extends Controller implements Resource
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @throws \bafoed\VKAPI\Facades\VkApiException|\Exception
      */
     public function store()
     {
@@ -83,6 +83,7 @@ class BookingController extends Controller implements Resource
         \DB::beginTransaction();
         try {
             if(!$data['client_id'] && array_filter($dataClient)) {
+                $dataClient['vk_account_id'] = ClientController::getVkAccountId($dataClient['vk_account_id']);
                 $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
                 $client = Client::create($dataClient);
                 $data['client_id'] = $client->id;
@@ -144,6 +145,7 @@ class BookingController extends Controller implements Resource
      * @param  int $id
      * @return \Illuminate\Http\Response
      * @throws \Exception
+     * @throws \bafoed\VKAPI\Facades\VkApiException|\Exception
      */
     public function update($id)
     {
@@ -174,6 +176,7 @@ class BookingController extends Controller implements Resource
         \DB::beginTransaction();
         try {
             if(!$data['client_id'] && array_filter($dataClient)) {
+                $dataClient['vk_account_id'] = ClientController::getVkAccountId($dataClient['vk_account_id']);
                 $dataClient['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $dataClient['phone']);
                 $client = Client::create($dataClient);
                 $data['client_id'] = $client->id;

@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Booking;
 use App\Models\Client;
-use App\Models\Quest;
-use App\Models\Status;
-use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
 class ClientController extends Controller implements Resource
 {
@@ -15,28 +11,49 @@ class ClientController extends Controller implements Resource
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \bafoed\VKAPI\Facades\VkApiException
      */
     public function index()
     {
         $clients = Client::query()
             ->orderBy('last_name')
             ->orderBy('first_name');
-        if(\Request::ajax()){
-           if($query = $this->filterQuery()) {
-                $clients
-                    ->where('first_name', 'like', $query)
-                    ->orWhere('last_name', 'like', $query)
-                    ->orWhere(\DB::raw("concat(first_name, ' ', last_name)"), 'like', $query)
-                    ->orWhere('email', 'like', $query)
-                    ->orWhere('phone', 'like', $query)
-                    ->orWhere('vk_account_id', 'like', $query);
-           }
-           return response()->json($clients->limit(10)->get());
+        if ($query = $this->filterQuery()) {
+            $clients
+                ->where('first_name', 'like', $query)
+                ->orWhere('last_name', 'like', $query)
+                ->orWhere(\DB::raw("concat(first_name, ' ', last_name)"), 'like', $query)
+                ->orWhere('email', 'like', $query)
+                ->orWhere('phone', 'like', $query)
+                ->orWhere('vk_account_id', 'like', $query);
+        }
+        if (\Request::ajax()) {
+            return response()->json($clients->limit(10)->get());
         }
         $clients = $clients
             ->paginate(self::PAGE_COUNT);
-        return view('admin.bookings.index', [
-            'bookings' => $clients,
+        /**
+         * @var Collection $vkAccounts
+         */
+        $vkAccounts = $clients->map(function ($client) {
+            /**
+             * @var Client $client
+             */
+            return $client->vkAccountId;
+        });
+        if ($vkAccounts) {
+            try {
+                $vkAccounts = collect(\VKAPI::call('users.get', [
+                    'user_ids' => $vkAccounts->implode(','),
+                    'fields' => 'screen_name',
+                ]))->keyBy('uid');
+            } catch (\Exception $e) {
+            }
+        }
+        return view('admin.clients.index', [
+            'clients' => $clients,
+            'vkAccounts' => $vkAccounts,
+            'filter' => \Request::input('filter'),
         ]);
     }
 
@@ -47,35 +64,48 @@ class ClientController extends Controller implements Resource
      */
     public function create()
     {
-        $game = new Game();
-        $game->name = 'Новая игра';
+        /**
+         * @var Client $client
+         */
+        $client = new Client();
 
         return view('admin.bookings.show', [
-            'game' => $game,
-            'types' => GameType::getSelectList('name'),
-            'locations' => Location::getSelectList('name'),
-            'teams' => Team::getSelectList('name'),
+            'client' => $client,
+            'title' => 'Новый клиент',
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \bafoed\VKAPI\Facades\VkApiException
      */
     public function store()
     {
-        $data = $request->validate([
-            'start_at' => 'date_format:d.m.Y H:i',
-            'location_id' => 'integer',
-            'type_id' => 'integer',
-            'name' => 'string',
+        $data = \Request::validate([
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
+            'email' => 'nullable|string|email',
+            'phone' => 'nullable|string',
+            'vk_account_id' => 'nullable|string',
         ]);
-        $data['start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data['start_at']);
-        $data = new Game($data);
-        $data->save();
-        return redirect()->route('admin.bookings.show', ['id' => $data->id]);
+
+        \DB::beginTransaction();
+        try {
+            $data['vk_account_id'] = self::getVkAccountId($data['vk_account_id']);
+            $data['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $data['phone']);
+            $client = Client::create($data);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return redirect()->back()->withErrors([
+                'Возникла ошибка при сохранении',
+                $e->getMessage(),
+            ]);
+        }
+        \DB::commit();
+        return redirect()->route('admin.clients.show', ['id' => $client->id]);
     }
 
     /**
@@ -83,21 +113,26 @@ class ClientController extends Controller implements Resource
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \bafoed\VKAPI\Facades\VkApiException|\Exception
      */
     public function show($id)
     {
-        $booking = Booking::query()
-            ->with('quest', 'client', 'status')
+        /**
+         * @var Client $client
+         */
+        $client = Client::query()
+            ->with('bookings.quest', 'bookings.status')
             ->find($id);
 
-        if (!$booking) {
-            return redirect()->route('admin.bookings.create');
+        if (!$client) {
+            abort(404, 'Клиент не найден');
         }
 
-        return view('admin.bookings.show', [
-            'booking' => $booking,
-            'quests' => Quest::getSelectList('name', false),
-            'statuses' => Status::getSelectList('sort', false),
+        $client->vkAccountLink = self::getVkAccountId($client['vk_account_id'], 'screen_name');
+
+        return view('admin.clients.show', [
+            'client' => $client,
+            'title' => $client->fullName,
         ]);
     }
 
@@ -109,54 +144,86 @@ class ClientController extends Controller implements Resource
      */
     public function edit($id)
     {
-        return redirect()->route('admin.bookings.show', ['id' => $id]);
+        return redirect()->route('admin.clients.show', ['id' => $id]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \bafoed\VKAPI\Facades\VkApiException|\Exception
      */
     public function update($id)
     {
-        $game = Game::find($id);
-        if (!$game) {
-            return redirect()->route('admin.bookings.index');
-        }
-        $data = $request->validate([
-            'start_at' => 'nullable|date_format:d.m.Y H:i',
-            'location_id' => 'integer',
-            'type_id' => 'integer',
-            'name' => 'string',
-            'image' => 'nullable|image',
+        $data = \Request::validate([
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
+            'email' => 'nullable|string|email',
+            'phone' => 'nullable|string',
+            'vk_account_id' => 'nullable|string',
         ]);
-        $data['start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data['start_at']);
-        $file = @$data['image'];
-        if ($game->image && ($file || $request->input('image_remove'))) {
-            \Storage::delete($game->imagePath);
-            $data['image'] = '';
+
+        $client = Client::find($id);
+        if (!$client) {
+            return redirect()->back()->withErrors([
+                'Клиент не найден',
+            ]);
         }
-        if ($file) {
-            /**
-             * @var UploadedFile $file
-             */
-            $data['image'] = $file->hashName();
-            $file->storeAs($game->imageRoot, $data['image']);
+        \DB::beginTransaction();
+        try {
+            $data['vk_account_id'] = self::getVkAccountId($data['vk_account_id']);
+            $data['phone'] = preg_replace(['/^\+?[7|8]/', '/[^0-9]/'], '', $data['phone']);
+            $client->update($data);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return redirect()->back()->withErrors([
+                'Возникла ошибка при сохранении',
+                $e->getMessage(),
+            ]);
         }
-        Game::find($id)->update($data);
-        return redirect()->route('admin.bookings.show', ['id' => $id]);
+        \DB::commit();
+        return redirect()->route('admin.clients.show', ['id' => $client->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        return abort(404);
+    }
+
+    /**
+     * @param $vkAccountId
+     * @param string $return
+     * @return $this
+     * @throws \bafoed\VKAPI\Facades\VkApiException
+     */
+    public static function getVkAccountId($vkAccountId, $return = 'redirect') {
+        if($vkAccountId) {
+            $vkAccountId = preg_replace('/.*vk\.com\//', '', $vkAccountId);
+            try {
+                $vkAccount = collect(\VKAPI::call('users.get', [
+                    'user_ids' => $vkAccountId,
+                    'fields' => 'screen_name',
+                ]))->first();
+                if($return != 'redirect') {
+                    return $vkAccount[$return];
+                }
+                return $vkAccount['uid'];
+            } catch (\Exception $e) {
+                if($return == 'redirect') {
+                    return redirect()->back()->withErrors([
+                        'Не удалось получить данные из VK. Удалить значение в поле "Аккаунт VK".',
+                        $e->getMessage(),
+                    ]);
+                }
+            }
+        }
+        return null;
     }
 }

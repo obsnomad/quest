@@ -2,7 +2,7 @@ var adminValues = $.cookie('adminValues') ? JSON.parse($.cookie('adminValues')) 
 adminValues = $.extend({
     menuCollapsed: false,
     bookingActiveTab: 0,
-    gameTableMode: 'show'
+    clientActiveTab: 0
 }, adminValues);
 $.cookie.raw = true;
 

@@ -24,7 +24,7 @@ class Controller extends BaseController
         $this->adminValues = array_replace([
             'menuCollapsed' => false,
             'bookingActiveTab' => 0,
-            'gameTableMode' => 'show',
+            'clientActiveTab' => 0,
         ], (array)json_decode(\Cookie::get('adminValues'), true));
 
         app('config')->set('adminlte.collapse_sidebar', $this->getAdminValue('menuCollapsed'));

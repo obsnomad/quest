@@ -113,6 +113,11 @@ return [
             'url' => 'admin/bookings',
             'icon' => 'book',
         ],
+        [
+            'text' => 'Клиенты',
+            'url' => 'admin/clients',
+            'icon' => 'users',
+        ],
     ],
 
     /*

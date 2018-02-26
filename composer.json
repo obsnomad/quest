@@ -17,7 +17,8 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.2",
-        "lavary/laravel-menu": "dev-master"
+        "lavary/laravel-menu": "dev-master",
+        "bafoed/vkapi": "^1.0@dev"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",
