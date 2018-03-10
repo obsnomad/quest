@@ -19,5 +19,7 @@
     "sass-loader": "^6.0.0",
     "owl.carousel2": "^2.2.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "magnific-popup": "^1.1.0"
+  }
 }

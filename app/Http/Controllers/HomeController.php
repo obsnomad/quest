@@ -28,17 +28,6 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Http\Response
      */
-    public function schedule()
-    {
-        $schedule = Schedule::getNextDays();
-        return view('public.schedule', [
-            'schedule' => $schedule,
-        ]);
-    }
-
-    /**
-     * @return \Illuminate\Http\Response
-     */
     public function contacts()
     {
         $schedule = Schedule::orderBy('week_day')

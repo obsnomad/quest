@@ -145,9 +145,10 @@ class Schedule extends Eloquent
                         $date = $day . ' ' . $value->attributes['time'];
                         $prices[] = $value->price;
                         $pricesQuest[] = $value->price;
+                        // Добавляется 4 часа, чтобы компенсировать часовой пояс
                         return (object)[
                             'price' => $value->price,
-                            'booked' => $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
+                            'booked' => Carbon::parse($date) < Carbon::now()->addHour(4) || $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
                         ];
                     });
                 }

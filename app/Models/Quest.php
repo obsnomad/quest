@@ -17,6 +17,8 @@ use Illuminate\Support\Collection;
  * @property int $status
  * @property string $picture
  * @property string|null $picturePath
+ * @property string $thumb
+ * @property string|null $thumbPath
  * @property int $level
  * @property string|null $levelReadable
  * @property int $time
@@ -58,6 +60,7 @@ class Quest extends Eloquent
         'description',
         'status',
         'picture',
+        'thumb',
         'level',
         'time',
         'players',
@@ -132,6 +135,11 @@ class Quest extends Eloquent
     public function getPicturePathAttribute()
     {
         return $this->picture ? "/images/{$this->picture}" : null;
+    }
+
+    public function getThumbPathAttribute()
+    {
+        return $this->thumb ? "/images/{$this->thumb}" : null;
     }
 
     public function getTimeReadableAttribute()

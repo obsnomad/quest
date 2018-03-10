@@ -1,3 +1,21 @@
+.schedule-timeline {
+  position: absolute;
+  top: auto;
+  height: 101px;
+  width: 100%;
+  background: $body-bg;
+  z-index: 2;
+
+  &.fixed {
+    position: fixed;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  & + * {
+    padding-top: 131px;
+  }
+}
+
 .carousel-days.owl-theme {
   border-bottom: 1px solid #fff;
 
@@ -64,5 +82,116 @@
 
   &-2:before {
     background: #8cb0ec;
+  }
+}
+
+.schedule-quests {
+  &-item {
+    font-size: 0;
+    padding-bottom: $grid-gutter-width / 2;
+
+    > * {
+      display: inline-block;
+      font-size: $font-size-base;
+      vertical-align: top;
+      padding-top: $grid-gutter-width / 2;
+    }
+
+    & + & {
+      border-top: 1px solid $body-lighter;
+    }
+
+    &-pic {
+      padding-right: $grid-gutter-width;
+
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+    }
+
+    &-title {
+      color: #ccc;
+      padding-right: $grid-gutter-width;
+      width: 200px;
+
+      a {
+        color: $text-color;
+        font-size: $font-size-base * 1.2;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          color: $second-color;
+        }
+      }
+    }
+
+    &-schedule {
+      font-size: 0;
+
+      > div {
+        display: inline-block;
+        font-size: $font-size-base;
+        vertical-align: top;
+        margin: 2px;
+        border: 2px solid #fff;
+        padding: 0 4px;
+        color: #fff;
+        opacity: 0.2;
+        width: 60px;
+        text-align: center;
+      }
+
+      > span {
+        font-size: $font-size-base * 1.2;
+        color: #ccc;
+      }
+    }
+
+    &-schedule &-price {
+      opacity: 1;
+      cursor: pointer;
+      color: #000;
+
+      &:hover {
+        color: $text-color;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &-0 {
+        border-color: #e7a677;
+        background: #e7a677;
+      }
+
+      &-1 {
+        border-color: #a1ec8f;
+        background: #a1ec8f;
+      }
+
+      &-2 {
+        border-color: #8cb0ec;
+        background: #8cb0ec;
+      }
+    }
+  }
+}
+
+#booking-popup {
+  max-width: 320px;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  table {
+    td {
+      text-align: center;
+    }
+
+    div {
+      font-weight: 400;
+    }
   }
 }

@@ -34,6 +34,7 @@
     position: fixed;
     height: $navbar-inverse-height;
     min-height: $navbar-inverse-height;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 
     .logo {
       height: $navbar-inverse-height * 0.8;
@@ -290,7 +291,7 @@ header {
     }
 
     .carousel-main-quests {
-      background-image: url(/images/slides-main-4.jpg);
+      background-image: url(/images/pic-museum.jpg);
     }
 
     .carousel-main-gift {

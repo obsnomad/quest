@@ -63,6 +63,10 @@ h2 {
 .pad {
   padding-top: 30px;
   padding-bottom: 30px;
+
+  h1, h2, h3 {
+    margin-top: 0;
+  }
 }
 
 .higlight-text {
@@ -84,4 +88,62 @@ h2 {
 #map {
   width: 100%;
   height: 400px;
+}
+
+.popup {
+  position: relative;
+  background: $body-lighter;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.mfp-fade {
+  &.mfp-bg {
+    opacity: 0;
+
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
+
+    &.mfp-ready {
+      opacity: 0.8;
+    }
+
+    &.mfp-removing {
+      opacity: 0;
+    }
+  }
+
+  &.mfp-wrap {
+    .mfp-content {
+      opacity: 0;
+
+      -webkit-transition: all 0.15s ease-out;
+      -moz-transition: all 0.15s ease-out;
+      transition: all 0.15s ease-out;
+    }
+
+    &.mfp-ready .mfp-content {
+      opacity: 1;
+    }
+
+    &.mfp-removing .mfp-content {
+      opacity: 0;
+    }
+  }
+}
+
+.form-control {
+  box-shadow: none;
+  outline: none;
+
+  &:focus {
+    @include box-shadow(none);
+  }
+}
+
+label {
+  font-weight: 300;
 }
