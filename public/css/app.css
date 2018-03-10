@@ -1381,7 +1381,7 @@ body {
   font-size: 16px;
   line-height: 1.4;
   color: #fff;
-  background-color: #161629;
+  background-color: #05182e;
 }
 
 input,
@@ -1429,7 +1429,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.4;
-  background-color: #161629;
+  background-color: #05182e;
   border: 1px solid #ddd;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
@@ -2736,7 +2736,7 @@ th {
 }
 
 .table .table {
-  background-color: #161629;
+  background-color: #05182e;
 }
 
 .table-condensed > thead > tr > th,
@@ -4648,7 +4648,7 @@ tbody.collapse.in {
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #161629;
+  background-color: #05182e;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -4731,7 +4731,7 @@ tbody.collapse.in {
   .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
   .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #161629;
+    border-bottom-color: #05182e;
   }
 }
 
@@ -5141,7 +5141,7 @@ tbody.collapse.in {
 
 .navbar-default {
   background-color: transparent;
-  border-color: #040408;
+  border-color: black;
 }
 
 .navbar-default .navbar-brand {
@@ -5190,7 +5190,7 @@ tbody.collapse.in {
 
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #040408;
+  border-color: black;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
@@ -5239,8 +5239,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 
 .navbar-inverse {
-  background-color: #44a;
-  border-color: #353586;
+  background-color: #0f478a;
+  border-color: #0a2f5c;
 }
 
 .navbar-inverse .navbar-brand {
@@ -5267,7 +5267,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
-  background-color: #353586;
+  background-color: #0a2f5c;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
@@ -5289,20 +5289,20 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #3a3a91;
+  border-color: #0c366a;
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #353586;
+  background-color: #0a2f5c;
   color: #fff;
 }
 
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #353586;
+    border-color: #0a2f5c;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #353586;
+    background-color: #0a2f5c;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #9d9d9d;
@@ -5313,7 +5313,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #fff;
-    background-color: #353586;
+    background-color: #0a2f5c;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #444;
@@ -5711,7 +5711,7 @@ a.badge:hover, a.badge:focus {
   padding: 4px;
   margin-bottom: 22px;
   line-height: 1.4;
-  background-color: #161629;
+  background-color: #05182e;
   border: 1px solid #ddd;
   border-radius: 4px;
   transition: border 0.2s ease-in-out;
@@ -5977,7 +5977,7 @@ a.thumbnail.active {
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
-  border: 1px solid #040408;
+  border: 1px solid black;
 }
 
 .list-group-item:first-child {
@@ -6185,7 +6185,7 @@ button.list-group-item-danger.active:focus {
 
 .panel {
   margin-bottom: 22px;
-  background-color: #44a;
+  background-color: #0f478a;
   border: 1px solid transparent;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -6233,7 +6233,7 @@ button.list-group-item-danger.active:focus {
 .panel-footer {
   padding: 10px 15px;
   background-color: #f5f5f5;
-  border-top: 1px solid #040408;
+  border-top: 1px solid black;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -6454,7 +6454,7 @@ button.list-group-item-danger.active:focus {
 
 .panel-group .panel-heading + .panel-collapse > .panel-body,
 .panel-group .panel-heading + .panel-collapse > .list-group {
-  border-top: 1px solid #040408;
+  border-top: 1px solid black;
 }
 
 .panel-group .panel-footer {
@@ -6462,21 +6462,21 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-group .panel-footer + .panel-collapse .panel-body {
-  border-bottom: 1px solid #040408;
+  border-bottom: 1px solid black;
 }
 
 .panel-default {
-  border-color: #040408;
+  border-color: black;
 }
 
 .panel-default > .panel-heading {
   color: #333333;
   background-color: #fff;
-  border-color: #040408;
+  border-color: black;
 }
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #040408;
+  border-top-color: black;
 }
 
 .panel-default > .panel-heading .badge {
@@ -6485,7 +6485,7 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #040408;
+  border-bottom-color: black;
 }
 
 .panel-primary {
@@ -7914,6 +7914,7 @@ footer {
   text-align: center;
   font-size: 0.9em;
   color: #9d9d9d;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 40%);
 }
 
 img {
@@ -7942,8 +7943,8 @@ h2 {
 }
 
 .btn-warning:hover {
-  background: #44a;
-  border-color: #44a;
+  background: #0f478a;
+  border-color: #0f478a;
 }
 
 .btn .far, .btn .fas, .btn .fab {
@@ -7955,7 +7956,7 @@ h2 {
 }
 
 .wide-light {
-  background: #28284a;
+  background: #0a2f5c;
 }
 
 .wide-fix {
@@ -7972,6 +7973,29 @@ h2 {
   color: #ffb561;
 }
 
+@media (min-width: 768px) {
+  .container-half {
+    width: 375px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-half {
+    width: 485px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-half {
+    width: 585px;
+  }
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+}
+
 .navbar {
   position: absolute;
   transition: all 0.2s ease-in-out;
@@ -7982,10 +8006,16 @@ h2 {
 
 .navbar .logo {
   transition: all 0.2s ease-in-out;
-  height: 98px;
+  height: 70px;
   max-height: none;
   width: auto;
   position: absolute;
+}
+
+@media (min-width: 992px) {
+  .navbar .logo {
+    height: 98px;
+  }
 }
 
 .navbar ul a {
@@ -8063,11 +8093,18 @@ h2 {
 
 .navbar .navbar-navigation-menu {
   display: block;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 @media (min-width: 992px) {
   .navbar .navbar-navigation-menu {
     margin-right: -15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar .navbar-navigation-menu {
+    background: transparent;
   }
 }
 
@@ -8079,10 +8116,6 @@ h2 {
   .navbar .navbar-navigation-menu li {
     width: 100%;
   }
-}
-
-.body-container {
-  padding-bottom: 15px;
 }
 
 .header-additional {
@@ -8098,6 +8131,7 @@ h2 {
 
 .header-additional span {
   color: #c7c7c7;
+  white-space: nowrap;
 }
 
 .header-additional .navbar-right {
@@ -8125,7 +8159,21 @@ header .header-content {
 }
 
 header .header-content h1 {
-  font-size: 60px;
+  font-size: 28px;
+  margin: 30px 0 20px;
+}
+
+@media (min-width: 768px) {
+  header .header-content h1 {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 992px) {
+  header .header-content h1 {
+    margin: 60px 0 30px;
+    font-size: 60px;
+  }
 }
 
 header.header-main {
@@ -8158,7 +8206,7 @@ header .carousel-container {
 header .carousel-main.owl-theme .carousel-main-item {
   height: 240px;
   padding: 20px;
-  background: #4f4fb9 center center no-repeat;
+  background: #1253a1 center center no-repeat;
   background-size: cover;
   display: block;
   text-decoration: none;
@@ -8210,8 +8258,8 @@ header .carousel-main.owl-theme .carousel-main-item:hover:before {
 }
 
 header .carousel-main.owl-theme .carousel-main-item:hover button {
-  background: #44a;
-  border-color: #44a;
+  background: #0f478a;
+  border-color: #0f478a;
 }
 
 header .carousel-main.owl-theme .owl-nav {
@@ -8223,10 +8271,10 @@ header .carousel-main.owl-theme .owl-nav > div {
   top: 50%;
   width: 60px;
   height: 60px;
-  border: 1px solid #44a;
+  border: 1px solid #0f478a;
   border-radius: 0;
   margin: -30px 0;
-  background: #28284a;
+  background: #0a2f5c;
   padding: 0;
   line-height: 58px;
   font-family: Font Awesome\ 5 Free;
@@ -8235,7 +8283,7 @@ header .carousel-main.owl-theme .owl-nav > div {
 }
 
 header .carousel-main.owl-theme .owl-nav > div:hover {
-  background: #28284a;
+  background: #0a2f5c;
 }
 
 header .carousel-main.owl-theme .owl-prev {
@@ -8262,7 +8310,7 @@ header .carousel-main.owl-theme .carousel-main-gift {
   display: block;
   height: 350px;
   text-decoration: none;
-  background: #28284a;
+  background: #0a2f5c;
   position: relative;
   color: #fff;
   padding: 20px;
@@ -8382,8 +8430,39 @@ header .carousel-main.owl-theme .carousel-main-gift {
 }
 
 .quests-item button:hover {
-  background: #44a;
-  border-color: #44a;
+  background: #0f478a;
+  border-color: #0f478a;
+}
+
+.locations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.locations h3 {
+  margin-top: 0;
+}
+
+.locations li {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.locations li.active {
+  background: #0a2f5c;
+}
+
+.locations li > div {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+}
+
+.locations li:not(.active):hover {
+  background: #082445;
 }
 
 .carousel-days.owl-theme {
@@ -8412,7 +8491,7 @@ header .carousel-main.owl-theme .carousel-main-gift {
 }
 
 .carousel-days.owl-theme .carousel-days-item:hover, .carousel-days.owl-theme .carousel-days-item.active {
-  background: #44a;
+  background: #0f478a;
 }
 
 .carousel-days.owl-theme .carousel-days-item:hover span, .carousel-days.owl-theme .carousel-days-item.active span {

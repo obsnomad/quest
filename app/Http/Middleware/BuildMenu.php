@@ -20,7 +20,7 @@ class BuildMenu
 	{
 		Menu::make('menuIcon', function ($menu) {
 			$menu
-				->add('<span class="glyphicon glyphicon-menu-hamburger"></span>', ['class' => 'navbar-mobile-menu'])
+				->add('<span class="fas fa-bars"></span>', ['class' => 'navbar-mobile-menu'])
 				->link->attr(['id' => 'navbar-mobile-menu']);
 		});
 		Menu::make('menuMain', function ($menu) {

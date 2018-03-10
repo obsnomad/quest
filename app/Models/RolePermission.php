@@ -7,25 +7,26 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * Class RolePermission
- * 
+ *
  * @property int $roleId
  * @property Role $role
  * @property int $permissionId
  * @property Permission $permission
  * @method static Builder|RolePermission whereRoleId($value)
  * @method static Builder|RolePermission wherePermissionId($value)
+ * @mixin \Eloquent
  */
 class RolePermission extends Eloquent
 {
-	public $incrementing = false;
-	protected $perPage = 20;
-	public $timestamps = false;
-	protected $primaryKey = ['role_id', 'permission_id'];
+    public $incrementing = false;
+    protected $perPage = 20;
+    public $timestamps = false;
+    protected $primaryKey = ['role_id', 'permission_id'];
 
-	protected $casts = [
-		'role_id' => 'int',
-		'permission_id' => 'int'
-	];
+    protected $casts = [
+        'role_id' => 'int',
+        'permission_id' => 'int'
+    ];
 
     public function role()
     {

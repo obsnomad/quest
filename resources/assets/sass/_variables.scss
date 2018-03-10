@@ -1,9 +1,9 @@
 // Body
-$main-color: #44a;
+$main-color: #0f478a;
 $second-color: #ffb561;
 $second-color-darker: #da7420;
 $panel-bg: $main-color;
-$body-bg: #161629;
+$body-bg: darken($main-color, 20);
 $body-lighter: lighten($body-bg, 10);
 
 $matrix-panel-bg: #113615;

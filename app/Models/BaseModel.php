@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,19 +43,20 @@ class BaseModel extends Model
      * @param bool $addEmpty
      * @return $this|\Illuminate\Support\Collection|static
      */
-    public static function getSelectList($orderBy = null, $addEmpty = true) {
+    public static function getSelectList($orderBy = null, $addEmpty = true)
+    {
         $query = static::query();
-        if($orderBy) {
+        if ($orderBy) {
             list($orderBy, $orderDir) = substr($orderBy, 0, 1) == '-' ? [substr($orderBy, 1, strlen($orderBy)), 'desc'] : [$orderBy, 'asc'];
             $query->orderBy($orderBy, $orderDir);
         }
         $result = $query
             ->get()
             ->keyBy('id')
-            ->map(function($value) {
+            ->map(function ($value) {
                 return $value->name;
             });
-        if($addEmpty) {
+        if ($addEmpty) {
             $result = $result->prepend('', '');
         }
         return $result;

@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
  * @method static Builder|Role whereId($value)
  * @method static Builder|Role whereCode($value)
  * @method static Builder|Role whereName($value)
+ * @mixin \Eloquent
  */
 class Role extends Eloquent
 {

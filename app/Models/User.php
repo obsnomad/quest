@@ -31,6 +31,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class User extends Eloquent implements
     AuthenticatableContract,
@@ -62,15 +63,17 @@ class User extends Eloquent implements
         'role.links.permission',
     ];
 
-    public function role() {
+    public function role()
+    {
         return $this->belongsTo(Role::class, 'role_id')->withDefault();
     }
 
     /**
      * @return array
      */
-    public function permissions() {
-        return $this->role->links->map(function($value) {
+    public function permissions()
+    {
+        return $this->role->links->map(function ($value) {
             /**
              * @var RolePermission $value
              */
@@ -84,8 +87,9 @@ class User extends Eloquent implements
      * @param string $type Should be 'and' or 'or'. Default is 'and'.
      * @return bool
      */
-    public function hasPermissions($codes, $type = 'and') {
-        if($this->roleId == 1) {
+    public function hasPermissions($codes, $type = 'and')
+    {
+        if ($this->roleId == 1) {
             return true;
         }
         $count = count(array_intersect((array)$codes, $this->permissions()));

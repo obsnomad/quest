@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 /**
  * Class Client
- * 
+ *
  * @property int $id
  * @property string $firstName
  * @property string $lastName
@@ -28,27 +28,28 @@ use Illuminate\Support\Collection;
  * @method static Builder|Client whereVkAccountId($value)
  * @method static Builder|Client whereCreatedAt($value)
  * @method static Builder|Client whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Client extends Eloquent
 {
-	protected $perPage = 20;
-	public $timestamps = true;
+    protected $perPage = 20;
+    public $timestamps = true;
 
-	protected $casts = [
-		'vk_account_id' => 'int',
-	];
+    protected $casts = [
+        'vk_account_id' => 'int',
+    ];
 
-	protected $fillable = [
-		'first_name',
-		'last_name',
-		'email',
-		'phone',
-		'vk_account_id',
-	];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'vk_account_id',
+    ];
 
-	protected $appends = [
-	    'full_name',
-	    'phone_formatted',
+    protected $appends = [
+        'full_name',
+        'phone_formatted',
     ];
 
     public function bookings()
@@ -59,11 +60,13 @@ class Client extends Eloquent
             ->orderBy('id', 'desc');
     }
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return trim($this->firstName . ' ' . $this->lastName);
     }
 
-    public function getPhoneFormattedAttribute() {
+    public function getPhoneFormattedAttribute()
+    {
         return '+7' . $this->phone;
     }
 }

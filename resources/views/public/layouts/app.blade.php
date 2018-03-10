@@ -37,14 +37,14 @@
 <header class="@yield('header-class')">
     <div class="header-additional">
         <div class="container">
-            <div class="navbar-right">
+            <div class="navbar-right pull-right">
                 <a href="https://vk.com/darkroomquest" target="_blank" class="fab fa-vk"></a>
 {{--
                 <a href="#" class="fab fa-facebook-f"></a>
                 <a href="#" class="fab fa-instagram"></a>
 --}}
             </div>
-            Забронировать игру: <span>+7 (904) 080-57-47</span>
+            Забронировать игру: <span>+7 (951) 762-2665</span>
         </div>
     </div>
 

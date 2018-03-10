@@ -7,10 +7,14 @@
 
   .logo {
     transition: all 0.2s ease-in-out;
-    height: $navbar-height * 1.4;
+    height: $navbar-height;
     max-height: none;
     width: auto;
     position: absolute;
+
+    @include breakpoint(md) {
+      height: $navbar-height * 1.4;
+    }
   }
 
   ul a {
@@ -81,9 +85,14 @@
 
   & &-navigation-menu {
     display: block;
+    background: rgba(0, 0, 0, 0.8);
 
     @include breakpoint(md) {
       margin-right: -15px;
+    }
+
+    @include breakpoint(sm) {
+      background: transparent;
     }
 
     @include breakpoint(xs) {
@@ -98,7 +107,6 @@
 }
 
 .body-container {
-  padding-bottom: $grid-gutter-width / 2;
 }
 
 .header-additional {
@@ -113,6 +121,7 @@
 
   span {
     color: #c7c7c7;
+    white-space: nowrap;
   }
 
   .navbar-right {
@@ -139,7 +148,17 @@ header {
     font-weight: 100;
 
     h1 {
-      font-size: 60px;
+      font-size: 28px;
+      margin: 30px 0 20px;
+
+      @include breakpoint(sm) {
+        font-size: 40px;
+      }
+
+      @include breakpoint(md) {
+        margin: 60px 0 30px;
+        font-size: 60px;
+      }
     }
   }
 

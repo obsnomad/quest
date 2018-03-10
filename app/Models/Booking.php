@@ -34,6 +34,10 @@ use Illuminate\Support\Collection;
  * @method static Builder|Booking wherePrice($value)
  * @method static Builder|Booking whereCreatedAt($value)
  * @method static Builder|Booking whereUpdatedAt($value)
+ * @method static Builder|Booking whereAmount($value)
+ * @method static Builder|Booking whereComment($value)
+ * @method static Builder|Booking whereUpdatedBy($value)
+ * @mixin \Eloquent
  */
 class Booking extends Eloquent
 {
@@ -87,7 +91,8 @@ class Booking extends Eloquent
             ->orderBy('id', 'desc');
     }
 
-    public function getDateFormattedAttribute() {
+    public function getDateFormattedAttribute()
+    {
         return $this->date ? $this->date->format('d.m.Y H:i') : '';
     }
 

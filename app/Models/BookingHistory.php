@@ -7,7 +7,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * Class BookingHistory
- * 
+ *
  * @property int $id
  * @property int $bookingId
  * @property Booking $booking
@@ -30,36 +30,39 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|BookingHistory wherePrice($value)
  * @method static Builder|BookingHistory whereComment($value)
  * @method static Builder|BookingHistory whereCreatedAt($value)
+ * @method static Builder|BookingHistory whereAmount($value)
+ * @method static Builder|BookingHistory whereCreatedBy($value)
+ * @mixin \Eloquent
  */
 class BookingHistory extends Eloquent
 {
-	protected $table = 'booking_history';
-	protected $perPage = 20;
-	public $timestamps = true;
+    protected $table = 'booking_history';
+    protected $perPage = 20;
+    public $timestamps = true;
 
-	const UPDATED_AT = null;
+    const UPDATED_AT = null;
 
-	protected $casts = [
-		'booking_id' => 'int',
-		'status_id' => 'int',
-		'client_id' => 'int',
-		'price' => 'int'
-	];
+    protected $casts = [
+        'booking_id' => 'int',
+        'status_id' => 'int',
+        'client_id' => 'int',
+        'price' => 'int'
+    ];
 
-	protected $dates = [
-		'date'
-	];
+    protected $dates = [
+        'date'
+    ];
 
-	protected $fillable = [
-		'booking_id',
-		'status_id',
-		'client_id',
-		'date',
-		'price',
+    protected $fillable = [
+        'booking_id',
+        'status_id',
+        'client_id',
+        'date',
+        'price',
         'amount',
         'comment',
         'created_by',
-	];
+    ];
 
     public function booking()
     {
