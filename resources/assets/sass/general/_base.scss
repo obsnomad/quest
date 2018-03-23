@@ -37,6 +37,10 @@ h2 {
 .btn {
   transition: all 0.2s ease-in-out;
 
+  &:focus, &:active {
+    outline: none;
+  }
+
   &-warning:hover {
     background: $main-color;
     border-color: $main-color;
@@ -90,49 +94,12 @@ h2 {
   height: 400px;
 }
 
-.popup {
-  position: relative;
-  background: $body-lighter;
-  padding: 20px;
-  width: auto;
-  max-width: 500px;
-  margin: 20px auto;
+.modal {
+  display: block;
 }
 
-.mfp-fade {
-  &.mfp-bg {
-    opacity: 0;
-
-    -webkit-transition: all 0.15s ease-out;
-    -moz-transition: all 0.15s ease-out;
-    transition: all 0.15s ease-out;
-
-    &.mfp-ready {
-      opacity: 0.8;
-    }
-
-    &.mfp-removing {
-      opacity: 0;
-    }
-  }
-
-  &.mfp-wrap {
-    .mfp-content {
-      opacity: 0;
-
-      -webkit-transition: all 0.15s ease-out;
-      -moz-transition: all 0.15s ease-out;
-      transition: all 0.15s ease-out;
-    }
-
-    &.mfp-ready .mfp-content {
-      opacity: 1;
-    }
-
-    &.mfp-removing .mfp-content {
-      opacity: 0;
-    }
-  }
+button:focus {
+  outline: none !important;
 }
 
 .form-control {
@@ -146,4 +113,38 @@ h2 {
 
 label {
   font-weight: 300;
+}
+
+.loader {
+  width: 100%;
+  padding: 48px;
+  text-align: center;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    border: 3px solid $text-color;
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    -webkit-animation: cssload-spin 575ms infinite linear;
+    animation: cssload-spin 575ms infinite linear;
+  }
+}
+
+@-webkit-keyframes cssload-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cssload-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

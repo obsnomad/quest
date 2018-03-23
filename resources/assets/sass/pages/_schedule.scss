@@ -12,7 +12,7 @@
   }
 
   & + * {
-    padding-top: 131px;
+    padding-top: 101px;
   }
 }
 
@@ -73,7 +73,7 @@
   }
 
   &-0:before {
-    background: #e7a677;
+    background: #8cb0ec;
   }
 
   &-1:before {
@@ -81,7 +81,7 @@
   }
 
   &-2:before {
-    background: #8cb0ec;
+    background: #e7d933;
   }
 }
 
@@ -161,8 +161,8 @@
       }
 
       &-0 {
-        border-color: #e7a677;
-        background: #e7a677;
+        border-color: #8cb0ec;
+        background: #8cb0ec;
       }
 
       &-1 {
@@ -171,20 +171,14 @@
       }
 
       &-2 {
-        border-color: #8cb0ec;
-        background: #8cb0ec;
+        border-color: #e7d933;
+        background: #e7d933;
       }
     }
   }
 }
 
-#booking-popup {
-  max-width: 320px;
-
-  h4 {
-    margin-top: 0;
-  }
-
+.booking-form {
   table {
     td {
       text-align: center;
@@ -194,4 +188,8 @@
       font-weight: 400;
     }
   }
+}
+
+.booking-error {
+  color: #ffa00c;
 }

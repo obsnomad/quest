@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+        $this->mapWebNoCsrfRoutes();
 
         $this->mapAdminRoutes();
     }
@@ -55,6 +56,20 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Define the "web-no-csrf" routes for the application.
+     *
+     * These routes all receive session state, etc.
+     *
+     * @return void
+     */
+    protected function mapWebNoCsrfRoutes()
+    {
+        Route::middleware('web-no-csrf')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web-no-csrf.php'));
     }
 
     /**

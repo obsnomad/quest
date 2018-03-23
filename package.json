@@ -9,17 +9,22 @@
   },
   "devDependencies": {
     "axios": "^0.15.3",
+    "babel-preset-react": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
     "laravel-mix": "^0.8.3",
     "lodash": "^4.17.4",
-    "vue": "^2.1.10",
+    "magnific-popup": "^1.1.0",
+    "owl.carousel2": "^2.2.1",
     "resolve-url-loader": "^2.0.0",
     "sass-loader": "^6.0.0",
-    "owl.carousel2": "^2.2.1"
-  },
-  "dependencies": {
-    "magnific-popup": "^1.1.0"
+    "vue": "^2.1.10",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-owl-carousel": "^2.2.0",
+    "react-input-mask": "^1.2.2",
+    "react-bootstrap-modal": "^4.0.0",
+    "qhttp": "^0.6.0"
   }
 }

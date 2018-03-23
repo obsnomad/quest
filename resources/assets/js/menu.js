@@ -23,7 +23,7 @@ $(window).on('load resize',function() {
 });
 
 $(window).on('load resize scroll',function() {
-	var offset = 0;
+	let offset = 0;
     $('[data-fixable]').each(function() {
         if($(document).scrollTop() > $(this).data('fixable-offset')) {
             $(this)

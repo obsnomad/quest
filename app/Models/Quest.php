@@ -32,6 +32,7 @@ use Illuminate\Support\Collection;
  * @property string $slug
  * @property bool $active
  * @property bool $working
+ * @property string $url
  * @property Booking[]|Collection $bookings
  * @property QuestLocation $location
  * @method static Builder|Quest whereId($value)
@@ -68,6 +69,18 @@ class Quest extends Eloquent
         'special',
         'special_style',
         'slug',
+    ];
+
+    protected $casts = [
+        'quest_location_id' => 'int',
+    ];
+
+    protected $appends = [
+        'thumb_path',
+        'price_readable',
+        'url',
+        'active',
+        'working',
     ];
 
     public function bookings()
@@ -118,7 +131,7 @@ class Quest extends Eloquent
 
     public function getLevelReadableAttribute()
     {
-        switch ($this->status) {
+        switch ($this->level) {
             case 1:
                 return 'Простой';
                 break;
@@ -161,5 +174,9 @@ class Quest extends Eloquent
     public function getPriceReadableAttribute()
     {
         return $this->price ? "от {$this->price} рублей" : null;
+    }
+
+    public function getUrlAttribute() {
+        return $this->slug ? route('quests.show', ['slug' => $this->slug]) : null;
     }
 }

@@ -1,5 +1,5 @@
 // Body
-$main-color: #0f478a;
+$main-color: #1c4780;
 $second-color: #ffb561;
 $second-color-darker: #da7420;
 $panel-bg: $main-color;
@@ -15,6 +15,8 @@ $list-group-border: $laravel-border-color;
 $navbar-default-border: $laravel-border-color;
 $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
+$border-radius-base: 0;
+$border-radius-large: 0;
 
 // Brands
 $brand-primary: #3097D1;
@@ -68,26 +70,9 @@ $input-border-radius: 0;
 // Tables
 $table-border-color: lighten($body-lighter, 10);
 
-//////////////////////////////
-//      Magnific Popup      //
-//////////////////////////////
-
-// overlay
-$mfp-overlay-color:                   #0b0b0b;                    // Color of overlay screen
-$mfp-overlay-opacity:                 0.6;                        // Opacity of overlay screen
-$mfp-shadow:                          0 0 8px rgba(0, 0, 0, 0.6); // Shadow on image or iframe
-
-// spacing
-$mfp-popup-padding-left:              8px;                        // Padding from left and from right side
-$mfp-popup-padding-left-mobile:       6px;                        // Same as above, but is applied when width of window is less than 800px
-
-$mfp-z-index-base:                    1040;                       // Base z-index of popup
-
-// controls
-$mfp-include-arrows:                  true;                       // Include styles for nav arrows
-$mfp-controls-opacity:                0.65;                       // Opacity of controls
-$mfp-controls-color:                  #fff;                       // Color of controls
-$mfp-controls-border-color:           #fff; 	                 // Border color of controls
-$mfp-inner-close-icon-color:          #fff;                       // Color of close button when inside
-$mfp-controls-text-color:             #fff;                       // Color of preloader and "1 of X" indicator
-$mfp-controls-text-color-hover:       #fff;                       // Hover color of preloader and "1 of X" indicator
+// Modals
+$modal-content-fallback-border-color: transparent;
+$modal-content-border-color: transparent;
+$modal-content-bg: $body-lighter;
+$close-color: #fff;
+$modal-header-border-color: $table-border-color;

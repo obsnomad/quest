@@ -143,12 +143,16 @@ class Schedule extends Eloquent
                     $day = date('Y-m-d', $time);
                     $data[$day] = $values[$week_day]->map(function ($value) use ($bookings, $id, $day, &$prices, &$pricesQuest) {
                         $date = $day . ' ' . $value->attributes['time'];
+                        $dateParsed = Carbon::parse($date);
                         $prices[] = $value->price;
                         $pricesQuest[] = $value->price;
                         // Добавляется 4 часа, чтобы компенсировать часовой пояс
                         return (object)[
+                            'date' => $date,
+                            'realDay' => $dateParsed->formatLocalized('%e %b'),
+                            'time' => $dateParsed->format('H:i'),
                             'price' => $value->price,
-                            'booked' => Carbon::parse($date) < Carbon::now()->addHour(4) || $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
+                            'booked' => $dateParsed < Carbon::now()->addHour(4) || $bookings->offsetExists($id) && in_array($date, $bookings[$id]->toArray()),
                         ];
                     });
                 }
@@ -157,7 +161,6 @@ class Schedule extends Eloquent
                 $data->transform(function ($value, $day) use ($startTime, $pricesQuest) {
                     $day = Carbon::parse($day);
                     $startTime = Carbon::createFromTimestamp($startTime);
-                    $dayRead = $day->formatLocalized('%e %b');
                     $weekDayRead = $day->formatLocalized('%a');
                     $diff = $day->diffInDays($startTime);
                     if (!$diff) {
@@ -166,7 +169,8 @@ class Schedule extends Eloquent
                         $weekDayRead = 'Завтра';
                     }
                     return (object)[
-                        'day' => $dayRead,
+                        'day' => $day->toDateString(),
+                        'realDay' => $day->formatLocalized('%e %b'),
                         'weekDay' => $weekDayRead,
                         'prices' => $pricesQuest,
                         'items' => $value,
@@ -183,6 +187,11 @@ class Schedule extends Eloquent
             'items' => $result,
             'prices' => $prices,
         ];
+    }
+
+    public function quest()
+    {
+        return $this->belongsTo(Quest::class, 'quest_id')->withDefault();
     }
 
     public function getWeekDayNameAttribute()

@@ -14,7 +14,7 @@ class FillScheduleTable extends Migration
         $records = [];
         for($i = 1; $i <= 5; $i++) {
             for($j = 10; $j < 25; $j+=1.25) {
-                $price = $j < 17 ? 1600 : 1800;
+                $price = 1700;
                 $records[] = [
                     'quest_id' => 1,
                     'week_day' => $i,
@@ -25,7 +25,7 @@ class FillScheduleTable extends Migration
         }
         for($i = 6; $i <= 7; $i++) {
             for($j = 10; $j < 25; $j+=1.25) {
-                $price = $j < 17 ? 1800 : 2000;
+                $price = 2000;
                 $records[] = [
                     'quest_id' => 1,
                     'week_day' => $i,
