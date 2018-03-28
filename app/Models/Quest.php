@@ -133,13 +133,13 @@ class Quest extends Eloquent
     {
         switch ($this->level) {
             case 1:
-                return 'Простой';
+                return 'Для новичков';
                 break;
             case 2:
-                return 'Несложный';
+                return 'Для всех';
                 break;
             case 3:
-                return 'Сложный';
+                return 'Для опытных';
                 break;
         }
         return null;

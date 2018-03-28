@@ -67,6 +67,16 @@ class Client extends Eloquent
 
     public function getPhoneFormattedAttribute()
     {
-        return '+7' . $this->phone;
+        return $this->phone ? '+7 (' . substr($this->phone, 0, 3) . ') ' . substr($this->phone, 3, 3) . '-'
+            . substr($this->phone, 6, 2) . '-' . substr($this->phone, 8, 2) : '';
+    }
+
+    public static function cleanPhone($value) {
+        return preg_replace(['/[^0-9]/', '/^7/'], '', $value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = self::cleanPhone($value);
     }
 }

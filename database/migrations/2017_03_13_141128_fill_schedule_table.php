@@ -21,6 +21,18 @@ class FillScheduleTable extends Migration
                     'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60)->toTimeString(),
                     'price' => $price,
                 ];
+                $records[] = [
+                    'quest_id' => 2,
+                    'week_day' => $i,
+                    'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60)->toTimeString(),
+                    'price' => $price,
+                ];
+                $records[] = [
+                    'quest_id' => 3,
+                    'week_day' => $i,
+                    'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60 + 30)->toTimeString(),
+                    'price' => $price,
+                ];
             }
         }
         for($i = 6; $i <= 7; $i++) {
@@ -30,6 +42,18 @@ class FillScheduleTable extends Migration
                     'quest_id' => 1,
                     'week_day' => $i,
                     'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60)->toTimeString(),
+                    'price' => $price,
+                ];
+                $records[] = [
+                    'quest_id' => 2,
+                    'week_day' => $i,
+                    'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60)->toTimeString(),
+                    'price' => $price,
+                ];
+                $records[] = [
+                    'quest_id' => 3,
+                    'week_day' => $i,
+                    'time' => \Carbon\Carbon::createFromTime(floor($j), ($j  - floor($j)) * 60 + 30)->toTimeString(),
                     'price' => $price,
                 ];
             }

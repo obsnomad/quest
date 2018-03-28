@@ -1,6 +1,14 @@
 import React from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import ModalBooking from './ModalBooking';
+import {toast, ToastContainer} from 'react-toastify';
+
+const toastOptions = {
+    position: toast.POSITION.BOTTOM_LEFT,
+    hideProgressBar: true,
+    autoClose: 5000,
+    closeButton: '',
+};
 
 export default class App extends React.Component {
     constructor(props) {
@@ -14,6 +22,8 @@ export default class App extends React.Component {
             booking: null,
             bookingShow: false,
             phone: '',
+            day: null,
+            dayPosition: 0,
         };
     }
 
@@ -21,8 +31,13 @@ export default class App extends React.Component {
         this.updateSchedule();
     }
 
-    updateSchedule() {
+    updateSchedule(loading = true) {
         let self = this;
+        if(loading) {
+            self.setState({
+                view: 'loading',
+            });
+        }
         self.getData('/schedule', {}, 'get', function (result) {
             let first = Object.keys(result.schedule.items)[0];
             let scheduleItems = Object.values(result.schedule.items[first]);
@@ -32,13 +47,21 @@ export default class App extends React.Component {
                 quests: result.quests,
                 view: 'normal',
             });
-            self.setDay(scheduleItems[0].day);
+            let day = self.state.day;
+            if(!day) {
+                day = scheduleItems[0].day;
+            }
+            self.setDay(day);
         });
     }
 
     setDay(day) {
-        let scheduleItems = this.state.scheduleItems.map(item => {
+        let dayPosition = 0;
+        let scheduleItems = this.state.scheduleItems.map((item, i) => {
             item.active = (item.day === day);
+            if(item.active) {
+                dayPosition = i;
+            }
             return item;
         });
         let questsActive = {};
@@ -51,6 +74,8 @@ export default class App extends React.Component {
         this.setState({
             scheduleItems: scheduleItems,
             questsActive: questsActive,
+            day: day,
+            dayPosition: dayPosition,
         });
     }
 
@@ -109,18 +134,26 @@ export default class App extends React.Component {
                 else if (result.message && result.message.length > 0) {
                     error = result.message;
                 }
-                booking.error = error;
-                self.setState({
-                    booking: booking,
-                });
-
+                toast.error(error, toastOptions);
+                if (status === 403) {
+                    self.setState({
+                        booking: {},
+                        bookingShow: false,
+                    }, () => self.updateSchedule(false));
+                }
+                else {
+                    self.setState({
+                        booking: booking,
+                    });
+                }
             }
             else {
-                booking.type = 'result';
-                booking.result = result.result;
+                toast.success(result.result, toastOptions);
                 self.setState({
-                    booking: booking,
-                });
+                    booking: {},
+                    bookingShow: false,
+                    phone: '',
+                }, () => self.updateSchedule(false));
             }
         });
     }
@@ -158,9 +191,10 @@ export default class App extends React.Component {
                 {
                     this.state.view === 'normal' &&
                     <div>
-                        <div className="schedule-timeline" data-fixable data-fixable-class="schedule-fixed">
+                        <div className="schedule-timeline">
                             <div className="carousel-container">
                                 <OwlCarousel className="carousel-days owl-theme" items={10} margin={0} slideBy={1}
+                                             startPosition={this.state.dayPosition}
                                              nav={false}
                                              dots={false}
                                              responsive={{
@@ -171,6 +205,9 @@ export default class App extends React.Component {
                                                      items: 5
                                                  },
                                                  768: {
+                                                     items: 8
+                                                 },
+                                                 960: {
                                                      items: 10
                                                  }
                                              }}>
@@ -270,9 +307,10 @@ export default class App extends React.Component {
                         }
                         <ModalBooking show={this.state.bookingShow} onHide={this.hideBooking.bind(this)}
                                       booking={this.state.booking} book={this.book.bind(this)}
-                                      setPhone={this.setPhone.bind(this)}/>
+                                      phone={this.state.phone} setPhone={this.setPhone.bind(this)}/>
                     </div>
                 }
+                <ToastContainer/>
             </div>
         );
     }

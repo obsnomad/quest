@@ -37,6 +37,7 @@ use Illuminate\Support\Collection;
  * @method static Builder|Booking whereAmount($value)
  * @method static Builder|Booking whereComment($value)
  * @method static Builder|Booking whereUpdatedBy($value)
+ * @method static Builder|Quest active()
  * @mixin \Eloquent
  */
 class Booking extends Eloquent
@@ -99,5 +100,14 @@ class Booking extends Eloquent
     public function user()
     {
         return $this->belongsTo(User::class, 'updated_by')->withDefault();
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->whereIn('status_id', [1, 2, 3]);
     }
 }

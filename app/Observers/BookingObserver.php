@@ -15,7 +15,8 @@ class BookingObserver
      */
     public function saving(Booking $booking)
     {
-        $booking->updatedBy = \Auth::user()->id;
+        $user = \Auth::user();
+        $booking->updatedBy = $user ? $user->id : 0;
     }
 
     /**

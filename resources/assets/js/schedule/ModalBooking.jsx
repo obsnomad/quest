@@ -41,7 +41,6 @@ export default class ModalBooking extends React.Component {
                                 </tr>
                                 </tbody>
                             </table>
-                            <div className="booking-error">{this.props.booking.error}</div>
                             <form onSubmit={this.props.book}>
                                 <div className="form-group">
                                     <label htmlFor="booking-phone">Ваш номер телефона. Мы позвоним Вам, чтобы
@@ -60,12 +59,6 @@ export default class ModalBooking extends React.Component {
                     {
                         this.props.booking && this.props.booking.type === 'loading' &&
                         <div className="loader"/>
-                    }
-                    {
-                        this.props.booking && this.props.booking.type === 'result' &&
-                        <div className="booking-result">
-                            {this.props.booking.result}
-                        </div>
                     }
                 </Modal.Body>
             </Modal>

@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label for="client" class="col-sm-4 control-label">Клиент</label>
                         <div class="col-sm-8">
-                            {{ Form::text('client', old('client', $booking->client->fullName), ['id' => 'client', 'class' => 'form-control', 'data-target' => '#client_id', 'data-hide' => '#client_new']) }}
+                            {{ Form::text('client', old('client', $booking->client->fullName ?: $booking->client->phoneFormatted), ['id' => 'client', 'class' => 'form-control', 'data-target' => '#client_id', 'data-hide' => '#client_new']) }}
                             {{ Form::hidden('client_id', old('client_id', $booking->client->id), ['id' => 'client_id']) }}
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                             <tbody>
                             @foreach($booking->history as $history)
                                 <tr>
-                                    <td>{{ $history->client->fullName }}</td>
+                                    <td>{{ $history->client->fullName ?: $history->client->phoneFormatted }}</td>
                                     <td>{{ $history->amount }}</td>
                                     <td>
                                 <span class="label label-{{ $history->status->labelClass }}">
@@ -267,7 +267,7 @@
                     '</div>')
             }
         }).bind('typeahead:select', function (event, data) {
-            setClient(event, data.id, data.full_name);
+            setClient(event, data.id, data.full_name ? data.full_name : data.phone_formatted);
         }).bind('change', function (event) {
             setClient(event, '', '');
         });

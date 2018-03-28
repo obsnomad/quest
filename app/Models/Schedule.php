@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel as Eloquent;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 
 /**
@@ -83,7 +84,7 @@ class Schedule extends Eloquent
 
         $bookings = collect();
         if ($withBookings) {
-            $bookings = Booking::query()
+            $bookings = Booking::active()
                 ->where('date', '>=', \DB::raw('date(now())'))
                 ->where('date', '<', \DB::raw("date(now() + interval $days day)"));
             if (is_array($questId)) {
@@ -187,6 +188,42 @@ class Schedule extends Eloquent
             'items' => $result,
             'prices' => $prices,
         ];
+    }
+
+    public static function getByDate($date, $questId, $withBooking = true)
+    {
+        $date = Carbon::parse($date);
+        $dateFormatted = Carbon::parse($date)->toDateTimeString();
+        $exception = ScheduleException::query()
+            ->where('schedule_exceptions.date', \DB::raw("date('$dateFormatted')"))
+            ->where('schedule_exceptions.quest_id', $questId)
+            ->leftJoin('schedule', function($join) {
+                /**
+                 * @var JoinClause $join
+                 */
+                $join
+                    ->on('schedule_exceptions.quest_id', '=', 'schedule.quest_id')
+                    ->on('schedule_exceptions.treat_as', '=', 'schedule.week_day');
+            })
+            ->first();
+        $booking = false;
+        if ($withBooking) {
+            $booking = Booking::active()
+                ->where('date', $dateFormatted)
+                ->where('quest_id', $questId)
+                ->first();
+        }
+        $scheduleItem = self::query()
+            ->where('quest_id', $questId)
+            ->where('week_day', (int)$date->format('w') + 1)
+            ->where('time', $date->format('H:i'))
+            ->first();
+        if($scheduleItem) {
+            $scheduleItem->booked = !!$booking;
+            $scheduleItem->price = $exception ? $exception->price : $scheduleItem->price;
+            return $scheduleItem;
+        }
+        return null;
     }
 
     public function quest()

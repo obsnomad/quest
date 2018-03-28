@@ -8095,6 +8095,11 @@ label {
   }
 }
 
+.modal-open {
+  overflow: auto !important;
+  padding-right: 0 !important;
+}
+
 .navbar {
   position: absolute;
   transition: all 0.2s ease-in-out;
@@ -8566,21 +8571,8 @@ header .carousel-main.owl-theme .carousel-main-gift {
 }
 
 .schedule-timeline {
-  position: absolute;
-  top: auto;
-  height: 101px;
   width: 100%;
   background: #0a192c;
-  z-index: 2;
-}
-
-.schedule-timeline.fixed {
-  position: fixed;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-}
-
-.schedule-timeline + * {
-  padding-top: 101px;
 }
 
 .carousel-days.owl-theme {
@@ -8749,8 +8741,4 @@ header .carousel-main.owl-theme .carousel-main-gift {
 
 .booking-form table div {
   font-weight: 400;
-}
-
-.booking-error {
-  color: #ffa00c;
 }

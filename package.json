@@ -25,6 +25,7 @@
     "react-owl-carousel": "^2.2.0",
     "react-input-mask": "^1.2.2",
     "react-bootstrap-modal": "^4.0.0",
-    "qhttp": "^0.6.0"
+    "qhttp": "^0.6.0",
+    "react-toastify": "^3.4.3"
   }
 }

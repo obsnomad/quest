@@ -1,19 +1,6 @@
 .schedule-timeline {
-  position: absolute;
-  top: auto;
-  height: 101px;
   width: 100%;
   background: $body-bg;
-  z-index: 2;
-
-  &.fixed {
-    position: fixed;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  }
-
-  & + * {
-    padding-top: 101px;
-  }
 }
 
 .carousel-days.owl-theme {
@@ -188,8 +175,4 @@
       font-weight: 400;
     }
   }
-}
-
-.booking-error {
-  color: #ffa00c;
 }

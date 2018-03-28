@@ -55,7 +55,7 @@ class ClientController extends Controller implements Resource
                 ->orWhere('last_name', 'like', $query)
                 ->orWhere(\DB::raw("concat(first_name, ' ', last_name)"), 'like', $query)
                 ->orWhere('email', 'like', $query)
-                ->orWhere('phone', 'like', $query)
+                ->orWhere('phone', 'like', '%' . Client::cleanPhone($query) . '%')
                 ->orWhere('vk_account_id', 'like', $query);
         }
         if (\Request::ajax()) {
