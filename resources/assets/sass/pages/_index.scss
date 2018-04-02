@@ -121,11 +121,11 @@
       position: absolute;
       bottom: 20px;
       left: 20px;
+    }
 
-      &:hover {
-        background: $main-color;
-        border-color: $main-color;
-      }
+    &:hover button {
+      background: $main-color;
+      border-color: $main-color;
     }
   }
 }

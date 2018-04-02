@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property int $questLocationId
  * @property string $name
+ * @property string $summary
  * @property string $description
  * @property string $descriptionHtml
  * @property int $status
@@ -21,6 +22,7 @@ use Illuminate\Support\Collection;
  * @property string|null $thumbPath
  * @property int $level
  * @property string|null $levelReadable
+ * @property string|null $levelFullReadable
  * @property int $time
  * @property string|null $timeReadable
  * @property float $players
@@ -33,6 +35,7 @@ use Illuminate\Support\Collection;
  * @property bool $active
  * @property bool $working
  * @property string $url
+ * @property string $scheduleUrl
  * @property Booking[]|Collection $bookings
  * @property QuestLocation $location
  * @method static Builder|Quest whereId($value)
@@ -58,6 +61,7 @@ class Quest extends Eloquent
     protected $fillable = [
         'quest_location_id',
         'name',
+        'summary',
         'description',
         'status',
         'picture',
@@ -79,6 +83,7 @@ class Quest extends Eloquent
         'thumb_path',
         'price_readable',
         'url',
+        'schedule_url',
         'active',
         'working',
     ];
@@ -145,6 +150,22 @@ class Quest extends Eloquent
         return null;
     }
 
+    public function getLevelFullReadableAttribute()
+    {
+        switch ($this->level) {
+            case 1:
+                return 'Пониженная сложность';
+                break;
+            case 2:
+                return 'Нормальная сложность';
+                break;
+            case 3:
+                return 'Повышенная сложность';
+                break;
+        }
+        return null;
+    }
+
     public function getPicturePathAttribute()
     {
         return $this->picture ? "/images/{$this->picture}" : null;
@@ -178,5 +199,9 @@ class Quest extends Eloquent
 
     public function getUrlAttribute() {
         return $this->slug ? route('quests.show', ['slug' => $this->slug]) : null;
+    }
+
+    public function getScheduleUrlAttribute() {
+        return $this->slug ? route('schedule.show', ['id' => $this->id]) : null;
     }
 }

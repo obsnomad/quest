@@ -111,9 +111,9 @@
     <div class="pad">
         <div class="container">
             <h2>Контакты</h2>
-            Телефон: +7 (951) 762-2665<br/>
-            Группа ВКонтакте: <a href="https://vk.com/darkroomquest"
-                                 target="_blank">https://vk.com/darkroomquest</a><br/>
+            Телефон: {{ config('app.phone') }}<br/>
+            Группа ВКонтакте: <a href="{{ config('app.vk') }}"
+                                 target="_blank">{{ config('app.vk') }}</a><br/>
             E-mail: <a href="mailto:contact@quest31.ru">contact@quest31.ru</a>
         </div>
     </div>

@@ -8100,6 +8100,56 @@ label {
   padding-right: 0 !important;
 }
 
+.owl-carousel {
+  position: relative;
+}
+
+.owl-carousel .owl-nav {
+  margin: 0;
+}
+
+.owl-carousel .owl-prev, .owl-carousel .owl-next {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, transparent 100%) !important;
+  opacity: 0.5;
+  transition: all 0.2s ease-in-out;
+}
+
+.owl-carousel .owl-prev .fa, .owl-carousel .owl-next .fa {
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 50px;
+  line-height: 50px;
+  margin-top: -25px;
+  width: 100%;
+}
+
+.owl-carousel .owl-prev:hover, .owl-carousel .owl-next:hover {
+  opacity: 0.7;
+}
+
+.owl-carousel .owl-next {
+  left: auto;
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5) 0, transparent 100%) !important;
+}
+
+.owl-carousel .owl-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .navbar {
   position: absolute;
   transition: all 0.2s ease-in-out;
@@ -8178,7 +8228,7 @@ label {
   right: 0;
   z-index: -1;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 20%, transparent 100%);
   transition: all 0.2s ease-in-out;
 }
 
@@ -8228,7 +8278,7 @@ label {
   line-height: 20px;
   text-transform: uppercase;
   font-weight: 600;
-  background: rgba(0, 0, 0, 0.7);
+  background: #000;
   padding-top: 8px;
   padding-bottom: 8px;
   color: #898989;
@@ -8299,6 +8349,20 @@ header.header-schedule {
 header.header-schedule h1 {
   font-size: 40px;
   margin: 60px 0 30px;
+}
+
+header.header-quest {
+  background-image: url(/images/header-main.jpg);
+  min-height: 300px;
+}
+
+header.header-quest h1 {
+  font-size: 40px;
+  margin: 60px 0 30px;
+}
+
+header.header-quest .header-content {
+  padding-top: 0;
 }
 
 header .carousel-container {
@@ -8534,7 +8598,7 @@ header .carousel-main.owl-theme .carousel-main-gift {
   left: 20px;
 }
 
-.quests-item button:hover {
+.quests-item:hover button {
   background: #1c4780;
   border-color: #1c4780;
 }
@@ -8735,10 +8799,91 @@ header .carousel-main.owl-theme .carousel-main-gift {
   background: #e7d933;
 }
 
+.schedule-quests-item-date {
+  font-size: 14.4px;
+  color: #ccc;
+  padding-right: 30px;
+  width: 150px;
+}
+
+.schedule-quests-item-date div {
+  font-size: 16px;
+  color: #fff;
+}
+
 .booking-form table td {
   text-align: center;
 }
 
 .booking-form table div {
   font-weight: 400;
+}
+
+.carousel-quest-item {
+  height: 500px;
+  width: 100%;
+  background: top center #343434;
+  background-size: cover;
+}
+
+.quests-summary {
+  font-size: 19.2px;
+  font-weight: normal;
+}
+
+.quests-features {
+  margin: -15px;
+  font-size: 0;
+}
+
+.quests-features > * {
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+@media (min-width: 992px) {
+  .quests-features {
+    width: 60%;
+  }
+}
+
+.quests-features-item {
+  padding: 15px;
+  text-align: center;
+  width: 33%;
+}
+
+@media (max-width: 480px) {
+  .quests-features-item {
+    width: 50%;
+  }
+}
+
+.quests-features-item img {
+  height: 80px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.quests-title {
+  font-size: 22.4px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.quests-address {
+  padding-left: 30px;
+  position: relative;
+}
+
+.quests-address + .quests-address {
+  margin-top: 20px;
+}
+
+.quests-address > .fa, .quests-address > .fab {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: #3097D1;
 }

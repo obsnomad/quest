@@ -38,13 +38,13 @@
     <div class="header-additional">
         <div class="container">
             <div class="navbar-right pull-right">
-                <a href="https://vk.com/darkroomquest" target="_blank" class="fab fa-vk"></a>
+                <a href="{{ config('app.vk') }}" target="_blank" class="fab fa-vk"></a>
 {{--
                 <a href="#" class="fab fa-facebook-f"></a>
                 <a href="#" class="fab fa-instagram"></a>
 --}}
             </div>
-            Забронировать игру: <span>+7 (951) 762-2665</span>
+            Забронировать игру: <span>{{ config('app.phone') }}</span>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         <div class="container">
             <nav>
                 <a href="{{ route('index') }}">
-                    <img src="images/logo.svg" alt="Квест-проект «Темная комната»" class="logo" />
+                    <img src="/images/logo.svg" alt="Квест-проект «Темная комната»" class="logo" />
                 </a>
                 {!! $menuIcon->asUl(['class' => 'navbar-right']) !!}
                 {!! $menuMain->asUl(['id' => 'navbar-navigation-menu', 'class' => 'navbar-navigation-menu navbar-right']) !!}

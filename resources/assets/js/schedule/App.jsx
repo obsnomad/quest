@@ -258,9 +258,7 @@ export default class App extends React.Component {
                                                     {
                                                         questGroup.map((quest, questKey) => {
                                                             return (
-                                                                <div className="schedule-quests-item"
-                                                                     data-title={quest.name}
-                                                                     data-id={quest.id} key={questKey}>
+                                                                <div className="schedule-quests-item" key={questKey}>
                                                                     <div className="schedule-quests-item-pic">
                                                                         <img src={quest.thumb_path} alt=""/>
                                                                     </div>
@@ -272,8 +270,7 @@ export default class App extends React.Component {
                                                                             {quest.price_readable}
                                                                         </div>
                                                                     </div>
-                                                                    <div id={'schedule-' + quest.id}
-                                                                         className="schedule-quests-item-schedule">
+                                                                    <div className="schedule-quests-item-schedule">
                                                                         {
                                                                             !quest.working &&
                                                                             <span>Скоро открытие</span>

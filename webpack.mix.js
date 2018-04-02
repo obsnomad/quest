@@ -17,4 +17,5 @@ mix.options({
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .react('resources/assets/js/schedule.jsx', 'public/js')
+    .react('resources/assets/js/schedule-single.jsx', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css');

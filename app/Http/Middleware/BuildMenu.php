@@ -28,7 +28,7 @@ class BuildMenu
 				->add('Расписание', ['route' => ['schedule', 'absolute' => false]])
 				->active('schedule/*');
 			$menu
-				->add('Квесты', ['route' => ['index', 'absolute' => false]])
+				->add('Квесты', ['route' => ['quests', 'absolute' => false]])
 				->active('quests/*');
 			$menu
 				->add('Подарочные карты', ['route' => ['index', 'absolute' => false]])

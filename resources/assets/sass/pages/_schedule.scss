@@ -162,6 +162,18 @@
         background: #e7d933;
       }
     }
+
+    &-date {
+      font-size: $font-size-base * 0.9;
+      color: #ccc;
+      padding-right: $grid-gutter-width;
+      width: 150px;
+
+      div {
+        font-size: $font-size-base;
+        color: $text-color;
+      }
+    }
   }
 }
 

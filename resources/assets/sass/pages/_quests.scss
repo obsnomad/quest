@@ -1,0 +1,62 @@
+.carousel-quest {
+  &-item {
+    height: 500px;
+    width: 100%;
+    background: top center #343434;
+    background-size: cover;
+  }
+}
+
+.quests {
+  &-summary {
+    font-size: $font-size-base * 1.2;
+    font-weight: normal;
+  }
+
+  &-features {
+    margin: -$grid-gutter-width / 2;
+    @include set-inline-parent();
+
+    @include breakpoint(md) {
+      width: 60%;
+    }
+
+    &-item {
+      padding: $grid-gutter-width / 2;
+      text-align: center;
+      width: 33%;
+
+      @include breakpoint(0, 480px) {
+        width: 50%;
+      }
+
+      img {
+        height: 80px;
+        display: block;
+        margin: 0 auto 20px;
+      }
+    }
+  }
+
+  &-title {
+    font-size: $font-size-base * 1.4;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &-address {
+    padding-left: 30px;
+    position: relative;
+
+    & + & {
+      margin-top: 20px;
+    }
+
+    > .fa, > .fab {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: $link-color;
+    }
+  }
+}

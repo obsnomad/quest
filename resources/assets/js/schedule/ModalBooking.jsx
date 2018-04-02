@@ -48,10 +48,14 @@ export default class ModalBooking extends React.Component {
                                     <InputPhone name="phone" id="booking-phone" className="form-control"
                                                 onChange={this.props.setPhone} value={this.props.phone}/>
                                 </div>
-                                <div>
+                                <div className="form-group">
                                     <button type="submit" className="btn btn-lg btn-block btn-warning">
                                         Записаться
                                     </button>
+                                </div>
+                                <div>
+                                    Перед отправкой проверьте, что верно ввели телефон. Иначе мы не сможем с вами
+                                    связаться и подтвердить запись на квест.
                                 </div>
                             </form>
                         </div>

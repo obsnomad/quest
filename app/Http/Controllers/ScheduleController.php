@@ -30,6 +30,28 @@ class ScheduleController extends Controller
     }
 
     /**
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        if (\Request::expectsJson()) {
+            $quest = Quest::active()
+                ->where('id', $id)
+                ->first();
+            if(!$quest) {
+                abort(404);
+            }
+            $schedule = Schedule::getNextDays($quest->id);
+            return response()->json([
+                'quest' => $quest,
+                'schedule' => $schedule,
+            ]);
+        }
+        return redirect()->route('schedule');
+    }
+
+    /**
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
