@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             'role_id' => 1,
             'name' => 'Obscurus',
             'email' => 'akatelnikov@yandex.ru',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('rrs137RR'),
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
         ]);
