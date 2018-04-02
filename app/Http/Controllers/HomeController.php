@@ -37,8 +37,14 @@ class HomeController extends Controller
             ->map(function (Collection $value) {
                 return $value->groupBy('price');
             });
-        return view('public.index', [
-            'schedule' => $schedule,
-        ]);
+        return view('public.contacts');
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function gift()
+    {
+        return view('public.gift');
     }
 }

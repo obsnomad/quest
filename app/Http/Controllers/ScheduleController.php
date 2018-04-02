@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Booking as MailBooking;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Quest;
@@ -39,7 +40,7 @@ class ScheduleController extends Controller
             $quest = Quest::active()
                 ->where('id', $id)
                 ->first();
-            if(!$quest) {
+            if (!$quest) {
                 abort(404);
             }
             $schedule = Schedule::getNextDays($quest->id);
@@ -83,13 +84,32 @@ class ScheduleController extends Controller
         $client = Client::firstOrCreate([
             'phone' => Client::cleanPhone($data['phone']),
         ]);
-        Booking::create([
+        $booking = Booking::create([
             'quest_id' => $data['quest'],
             'client_id' => $client->id,
             'date' => $data['time'],
             'price' => $scheduleItem->price,
             'status_id' => 1,
         ]);
+        $vkAccountId = $client->vkAccountId ? "https://vk.com/{$client->vkAccountId}" : '';
+        try {
+            \VKAPI::call('messages.send', [
+                'domain' => 'obscurus',
+                'message' => "НОВАЯ РЕГИСТРАЦИЯ
+            Квест: {$booking->quest->name}
+            Дата: {$booking->dateFormatted}
+            Номер телефона: {$client->phoneFormatted}
+            Имя: {$client->fullName}
+            Страница VK: $vkAccountId",
+            ]);
+        } catch (\Exception $e) {
+
+        }
+        try {
+            \Mail::send(new MailBooking($booking, $client));
+        } catch (\Exception $e) {
+
+        }
         \DB::commit();
         return response()->json([
             'result' => 'Вы успешно забронировали квест. Мы позвоним Вам в ближайшее время для подтверждения.'

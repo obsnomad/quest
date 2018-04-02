@@ -25,17 +25,20 @@ class BuildMenu
 		});
 		Menu::make('menuMain', function ($menu) {
 			$menu
+				->add('Главная', ['route' => ['index', 'absolute' => false]])
+				->active('/*');
+			$menu
 				->add('Расписание', ['route' => ['schedule', 'absolute' => false]])
 				->active('schedule/*');
 			$menu
 				->add('Квесты', ['route' => ['quests', 'absolute' => false]])
 				->active('quests/*');
+/*			$menu
+				->add('Подарочные карты', ['route' => ['gift', 'absolute' => false]])
+				->active('gift/*');
 			$menu
-				->add('Подарочные карты', ['route' => ['index', 'absolute' => false]])
-				->active('giftcards/*');
-			$menu
-				->add('Контакты', ['route' => ['index', 'absolute' => false]])
-				->active('contacts/*');
+				->add('Контакты', ['route' => ['contacts', 'absolute' => false]])
+				->active('contacts/*');*/
 		});
 		return $next($request);
 	}
