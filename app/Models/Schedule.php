@@ -233,7 +233,7 @@ class Schedule extends Eloquent
 
     public function getWeekDayNameAttribute()
     {
-        return Carbon::createFromDate(2007, 1, $this->weekDay)->format('l');
+        return Carbon::createFromDate(2007, 1, $this->weekDay)->formatLocalized('%A');
     }
 
     public function getTimeAttribute($value)
