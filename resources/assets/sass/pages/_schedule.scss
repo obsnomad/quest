@@ -1,36 +1,37 @@
 .schedule-timeline {
   width: 100%;
-  background: $body-bg;
+  background: $schedule-timeline-bg;
 }
 
 .carousel-days.owl-theme {
-  border-bottom: 1px solid #fff;
+  border-bottom: $schedule-timeline-border;
 
   .carousel-days-item {
-    height: 60px;
+    height: $schedule-timeline-item-height;
     display: block;
     text-decoration: none;
     font-size: $font-size-base * 0.8;
     text-align: center;
     color: $text-color;
     padding: 13px;
-    transition: all 0.2s ease-in-out;
+    transition: $transition-base;
 
     h3 {
       margin: 0;
       font-weight: 300;
       font-size: $font-size-base;
+      color: $text-color;
     }
 
     span {
-      color: #ccc;
+      color: $schedule-timeline-span-color;
     }
 
     &:hover, &.active {
-      background: $main-color;
+      background: $schedule-timeline-hover-bg;
 
       span {
-        color: #fff;
+        color: $schedule-timeline-span-hover-color;
       }
     }
   }
@@ -99,7 +100,7 @@
     }
 
     &-title {
-      color: #ccc;
+      color: $schedule-item-title-color;
       padding-right: $grid-gutter-width;
       width: 200px;
 
@@ -107,7 +108,7 @@
         color: $text-color;
         font-size: $font-size-base * 1.2;
         text-decoration: none;
-        transition: all 0.2s ease-in-out;
+        transition: $transition-base;
 
         &:hover {
           color: $second-color;
@@ -123,17 +124,17 @@
         font-size: $font-size-base;
         vertical-align: top;
         margin: 2px;
-        border: 2px solid #fff;
+        border: 2px solid $text-color;
         padding: 0 4px;
-        color: #fff;
+        color: $text-color;
         opacity: 0.2;
-        width: 60px;
+        width: $schedule-time-width;
         text-align: center;
       }
 
       > span {
         font-size: $font-size-base * 1.2;
-        color: #ccc;
+        color: $schedule-item-span-color;
       }
     }
 
@@ -144,7 +145,7 @@
 
       &:hover {
         color: $text-color;
-        transition: all 0.2s ease-in-out;
+        transition: $transition-base;
       }
 
       &-0 {

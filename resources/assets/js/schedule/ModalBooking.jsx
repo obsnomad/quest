@@ -42,21 +42,29 @@ export default class ModalBooking extends React.Component {
                                 </tbody>
                             </table>
                             <form onSubmit={this.props.book}>
-                                <div className="form-group">
-                                    <label htmlFor="booking-phone">Ваш номер телефона. Мы позвоним Вам, чтобы
-                                        подтвердить бронь.</label>
-                                    <InputPhone name="phone" id="booking-phone" className="form-control"
-                                                onChange={this.props.setPhone} value={this.props.phone}/>
-                                </div>
+                                {
+                                    !this.props.vkAccountId &&
+                                    <div>
+                                        <div className="form-group">
+                                            <label htmlFor="booking-phone">Ваш номер телефона. Мы позвоним Вам, чтобы
+                                                подтвердить бронь.</label>
+                                            <InputPhone name="phone" id="booking-phone" className="form-control"
+                                                        onChange={this.props.setPhone} value={this.props.phone}/>
+                                        </div>
+                                    </div>
+                                }
                                 <div className="form-group">
                                     <button type="submit" className="btn btn-lg btn-block btn-warning">
                                         Записаться
                                     </button>
                                 </div>
-                                <div>
-                                    Перед отправкой проверьте, что верно ввели телефон. Иначе мы не сможем с вами
-                                    связаться и подтвердить запись на квест.
-                                </div>
+                                {
+                                    !this.props.vkAccountId &&
+                                    <div>
+                                        Перед отправкой проверьте, что верно ввели телефон. Иначе мы не сможем с вами
+                                        связаться и подтвердить запись на квест.
+                                    </div>
+                                }
                             </form>
                         </div>
                     }

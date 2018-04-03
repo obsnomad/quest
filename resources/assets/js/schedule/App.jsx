@@ -120,6 +120,7 @@ export default class App extends React.Component {
         });
         self.getData(bookRoute, {
             phone: this.state.phone,
+            vkAccountId: vkAccountId,
             time: booking.dateTime,
             quest: booking.questId,
         }, 'post', function (result, status) {
@@ -304,6 +305,7 @@ export default class App extends React.Component {
                         }
                         <ModalBooking show={this.state.bookingShow} onHide={this.hideBooking.bind(this)}
                                       booking={this.state.booking} book={this.book.bind(this)}
+                                      vkAccountId={vkAccountId}
                                       phone={this.state.phone} setPhone={this.setPhone.bind(this)}/>
                     </div>
                 }

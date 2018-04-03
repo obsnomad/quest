@@ -90,7 +90,7 @@
         bottom: 0;
         background: rgba(255, 255, 255, 0.1);
         opacity: 0;
-        transition: all 0.2s ease-in-out;
+        transition: $transition-base;
       }
 
       li {
@@ -109,14 +109,14 @@
 
     h3 {
       margin: 0 0 20px;
-      transition: all 0.2s ease-in-out;
+      transition: $transition-base;
       font-size: 22px;
     }
 
     button {
       background: transparent;
       border: 1px solid #fff;
-      transition: all 0.2s ease-in-out;
+      transition: $transition-base;
       padding: 10px 15px;
       position: absolute;
       bottom: 20px;
@@ -143,7 +143,7 @@
     padding-top: $grid-gutter-width;
     padding-bottom: $grid-gutter-width;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: $transition-base;
 
     &.active {
       background: $body-lighter;

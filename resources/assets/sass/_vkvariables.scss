@@ -1,0 +1,83 @@
+// Body
+$main-color: #ffffff;
+$second-color: #ff971f;
+$second-color-darker: #5181b8;
+$panel-bg: $main-color;
+$body-bg: $main-color;
+$body-lighter: lighten($body-bg, 10);
+$transition-base: none;
+$pad-size: 15px;
+$wide-light-bg: #e1e5eb;
+$footer-bg: #efefef;
+$loader-color: $second-color-darker;
+
+// Borders
+$laravel-border-color: darken($body-bg, 10%);
+$list-group-border: $laravel-border-color;
+$navbar-default-border: $laravel-border-color;
+$panel-default-border: $laravel-border-color;
+$panel-inner-border: $laravel-border-color;
+$border-radius-base: 0;
+$border-radius-large: 0;
+
+// Brands
+$brand-primary: #3097D1;
+$brand-info: #8eb4cb;
+$brand-success: #2ab27b;
+$brand-warning: #cbb956;
+$brand-danger: #bf5329;
+
+// Typography
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-family-sans-serif: 'Rubik', sans-serif;
+$font-size-base: 14px;
+$line-height-base: 1.4;
+$text-color: #000;
+$header-color: #2a5885;
+$text-color-darker: #9d9d9d;
+$text-shadow-base: none;
+
+// Buttons
+$btn-default-color: #fff;
+$btn-border-radius-base: 4px;
+$btn-border-radius-large: 4px;
+$btn-border-radius-small: 4px;
+$btn-font-weight: 100;
+$btn-warning-bg: $second-color-darker;
+$btn-warning-color: $main-color;
+$btn-warning-hover-bg: #5b88bd;
+
+// Inputs
+$input-border: lighten($text-color, 40%);
+$input-border-focus: lighten($brand-primary, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
+
+// Panels
+$panel-default-heading-bg: #fff;
+
+// Inputs
+$input-color: $text-color;
+$input-bg: $body-bg;
+$input-border: lighten($body-lighter, 10);
+$input-border-radius: 0;
+
+// Tables
+$table-border-color: #c1c9d9;
+
+// Modals
+$modal-content-fallback-border-color: transparent;
+$modal-content-border-color: transparent;
+$modal-content-bg: $body-lighter;
+$close-color: $header-color;
+$modal-header-border-color: $table-border-color;
+
+// Schedule
+$schedule-timeline-bg: $main-color;
+$schedule-timeline-hover-bg: #e1e5eb;
+$schedule-timeline-span-color: $header-color;
+$schedule-timeline-span-hover-color: #285473;
+$schedule-timeline-border: 1px solid #c1c9d9;
+$schedule-timeline-item-height: 54px;
+$schedule-item-title-color: $header-color;
+$schedule-item-span-color: $header-color;
+$schedule-time-width: 54px;

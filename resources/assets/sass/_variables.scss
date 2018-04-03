@@ -5,9 +5,11 @@ $second-color-darker: #da7420;
 $panel-bg: $main-color;
 $body-bg: darken($main-color, 20);
 $body-lighter: lighten($body-bg, 10);
-
-$matrix-panel-bg: #113615;
-$matrix-body-bg: #000;
+$transition-base: all 0.2s ease-in-out;
+$pad-size: 30px;
+$wide-light-bg: $body-lighter;
+$footer-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 40%);
+$loader-color: #fff;
 
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
@@ -31,7 +33,9 @@ $font-family-sans-serif: 'Rubik', sans-serif;
 $font-size-base: 16px;
 $line-height-base: 1.4;
 $text-color: #fff;
+$header-color: $text-color;
 $text-color-darker: #9d9d9d;
+$text-shadow-base: 1px 1px 1px rgba(0, 0, 0, 0.5);
 
 // Navbar
 $navbar-default-bg: transparent;
@@ -52,6 +56,7 @@ $btn-border-radius-large: 0;
 $btn-border-radius-small: 0;
 $btn-font-weight: 100;
 $btn-warning-bg: $second-color-darker;
+$btn-warning-hover-bg: $main-color;
 
 // Inputs
 $input-border: lighten($text-color, 40%);
@@ -76,3 +81,14 @@ $modal-content-border-color: transparent;
 $modal-content-bg: $body-lighter;
 $close-color: #fff;
 $modal-header-border-color: $table-border-color;
+
+// Schedule
+$schedule-timeline-bg: $body-bg;
+$schedule-timeline-hover-bg: $main-color;
+$schedule-timeline-span-color: #ccc;
+$schedule-timeline-span-hover-color: #fff;
+$schedule-timeline-border: 1px solid #fff;
+$schedule-timeline-item-height: 60px;
+$schedule-item-title-color: #ccc;
+$schedule-item-span-color: #ccc;
+$schedule-time-width: 60px;

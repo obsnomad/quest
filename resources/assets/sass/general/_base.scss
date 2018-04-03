@@ -2,7 +2,7 @@
 
 body {
   font-weight: 300;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: $text-shadow-base;
 }
 
 footer {
@@ -10,7 +10,7 @@ footer {
   text-align: center;
   font-size: 0.9em;
   color: $text-color-darker;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 40%);
+  background: $footer-bg;
 }
 
 img {
@@ -26,6 +26,10 @@ h2 {
   margin: 0 0 35px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: $header-color;
+}
+
 .h3-bigger {
   font-size: 32px;
 }
@@ -35,15 +39,15 @@ h2 {
 }
 
 .btn {
-  transition: all 0.2s ease-in-out;
+  transition: $transition-base;
 
   &:focus, &:active {
     outline: none;
   }
 
   &-warning:hover {
-    background: $main-color;
-    border-color: $main-color;
+    background: $btn-warning-hover-bg;
+    border-color: $btn-warning-hover-bg;
   }
 
   .far, .fas, .fab {
@@ -56,7 +60,7 @@ h2 {
 }
 
 .wide-light {
-  background: $body-lighter;
+  background: $wide-light-bg;
 }
 
 .wide-fix {
@@ -65,8 +69,8 @@ h2 {
 }
 
 .pad {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: $pad-size;
+  padding-bottom: $pad-size;
 
   h1, h2, h3 {
     margin-top: 0;
@@ -126,7 +130,7 @@ label {
     width: 48px;
     height: 48px;
     margin: 0 auto;
-    border: 3px solid $text-color;
+    border: 3px solid $loader-color;
     border-radius: 50%;
     border-left-color: transparent;
     border-right-color: transparent;
@@ -171,7 +175,7 @@ label {
     margin: 0 !important;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0) 100%) !important;
     opacity: 0.5;
-    transition: all 0.2s ease-in-out;
+    transition: $transition-base;
 
     .fa {
       color: #fff;

@@ -27,7 +27,9 @@ class ScheduleController extends Controller
                 'schedule' => $schedule,
             ]);
         }
-        return view('public.schedule');
+        return view('public.schedule', [
+            'vkAccountId' => strpos(\Request::input('api_url'), 'vk.com') ? (\Request::input('user_id') ?: \Request::input('user_id')) : null,
+        ]);
     }
 
     /**
@@ -59,14 +61,16 @@ class ScheduleController extends Controller
     public function book()
     {
         $data = \Request::validate([
-            'phone' => 'required|regex:/\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}/',
+            'phone' => 'required_without:vkAccountId|nullable|regex:/\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}/',
             'time' => 'required|date',
             'quest' => 'required|numeric',
+            'vkAccountId' => 'required_without:phone',
         ], [
-            'phone.required' => 'Введите номер телефона.',
+            'phone.required_without' => 'Введите номер телефона.',
             'phone.regex' => 'Введите корректный номер телефона.',
+            'vkAccountId.required_without' => 'Не обнаружен идентификатор пользователя VK.',
         ]);
-        $scheduleItem = Schedule::getByDate('2018-04-01 10:00', 1);
+        $scheduleItem = Schedule::getByDate($data['time'], 1);
         if (!$scheduleItem) {
             return response()->json([
                 'message' => 'Это время нельзя забронировать. Попробуйте повторить попытку.'
@@ -81,9 +85,10 @@ class ScheduleController extends Controller
         /**
          * @var Client $client
          */
-        $client = Client::firstOrCreate([
-            'phone' => Client::cleanPhone($data['phone']),
-        ]);
+        $clientData = $data['vkAccountId']
+            ? ['vk_account_id' => $data['vkAccountId']]
+            : ['phone' => Client::cleanPhone($data['phone'])];
+        $client = Client::firstOrCreate($clientData);
         $booking = Booking::create([
             'quest_id' => $data['quest'],
             'client_id' => $client->id,
@@ -91,7 +96,7 @@ class ScheduleController extends Controller
             'price' => $scheduleItem->price,
             'status_id' => 1,
         ]);
-        $vkAccountId = $client->vkAccountId ? "https://vk.com/{$client->vkAccountId}" : '';
+        $vkAccountId = $client->vkAccountId ? "https://vk.com/id{$client->vkAccountId}" : '';
         try {
             \VKAPI::call('messages.send', [
                 'domain' => 'obscurus',

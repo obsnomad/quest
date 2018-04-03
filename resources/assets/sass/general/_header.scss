@@ -1,12 +1,12 @@
 .navbar {
   position: absolute;
-  transition: all 0.2s ease-in-out;
+  transition: $transition-base;
   z-index: $navbar-layer;
   width: 100%;
   border-width: 0;
 
   .logo {
-    transition: all 0.2s ease-in-out;
+    transition: $transition-base;
     height: $navbar-height;
     max-height: none;
     width: auto;
@@ -69,7 +69,7 @@
     z-index: -1;
     height: 100%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 20%, rgba(0, 0, 0, 0) 100%);
-    transition: all 0.2s ease-in-out;
+    transition: $transition-base;
   }
 
   &-inverse:before {
@@ -225,7 +225,7 @@ header {
         bottom: 0;
         background: rgba(255, 255, 255, 0.1);
         opacity: 0;
-        transition: all 0.2s ease-in-out;
+        transition: $transition-base;
       }
 
       h3 {
@@ -242,7 +242,7 @@ header {
       button {
         background: transparent;
         border: 1px solid #fff;
-        transition: all 0.2s ease-in-out;
+        transition: $transition-base;
         padding: 10px 15px;
         position: absolute;
         bottom: 20px;
