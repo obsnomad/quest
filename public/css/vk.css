@@ -8234,6 +8234,18 @@ label {
   padding-bottom: 15px;
 }
 
+@media (min-width: 560px) {
+  .schedule-quests-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
 .schedule-quests-item > * {
   display: inline-block;
   font-size: 14px;
@@ -8253,12 +8265,21 @@ label {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  max-width: 100px;
+  max-height: 100px;
 }
 
 .schedule-quests-item-title {
   color: #2a5885;
   padding-right: 30px;
   width: 200px;
+  -ms-flex-preferred-size: 200px;
+      flex-basis: 200px;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .schedule-quests-item-title a {
@@ -8274,12 +8295,6 @@ label {
 
 .schedule-quests-item-schedule {
   font-size: 0;
-}
-
-@media (min-width: 762px) and (max-width: 762px) {
-  .schedule-quests-item-schedule {
-    width: 400px;
-  }
 }
 
 .schedule-quests-item-schedule > div {

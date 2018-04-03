@@ -23,5 +23,5 @@
         var bookRoute = '{{ route('schedule.book') }}';
         var vkAccountId = '{{ $vkAccountId }}';
     </script>
-    <script type="text/javascript" src="/js/schedule.js?=2"></script>
+    <script type="text/javascript" src="/js/schedule.js?v=2"></script>
 @endpush

@@ -78,6 +78,11 @@
     font-size: 0;
     padding-bottom: $grid-gutter-width / 2;
 
+    @include breakpoint(560px) {
+      display: flex;
+      flex-direction: row;
+    }
+
     > * {
       display: inline-block;
       font-size: $font-size-base;
@@ -96,6 +101,8 @@
         width: 100px;
         height: 100px;
         border-radius: 50%;
+        max-width: 100px;
+        max-height: 100px;
       }
     }
 
@@ -103,6 +110,9 @@
       color: $schedule-item-title-color;
       padding-right: $grid-gutter-width;
       width: 200px;
+      flex-basis: 200px;
+      flex-grow: 0;
+      flex-shrink: 0;
 
       a {
         color: $text-color;
@@ -118,10 +128,6 @@
 
     &-schedule {
       font-size: 0;
-
-      @include breakpoint(762px, 762px) {
-        width: 400px;
-      }
 
       > div {
         display: inline-block;

@@ -21,7 +21,7 @@
     <meta name="theme-color" content="#000000">
 
     <!-- Styles -->
-    <link href="{{ asset('css/vk.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vk.css?v=2') }}" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css" rel="stylesheet">
     @stack('css')
 
