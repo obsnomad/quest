@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         setlocale(LC_ALL, 'Russian');
+        Carbon::setLocale('ru');
         Carbon::setToStringFormat('d.m.Y H:i:s');
     }
 
