@@ -28,7 +28,7 @@ class ScheduleController extends Controller
             ]);
         }
         return view('public.schedule', [
-            'vkAccountId' => strpos(\Request::input('api_url'), 'vk.com') ? (\Request::input('user_id') ?: \Request::input('user_id')) : null,
+            'vkAccountId' => strpos(\Request::input('api_url'), 'vk.com') ? (\Request::input('user_id') ?: \Request::input('viewer_id')) : null,
         ]);
     }
 
