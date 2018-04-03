@@ -12,7 +12,7 @@ class FillScheduleTable extends Migration
     public function up()
     {
         $records = [];
-        for($i = 1; $i <= 5; $i++) {
+        for($i = 1; $i <= 4; $i++) {
             for($j = 10; $j < 25; $j+=1.25) {
                 $price = 1700;
                 $records[] = [
@@ -35,7 +35,7 @@ class FillScheduleTable extends Migration
                 ];
             }
         }
-        for($i = 6; $i <= 7; $i++) {
+        for($i = 5; $i <= 7; $i++) {
             for($j = 10; $j < 25; $j+=1.25) {
                 $price = 2000;
                 $records[] = [
