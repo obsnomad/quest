@@ -9,6 +9,7 @@ export default class ModalBooking extends React.Component {
                 show={this.props.show}
                 onHide={this.props.onHide}
                 small={true}
+                id="modal-booking"
                 aria-labelledby="contained-modal-title-sm"
             >
                 {

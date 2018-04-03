@@ -8845,6 +8845,25 @@ header .carousel-main.owl-theme .carousel-main-gift {
   font-weight: 400;
 }
 
+#modal-booking {
+  text-align: center;
+  padding: 0 !important;
+}
+
+#modal-booking:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+#modal-booking .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
 .carousel-quest-item {
   height: 500px;
   width: 100%;
