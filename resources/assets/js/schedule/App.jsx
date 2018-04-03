@@ -4,7 +4,7 @@ import ModalBooking from './ModalBooking';
 import {toast, ToastContainer} from 'react-toastify';
 
 const toastOptions = {
-    position: toast.POSITION.BOTTOM_LEFT,
+    position: vkAccountId ? toast.POSITION.TOP_LEFT : toast.POSITION.BOTTOM_LEFT,
     hideProgressBar: true,
     autoClose: 5000,
     closeButton: '',
