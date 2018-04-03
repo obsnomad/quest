@@ -38,12 +38,6 @@
     @yield('content')
 </div>
 
-<footer>
-    <div class="container">
-        &copy; 2018 {{ ($date = date('Y')) > 2018 ? "- $date" : '' }} Квест-проект «Темная комната»
-    </div>
-</footer>
-
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('js')
