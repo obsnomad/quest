@@ -119,6 +119,10 @@
     &-schedule {
       font-size: 0;
 
+      @include breakpoint(762px, 762px) {
+        width: 400px;
+      }
+
       > div {
         display: inline-block;
         font-size: $font-size-base;

@@ -8276,6 +8276,12 @@ label {
   font-size: 0;
 }
 
+@media (min-width: 762px) and (max-width: 762px) {
+  .schedule-quests-item-schedule {
+    width: 400px;
+  }
+}
+
 .schedule-quests-item-schedule > div {
   display: inline-block;
   font-size: 14px;

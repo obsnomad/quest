@@ -264,7 +264,7 @@ export default class App extends React.Component {
                                                                         <img src={quest.thumb_path} alt=""/>
                                                                     </div>
                                                                     <div className="schedule-quests-item-title">
-                                                                        <a href={quest.url}>
+                                                                        <a href={quest.url} target={vkAccountId ? '_blank' : '_self'}>
                                                                             {quest.name}
                                                                         </a>
                                                                         <div>
