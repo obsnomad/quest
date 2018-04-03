@@ -24,17 +24,6 @@ class CreateBookingsTable extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
-        DB::table('bookings')->insert([
-            'id' => 1,
-            'quest_id' => 1,
-            'client_id' => 1,
-            'status_id' => 1,
-            'date' => DB::raw('now()'),
-            'price' => 1600,
-            'amount' => 4,
-            'created_at' => DB::raw('now()'),
-            'updated_at' => DB::raw('now()'),
-        ]);
     }
 
     /**
