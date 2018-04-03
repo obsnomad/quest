@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             return \Auth::user()->hasPermissions(func_get_args(), 'or');
         });
 
-        setlocale(LC_ALL, 'ru_RU.UTF-8');
+        setlocale(LC_ALL, 'ru_RU.utf8');
         Carbon::setToStringFormat('d.m.Y H:i:s');
     }
 
