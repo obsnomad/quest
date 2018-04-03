@@ -70,7 +70,7 @@ class ScheduleController extends Controller
             'phone.regex' => 'Введите корректный номер телефона.',
             'vkAccountId.required_without' => 'Не обнаружен идентификатор пользователя VK.',
         ]);
-        $scheduleItem = Schedule::getByDate($data['time'], 1);
+        $scheduleItem = Schedule::getByDate($data['time'], $data['quest']);
         if (!$scheduleItem) {
             return response()->json([
                 'message' => 'Это время нельзя забронировать. Попробуйте повторить попытку.'
