@@ -16,6 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
     protected $namespaceAdmin = 'App\Http\Controllers\Admin';
+    protected $namespaceBot = 'App\Http\Controllers\Bot';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -37,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
+        $this->mapBotRoutes();
 
         $this->mapWebRoutes();
         $this->mapWebNoCsrfRoutes();
@@ -85,6 +87,23 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "bot" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapBotRoutes()
+    {
+        Route::group(['as' => 'bot.'], function() {
+            Route::prefix('bot')
+                ->middleware('bot')
+                ->namespace($this->namespaceBot)
+                ->group(base_path('routes/bot.php'));
+        });
     }
 
     /**
