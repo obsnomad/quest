@@ -23,9 +23,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="/css/fontawesome-all.min.css" rel="stylesheet">
-    @stack('css')
+@stack('css')
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script>
         window.Laravel = @json([
             'csrfToken' => csrf_token(),
@@ -39,20 +39,21 @@
         <div class="container">
             <div class="navbar-right pull-right">
                 <a href="{{ config('app.vk') }}" target="_blank" class="fab fa-vk"></a>
-{{--
-                <a href="#" class="fab fa-facebook-f"></a>
-                <a href="#" class="fab fa-instagram"></a>
---}}
+                {{--
+                                <a href="#" class="fab fa-facebook-f"></a>
+                                <a href="#" class="fab fa-instagram"></a>
+                --}}
             </div>
             Забронировать игру: <span>{{ config('app.phone') }}</span>
         </div>
     </div>
 
-    <div class="navbar navbar-default" data-fixable data-fixable-class="navbar-inverse" data-fixable-remove-class="navbar-default">
+    <div class="navbar navbar-default" data-fixable data-fixable-class="navbar-inverse"
+         data-fixable-remove-class="navbar-default">
         <div class="container">
             <nav>
                 <a href="{{ route('index') }}">
-                    <img src="/images/logo.svg" alt="Квест-проект «Темная комната»" class="logo" />
+                    <img src="/images/logo.svg" alt="Квест-проект «Темная комната»" class="logo"/>
                 </a>
                 {!! $menuIcon->asUl(['class' => 'navbar-right']) !!}
                 {!! $menuMain->asUl(['id' => 'navbar-navigation-menu', 'class' => 'navbar-navigation-menu navbar-right']) !!}
@@ -78,5 +79,41 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('js')
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter48634697 = new Ya.Metrika({
+                    id: 48634697,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    webvisor: true
+                });
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/48634697" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>
