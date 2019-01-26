@@ -10,9 +10,7 @@
 
 @section('header-content')
     <div class="container">
-        <div class="text-shadow">
-            <h1>Наши квесты</h1>
-        </div>
+        <h1 class="text-inverse">Наши квесты</h1>
     </div>
 @endsection
 

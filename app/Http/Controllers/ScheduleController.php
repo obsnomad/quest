@@ -62,6 +62,7 @@ class ScheduleController extends Controller
     {
         $data = \Request::validate([
             'phone' => 'required_without:vkAccountId|nullable|regex:/\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}/',
+            'amount' => 'required|numeric|min:4',
             'time' => 'required|date',
             'quest' => 'required|numeric',
             'vkAccountId' => 'required_without:phone',
@@ -85,7 +86,7 @@ class ScheduleController extends Controller
         /**
          * @var Client $client
          */
-        $clientData = $data['vkAccountId']
+        $clientData = !empty($data['vkAccountId'])
             ? ['vk_account_id' => $data['vkAccountId']]
             : ['phone' => Client::cleanPhone($data['phone'])];
         $client = Client::firstOrCreate($clientData);
@@ -93,19 +94,29 @@ class ScheduleController extends Controller
             'quest_id' => $data['quest'],
             'client_id' => $client->id,
             'date' => $data['time'],
-            'price' => $scheduleItem->price,
+            'price' => $scheduleItem->price + 300 * ($data['amount'] - 4),
+            'amount' => $data['amount'],
             'status_id' => 1,
         ]);
         $vkAccountId = $client->vkAccountId ? "https://vk.com/id{$client->vkAccountId}" : '';
         try {
-            \VKAPI::call('messages.send', [
-                'domain' => 'obscurus',
-                'message' => "НОВАЯ РЕГИСТРАЦИЯ
+            $message = "НОВАЯ РЕГИСТРАЦИЯ
             Квест: {$booking->quest->name}
             Дата: {$booking->dateFormatted}
-            Номер телефона: {$client->phoneFormatted}
-            Имя: {$client->fullName}
-            Страница VK: $vkAccountId",
+            Количество человек: {$booking->amount}
+            Цена: {$booking->price} р.";
+            if($client->phoneFormatted) {
+                $message .= "\nНомер телефона: {$client->phoneFormatted}";
+            }
+            if($client->fullName) {
+                $message .= "\nИмя: {$client->fullName}";
+            }
+            if($vkAccountId) {
+                $message .= "\nСтраница VK: {$vkAccountId}";
+            }
+            \VKAPI::call('messages.send', [
+                'domain' => 'obscurus',
+                'message' => $message,
             ]);
         } catch (\Exception $e) {
 

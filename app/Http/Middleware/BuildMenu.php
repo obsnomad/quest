@@ -18,11 +18,6 @@ class BuildMenu
 	 */
 	public function handle($request, Closure $next)
 	{
-		Menu::make('menuIcon', function ($menu) {
-			$menu
-				->add('<span class="fas fa-bars"></span>', ['class' => 'navbar-mobile-menu'])
-				->link->attr(['id' => 'navbar-mobile-menu']);
-		});
 		Menu::make('menuMain', function ($menu) {
 			$menu
 				->add('Главная', ['route' => ['index', 'absolute' => false]])
@@ -33,12 +28,9 @@ class BuildMenu
 			$menu
 				->add('Квесты', ['route' => ['quests', 'absolute' => false]])
 				->active('quests/*');
-/*			$menu
-				->add('Подарочные карты', ['route' => ['gift', 'absolute' => false]])
-				->active('gift/*');
 			$menu
-				->add('Контакты', ['route' => ['contacts', 'absolute' => false]])
-				->active('contacts/*');*/
+				->add('Сертификаты', ['route' => ['gift', 'absolute' => false]])
+				->active('gift/*');
 		});
 		return $next($request);
 	}

@@ -11,12 +11,15 @@
       margin-bottom: $grid-gutter-width;
 
       &:hover {
+        transition: $transition-base;
+        box-shadow: 0 0 20px transparentize($main-color, 0.8);
+
         .quests-item-data:after {
           opacity: 1;
         }
 
         h3 {
-          color: $second-color;
+          color: $second-color-darker;
         }
       }
     }
@@ -115,7 +118,8 @@
 
     button {
       background: transparent;
-      border: 1px solid #fff;
+      color: $body-color;
+      border: 1px solid $body-color;
       transition: $transition-base;
       padding: 10px 15px;
       position: absolute;
@@ -126,6 +130,7 @@
     &:hover button {
       background: $main-color;
       border-color: $main-color;
+      color: $body-inverse-color;
     }
   }
 }
@@ -152,11 +157,18 @@
     > div {
       display: block;
       text-decoration: none;
-      color: $text-color;
+      color: $body-color;
     }
 
     &:not(.active):hover {
       background: darken($body-lighter, 5);
     }
   }
+}
+
+.certificate-style {
+  font-size: 1.5rem;
+  min-height: 400px;
+  font-weight: 500;
+  text-shadow: 0 0 3px #000;
 }

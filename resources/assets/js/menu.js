@@ -15,8 +15,6 @@ $(window).on('load resize',function() {
     $('[data-fixable]').each(function() {
     	$(this)
 			.removeClass('fixed')
-			.removeClass($(this).data('fixable-class'))
-			.addClass($(this).data('fixable-remove-class'))
 			.css('top', 'auto')
 			.data('fixable-offset', $(this).offset().top);
 	});
@@ -28,16 +26,12 @@ $(window).on('load resize scroll',function() {
         if($(document).scrollTop() > $(this).data('fixable-offset')) {
             $(this)
 				.addClass('fixed')
-                .addClass($(this).data('fixable-class'))
-                .removeClass($(this).data('fixable-remove-class'))
 				.css('top', offset);
 			offset += $(this).outerHeight();
 		}
 		else {
             $(this)
                 .removeClass('fixed')
-                .removeClass($(this).data('fixable-class'))
-                .addClass($(this).data('fixable-remove-class'))
 				.css('top', 'auto');
 		}
     });

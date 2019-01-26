@@ -36,28 +36,32 @@
 
 <header class="@yield('header-class')">
     <div class="header-additional">
-        <div class="container">
-            <div class="navbar-right pull-right">
-                <a href="{{ config('app.vk') }}" target="_blank" class="fab fa-vk"></a>
-                {{--
-                                <a href="#" class="fab fa-facebook-f"></a>
-                                <a href="#" class="fab fa-instagram"></a>
-                --}}
+        <div class="container d-flex justify-content-between">
+            <div>
+                Забронировать игру: <span>{{ config('app.phone') }}</span>
             </div>
-            Забронировать игру: <span>{{ config('app.phone') }}</span>
+            <div>
+                <a href="{{ config('app.vk') }}" target="_blank" class="fab fa-vk"></a>
+            </div>
         </div>
     </div>
 
-    <div class="navbar navbar-default" data-fixable data-fixable-class="navbar-inverse"
-         data-fixable-remove-class="navbar-default">
-        <div class="container">
-            <nav>
-                <a href="{{ route('index') }}">
-                    <img src="/images/logo.svg" alt="Квест-проект «Темная комната»" class="logo"/>
-                </a>
-                {!! $menuIcon->asUl(['class' => 'navbar-right']) !!}
-                {!! $menuMain->asUl(['id' => 'navbar-navigation-menu', 'class' => 'navbar-navigation-menu navbar-right']) !!}
-            </nav>
+    <div class="navbar-fixable" data-fixable>
+        <div class="container position-relative">
+            <div class="row d-block">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a href="{{ route('index') }}" class="navbar-brand">
+                        <img src="/images/logo.svg" alt="Квест-проект «Темная комната»" class="logo"/>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbar-navigation-menu" aria-controls="navbar-navigation-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="fas fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-navigation-menu">
+                        {!! $menuMain->asUl(['class' => 'navbar-nav ml-auto']) !!}
+                    </div>
+                </nav>
+            </div>
         </div>
     </div>
 

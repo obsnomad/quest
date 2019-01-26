@@ -6,9 +6,7 @@
 
 @section('header-content')
     <div class="container">
-        <div class="text-shadow">
-            <h1>Расписание квестов</h1>
-        </div>
+        <h1 class="text-inverse">Расписание квестов</h1>
     </div>
 @endsection
 
@@ -23,5 +21,5 @@
         var bookRoute = '{{ route('schedule.book') }}';
         var vkAccountId = '{{ $vkAccountId }}';
     </script>
-    <script type="text/javascript" src="/js/schedule.js?v=2"></script>
+    <script type="text/javascript" src="/js/schedule.js?v=3"></script>
 @endpush

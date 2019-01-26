@@ -5,34 +5,27 @@
 
 @extends('public.layouts.app')
 
-@section('title', 'Новые квесты в Белгороде - живые квесты в реальности от «Темная комната». Квест-комнаты в Белгороде (Губкина 17и, 5 Августа 31)')
+@section('title', 'Новые квесты в Белгороде - живые квесты в реальности от «Темная комната». Квест-комнаты в Белгороде, 5 Августа 31.')
 
 @section('header-class', 'header-main')
 
 @section('header-content')
     <div class="container">
-        <div class="text-shadow">
-            <h1>Добро пожаловать<br/>в другую реальность!</h1>
-            <p>
-                Новые квесты в Белгороде.<br/>
-                «Темная комната» — полное погружение<br/>
-                в мир приключений!
-            </p>
-        </div>
+        <h1 class="text-inverse">Добро пожаловать<br/>в другую реальность!</h1>
     </div>
     <div class="container carousel-container">
         <div class="carousel-main owl-carousel owl-theme">
             <a href="{{ route('schedule') }}" class="carousel-main-item carousel-main-schedule">
-                <h3>Расписание квестов</h3>
+                <h3 class="text-inverse">Расписание квестов</h3>
                 <button class="carousel-main-highlight">Открыть расписание</button>
             </a>
-            <a href="#" class="carousel-main-item carousel-main-quests">
-                <h3>Ночь в музее</h3>
+            <a href="{{ route('quests.show', ['slug' => 'museum']) }}" class="carousel-main-item carousel-main-quests">
+                <h3 class="text-inverse">Ночь в музее</h3>
                 <p>Квест для любителей истории и живописи</p>
                 <button>Узнать подробнее</button>
             </a>
-            <a href="#" class="carousel-main-item carousel-main-gift">
-                <h3>Оригинальный подарок</h3>
+            <a href="{{ route('gift') }}" class="carousel-main-item carousel-main-gift">
+                <h3 class="text-inverse">Оригинальный подарок</h3>
                 <p>Подари близким новые впечатления!</p>
                 <button>Подарить игру</button>
             </a>
@@ -81,25 +74,30 @@
             @endforeach
         </div>
     </div>
-    <div class="wide-fix pad" style="background-image: url(/images/bg-fixed-main.jpg);">
+    <div class="wide-fix text-inverse pad" style="background-image: url(/images/bg-fixed-main.jpg);">
         <div class="container">
-            <div class="col-xs-12 col-md-8 col-md-offset-2">
-                <h3 class="h3-bigger">Квест — это захватывающее приключение, полное новых эмоций, и лучший способ
-                    <br/><span class="higlight-text">интересно провести время!</span></h3>
+            <div class="row">
+                <div class="col-xs-12 col-md-8 offset-md-2">
+                    <h3 class="h3-bigger text-inverse">Квест — это захватывающее приключение, полное новых эмоций, и
+                        лучший способ
+                        <br/><span class="higlight-text">интересно провести время!</span></h3>
+                </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="col-xs-12 col-md-4 col-md-offset-2">
-                Доверьте нам свои эмоции хотя бы на один час, и о полученных впечатлениях вы будете вспоминать даже годы
-                спустя. Каждый наш квест — это настоящее приключение, но происходит оно не на киноэкране и не в
-                компьютерной игре. Главный герой здесь — вы, вокруг вас разворачиваются невероятные события, и финал
-                этой истории — непредсказуем.
+            <div class="row">
+                <div class="col-xs-12 col-md-4 offset-md-2">
+                    Доверьте нам свои эмоции хотя бы на один час, и о полученных впечатлениях вы будете вспоминать даже
+                    годы
+                    спустя. Каждый наш квест — это настоящее приключение, но происходит оно не на киноэкране и не в
+                    компьютерной игре. Главный герой здесь — вы, вокруг вас разворачиваются невероятные события, и финал
+                    этой истории — непредсказуем.
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    Чего бы вам хотелось в данный момент? Удивиться, посмеяться, испугаться? У нас найдутся квесты на
+                    любой
+                    вкус! И каждый из них может стать уникальным подарком, праздником для всей семьи или увлекательным
+                    развлечением для корпоратива.
+                </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                Чего бы вам хотелось в данный момент? Удивиться, посмеяться, испугаться? У нас найдутся квесты на любой
-                вкус! И каждый из них может стать уникальным подарком, праздником для всей семьи или увлекательным
-                развлечением для корпоратива.
-            </div>
-            <div class="clearfix"></div>
             <div class="text-center buttons-pad">
                 <a href="{{ route('schedule') }}" class="btn btn-lg btn-warning">
                     <span class="far fa-calendar-alt"></span>
@@ -111,38 +109,23 @@
     <div class="pad">
         <div class="container">
             <h2>Контакты</h2>
-            Телефон: {{ config('app.phone') }}<br/>
-            Группа ВКонтакте: <a href="{{ config('app.vk') }}"
-                                 target="_blank">{{ config('app.vk') }}</a><br/>
-            E-mail: <a href="mailto:contact@quest31.ru">contact@quest31.ru</a>
-        </div>
-    </div>
-    <div class="clearfix">
-        <div>
-            <div class="col-sm-6 col-xs-12">
-                <div class="row">
-                    <ul class="locations">
-                        @foreach($locations as $location)
-                            <li class="clearfix {{ $loop->first ? 'active' : '' }}"
-                                data-lat="{{ $location->lat }}" data-lon="{{ $location->lon }}"
-                                data-text="{{ $location->address }}">
-                                <div class="container-fluid container-half pull-right {{ $loop->first ? 'active' : '' }}">
-                                    <h3>{{ $location->name }}</h3>
-                                    {{ $location->address }}<br/>
-                                    {{ $location->description }}<br/>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="quests-address">
+                <div class="fa fa-map-marker-alt"></div>
+                <div>г. Белгород, ул. 5 Августа, 31</div>
+                <div>цокольный этаж, вход со двора в офис №4, между подъездами 1 и 2</div>
             </div>
-            <div class="col-sm-6 col-xs-12">
-                <div class="row">
-                    <div id="map"></div>
-                </div>
+            <div class="quests-address">
+                <div class="fa fa-phone"></div>
+                <div><a href="tel:+{{ preg_replace('/\D+/', '', config('app.phone')) }}"
+                        target="_blank">{{ config('app.phone') }}</a></div>
+            </div>
+            <div class="quests-address">
+                <div class="fab fa-vk"></div>
+                <div><a href="{{ config('app.vk') }}" target="_blank">{{ config('app.vk') }}</a></div>
             </div>
         </div>
     </div>
+    <div id="map"></div>
 @endsection
 
 @push('js')
@@ -162,38 +145,26 @@
                 480: {
                     items: 2
                 },
-                768: {
+                960: {
                     items: 3
                 }
             }
         });
 
-        var map,
-            place,
-            activeLocation = $('li.active', '.locations').first(),
-            coords = [activeLocation.data('lat'), activeLocation.data('lon')];
-        if (activeLocation.length === 1) {
-            ymaps.ready(function () {
-                map = new ymaps.Map('map', {
-                    center: coords,
-                    zoom: 17,
-                    controls: ['zoomControl', 'geolocationControl']
-                });
-                place = new ymaps.Placemark(coords, {
-                    hintContent: activeLocation.data('text')
-                }, {
-                    preset: 'islands#redIcon'
-                });
-                map.behaviors.disable('scrollZoom');
-                map.geoObjects.add(place);
+        let coords = [50.583106, 36.576454];
+        ymaps.ready(function () {
+            let map = new ymaps.Map('map', {
+                center: coords,
+                zoom: 17,
+                controls: ['zoomControl', 'geolocationControl']
             });
-        }
-        $('li', '.locations').click(function (e) {
-            e.preventDefault();
-            map.setCenter([$(this).data('lat'), $(this).data('lon')]);
-            place.geometry.setCoordinates([$(this).data('lat'), $(this).data('lon')]);
-            $('li.active', '.locations').removeClass('active');
-            $(this).addClass('active');
-        })
+            let place = new ymaps.Placemark(coords, {
+                hintContent: 'Тёмная комната'
+            }, {
+                preset: 'islands#redIcon'
+            });
+            map.behaviors.disable(['scrollZoom', 'drag']);
+            map.geoObjects.add(place);
+        });
     </script>
 @endpush

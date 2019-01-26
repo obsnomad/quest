@@ -18,9 +18,7 @@
         </div>
     @else
         <div class="container">
-            <div class="text-shadow">
-                <h1>Квест «{{ $quest->name }}»</h1>
-            </div>
+            <h1 class="text-inverse">Квест «{{ $quest->name }}»</h1>
         </div>
     @endif
 @endsection
@@ -71,7 +69,8 @@
                     </div>
                     <div class="quests-address">
                         <div class="fa fa-phone"></div>
-                        <div>{{ config('app.phone') }}</div>
+                        <div><a href="tel:+{{ preg_replace('/\D+/', '', config('app.phone')) }}"
+                                target="_blank">{{ config('app.phone') }}</a></div>
                     </div>
                     <div class="quests-address">
                         <div class="fab fa-vk"></div>
@@ -118,5 +117,5 @@
         var scheduleUrl = '{{ $quest->scheduleUrl }}';
         var bookRoute = '{{ route('schedule.book') }}';
     </script>
-    <script type="text/javascript" src="/js/schedule-single.js"></script>
+    <script type="text/javascript" src="/js/schedule-single.js?v=3"></script>
 @endpush

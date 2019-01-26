@@ -1,7 +1,7 @@
 @import "vkvariables";
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/owl.carousel2/dist/assets/owl.carousel.min";
-@import "node_modules/owl.carousel2/dist/assets/owl.theme.default.min";
+@import "~bootstrap/scss/bootstrap";
+@import "~owl.carousel2/dist/assets/owl.carousel.min";
+@import "~owl.carousel2/dist/assets/owl.theme.default.min";
 @import "general/mixins";
 @import "general/base";
 @import "pages/schedule";

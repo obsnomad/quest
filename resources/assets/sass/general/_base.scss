@@ -1,16 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&subset=cyrillic');
 
 body {
-  font-weight: 300;
-  text-shadow: $text-shadow-base;
+  font-weight: 400;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.body-container {
+  flex-grow: 1;
 }
 
 footer {
-  padding: 20px $grid-gutter-width;
+  padding: 1.25rem $grid-gutter-width;
   text-align: center;
-  font-size: 0.9em;
-  color: $text-color-darker;
+  font-size: 0.9rem;
+  color: transparentize($body-inverse-color, 0.4);
   background: $footer-bg;
+}
+
+.text-small {
+  font-size: 0.75rem;
 }
 
 img {
@@ -23,40 +33,39 @@ h1, h2 {
 }
 
 h2 {
-  margin: 0 0 35px;
+  margin: 0 0 2.25rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: $header-color;
 }
 
-.h3-bigger {
-  font-size: 32px;
+.text-inverse {
+  color: $body-inverse-color;
 }
 
-.text-shadow {
-  text-shadow: 0 0 5px #000;
+.h3-bigger {
+  font-size: 2rem;
+}
+
+button {
+  cursor: pointer;
 }
 
 .btn {
   transition: $transition-base;
 
-  &:focus, &:active {
+  &:hover, &:focus, &:active {
     outline: none;
   }
 
-  &-warning:hover {
-    background: $btn-warning-hover-bg;
-    border-color: $btn-warning-hover-bg;
-  }
-
   .far, .fas, .fab {
-    margin-right: 5px;
+    margin-right: 0.25rem;
   }
 }
 
 .buttons-pad {
-  margin: 40px 0;
+  margin: 2.5rem 0;
 }
 
 .wide-light {
@@ -82,15 +91,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .container-half {
-  @media (min-width: $screen-sm-min) {
-    width: $container-sm / 2;
-  }
-  @media (min-width: $screen-md-min) {
-    width: $container-md / 2;
-  }
-  @media (min-width: $screen-lg-min) {
-    width: $container-lg / 2;
-  }
+  @include make-container-max-widths((
+          sm: 270px,
+          md: 360px,
+          lg: 480px,
+          xl: 570px
+  ));
 }
 
 #map {
@@ -121,14 +127,14 @@ label {
 
 .loader {
   width: 100%;
-  padding: 48px;
+  padding: 3rem;
   text-align: center;
 
   &:before {
     content: '';
     display: block;
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     margin: 0 auto;
     border: 3px solid $loader-color;
     border-radius: 50%;
@@ -170,7 +176,7 @@ label {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 100px;
+    width: 6.25rem;
     border-radius: 0 !important;
     margin: 0 !important;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0) 100%) !important;
@@ -183,9 +189,9 @@ label {
       position: absolute;
       top: 50%;
       left: 0;
-      font-size: 50px;
-      line-height: 50px;
-      margin-top: -25px;
+      font-size: 3.25rem;
+      line-height: 3.25rem;
+      margin-top: -1.625px;
       width: 100%;
     }
 

@@ -1,15 +1,15 @@
 // Body
-$main-color: #1c4780;
+$main-color: #0f5051;
 $second-color: #ffb561;
 $second-color-darker: #da7420;
 $panel-bg: $main-color;
-$body-bg: darken($main-color, 20);
+$body-bg: #ebffff;
 $body-lighter: lighten($body-bg, 10);
 $transition-base: all 0.2s ease-in-out;
-$pad-size: 30px;
+$pad-size: 2rem;
 $wide-light-bg: $body-lighter;
-$footer-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 40%);
-$loader-color: #fff;
+$footer-bg: linear-gradient(to bottom, darken($main-color, 5) 0%, $main-color 40%);
+$loader-color: $main-color;
 
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
@@ -17,57 +17,57 @@ $list-group-border: $laravel-border-color;
 $navbar-default-border: $laravel-border-color;
 $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
-$border-radius-base: 0;
-$border-radius-large: 0;
+$border-radius: 0;
+$border-radius-lg: 0;
+$btn-border-radius-sm: 0;
 
-// Brands
+// Brands and colors
 $brand-primary: #3097D1;
 $brand-info: #8eb4cb;
 $brand-success: #2ab27b;
 $brand-warning: #cbb956;
 $brand-danger: #bf5329;
+$primary: $main-color;
+$warning: $second-color;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: 'Rubik', sans-serif;
-$font-size-base: 16px;
+$font-size-base: 1rem;
 $line-height-base: 1.4;
-$text-color: #fff;
-$header-color: $text-color;
-$text-color-darker: #9d9d9d;
-$text-shadow-base: 1px 1px 1px rgba(0, 0, 0, 0.5);
+$body-color: $main-color;
+$body-inverse-color: #fff;
+$header-color: #152222;
 
 // Navbar
 $navbar-default-bg: transparent;
-$navbar-inverse-bg: $main-color;
-$navbar-font-size: 16px;
+$navbar-font-size: 1rem;
 $navbar-layer: 10;
-$navbar-height: 70px;
+$navbar-height: 4.375rem;
 $navbar-default-link-color: #fff;
 $navbar-default-link-hover-color: $second-color;
-$navbar-inverse-height: 60px;
+$navbar-inverse-height: 3.75rem;
 $navbar-margin-bottom: 0;
 $navbar-border-radius: 0;
+$navbar-light-color: #fff;
+$navbar-padding-y: 0;
 
 // Buttons
-$btn-default-color: $text-color;
-$btn-border-radius-base: 0;
-$btn-border-radius-large: 0;
-$btn-border-radius-small: 0;
+$btn-default-color: $body-color;
 $btn-font-weight: 100;
 $btn-warning-bg: $second-color-darker;
 $btn-warning-hover-bg: $main-color;
 
 // Inputs
-$input-border: lighten($text-color, 40%);
+$input-border: lighten($body-color, 40%);
 $input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
+$input-color-placeholder: lighten($body-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
 
 // Inputs
-$input-color: $text-color;
+$input-color: $body-color;
 $input-bg: $body-bg;
 $input-border: lighten($body-lighter, 10);
 $input-border-radius: 0;
@@ -83,12 +83,13 @@ $close-color: #fff;
 $modal-header-border-color: $table-border-color;
 
 // Schedule
-$schedule-timeline-bg: $body-bg;
+$schedule-timeline-bg: darken($body-bg, 2);
 $schedule-timeline-hover-bg: $main-color;
-$schedule-timeline-span-color: #ccc;
-$schedule-timeline-span-hover-color: #fff;
-$schedule-timeline-border: 1px solid #fff;
+$schedule-timeline-span-color: transparentize($body-color, 0.5);
+$schedule-timeline-hover-color: #fff;
+$schedule-timeline-span-hover-color: transparentize(#fff, 0.5);
+$schedule-timeline-border: 0;
 $schedule-timeline-item-height: 60px;
-$schedule-item-title-color: #ccc;
-$schedule-item-span-color: #ccc;
+$schedule-item-title-color: transparentize($body-color, 0.5);
+$schedule-item-span-color: transparentize($body-color, 0.5);
 $schedule-time-width: 60px;

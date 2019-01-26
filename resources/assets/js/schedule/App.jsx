@@ -22,6 +22,7 @@ export default class App extends React.Component {
             booking: null,
             bookingShow: false,
             phone: '',
+            amount: 4,
             day: null,
             dayPosition: 0,
         };
@@ -87,7 +88,7 @@ export default class App extends React.Component {
                     questName: quest.name,
                     date: time.realDay,
                     time: time.time,
-                    price: time.price + ' р.',
+                    price: time.price,
                     dateTime: time.date,
                     questId: quest.id,
                 },
@@ -108,6 +109,12 @@ export default class App extends React.Component {
         });
     }
 
+    setAmount(amount) {
+        this.setState({
+            amount: amount,
+        });
+    }
+
     book(e) {
         e.preventDefault();
         let booking = this.state.booking;
@@ -120,6 +127,7 @@ export default class App extends React.Component {
         });
         self.getData(bookRoute, {
             phone: this.state.phone,
+            amount: this.state.amount,
             vkAccountId: vkAccountId,
             time: booking.dateTime,
             quest: booking.questId,
@@ -192,7 +200,7 @@ export default class App extends React.Component {
                 {
                     this.state.view === 'normal' &&
                     <div>
-                        <div className="schedule-timeline">
+                        <div className="schedule-timeline schedule-timeline-big">
                             <div className="carousel-container">
                                 <OwlCarousel className="carousel-days owl-theme" items={10} margin={0} slideBy={1}
                                              startPosition={this.state.dayPosition}
@@ -241,18 +249,15 @@ export default class App extends React.Component {
                                         })
                                     }
                                 </ul>
+                                <div className="schedule-hint">
+                                    Цены указаны для команды до 4-х человек
+                                </div>
                             </div>
                         </div>
                         {
                             this.state.quests && this.state.quests.map((questGroup, key) => {
                                 return (
                                     <div key={key}>
-                                        <div className="wide-light pad">
-                                            <div className="container">
-                                                <h3>{questGroup[0].location.name}</h3>
-                                                {questGroup[0].location.address}
-                                            </div>
-                                        </div>
                                         <div>
                                             <div className="container">
                                                 <div className="schedule-quests">
@@ -306,7 +311,10 @@ export default class App extends React.Component {
                         <ModalBooking show={this.state.bookingShow} onHide={this.hideBooking.bind(this)}
                                       booking={this.state.booking} book={this.book.bind(this)}
                                       vkAccountId={vkAccountId}
-                                      phone={this.state.phone} setPhone={this.setPhone.bind(this)}/>
+                                      phone={this.state.phone}
+                                      amount={this.state.amount}
+                                      setPhone={this.setPhone.bind(this)}
+                                      setAmount={this.setAmount.bind(this)}/>
                     </div>
                 }
                 <ToastContainer/>

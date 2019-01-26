@@ -17,46 +17,47 @@ $list-group-border: $laravel-border-color;
 $navbar-default-border: $laravel-border-color;
 $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
-$border-radius-base: 0;
-$border-radius-large: 0;
+$border-radius: 0;
+$border-radius-lg: 0;
+$btn-border-radius-sm: 0;
 
-// Brands
+// Brands and colors
 $brand-primary: #3097D1;
 $brand-info: #8eb4cb;
 $brand-success: #2ab27b;
 $brand-warning: #cbb956;
 $brand-danger: #bf5329;
+$warning: $second-color;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: 'Rubik', sans-serif;
-$font-size-base: 14px;
+$font-size-base: 0.875rem;
 $line-height-base: 1.4;
-$text-color: #000;
+$body-color: #000;
+$body-inverse-color: #1b1b1b;
 $header-color: #2a5885;
-$text-color-darker: #9d9d9d;
-$text-shadow-base: none;
 
 // Buttons
 $btn-default-color: #fff;
-$btn-border-radius-base: 4px;
-$btn-border-radius-large: 4px;
-$btn-border-radius-small: 4px;
+$btn-border-radius: 4px;
+$btn-border-radius-lg: 4px;
+$btn-border-radius-sm: 4px;
 $btn-font-weight: 100;
 $btn-warning-bg: $second-color-darker;
 $btn-warning-color: $main-color;
 $btn-warning-hover-bg: #5b88bd;
 
 // Inputs
-$input-border: lighten($text-color, 40%);
+$input-border: lighten($body-color, 40%);
 $input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
+$input-color-placeholder: lighten($body-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
 
 // Inputs
-$input-color: $text-color;
+$input-color: $body-color;
 $input-bg: $body-bg;
 $input-border: lighten($body-lighter, 10);
 $input-border-radius: 0;
@@ -75,6 +76,7 @@ $modal-header-border-color: $table-border-color;
 $schedule-timeline-bg: $main-color;
 $schedule-timeline-hover-bg: #e1e5eb;
 $schedule-timeline-span-color: $header-color;
+$schedule-timeline-hover-color: $main-color;
 $schedule-timeline-span-hover-color: #285473;
 $schedule-timeline-border: 1px solid #c1c9d9;
 $schedule-timeline-item-height: 54px;

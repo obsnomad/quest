@@ -1,7 +1,8 @@
 {
-  "/js/schedule.js": "/js/schedule.js",
-  "/js/schedule-single.js": "/js/schedule-single.js",
-  "/js/app.js": "/js/app.js",
-  "/css/vk.css": "/css/vk.css",
-  "/css/app.css": "/css/app.css"
+    "/js/schedule.js": "/js/schedule.js",
+    "/js/certificate.js": "/js/certificate.js",
+    "/js/schedule-single.js": "/js/schedule-single.js",
+    "/js/app.js": "/js/app.js",
+    "/css/vk.css": "/css/vk.css",
+    "/css/app.css": "/css/app.css"
 }

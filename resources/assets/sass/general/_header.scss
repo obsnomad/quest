@@ -1,8 +1,23 @@
-.navbar {
+[data-fixable] {
   position: absolute;
+
+  &.fixed {
+    position: fixed;
+  }
+}
+
+.navbar-fixable {
   transition: $transition-base;
   z-index: $navbar-layer;
   width: 100%;
+
+  &.fixed {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    background: $main-color;
+  }
+}
+
+.navbar {
   border-width: 0;
 
   .logo {
@@ -10,9 +25,12 @@
     height: $navbar-height;
     max-height: none;
     width: auto;
-    position: absolute;
 
-    @include breakpoint(md) {
+    @include media-breakpoint-down(sm) {
+      height: $navbar-height * 0.8;
+    }
+
+    @include media-breakpoint-up(md) {
       height: $navbar-height * 1.4;
     }
   }
@@ -20,7 +38,7 @@
   ul a {
     text-decoration: none;
     display: block;
-    padding: #{($navbar-height - $line-height-base * $font-size-base) / 2} 15px;
+    padding: #{($navbar-height - $line-height-base * $font-size-base) / 2} 1rem;
     height: $navbar-height;
     color: $navbar-default-link-color;
     transition: all 0.1s ease-in-out;
@@ -30,11 +48,9 @@
     }
   }
 
-  &.fixed {
-    position: fixed;
+  .fixed & {
     height: $navbar-inverse-height;
     min-height: $navbar-inverse-height;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 
     .logo {
       height: $navbar-inverse-height * 0.8;
@@ -42,8 +58,12 @@
     }
 
     a {
-      padding: #{($navbar-inverse-height - $line-height-base * $font-size-base) / 2} 15px;
+      padding: #{($navbar-inverse-height - $line-height-base * $font-size-base) / 2} 1rem;
       height: $navbar-inverse-height;
+
+      &.navbar-brand {
+        padding: 0;
+      }
     }
   }
 
@@ -59,65 +79,21 @@
     }
   }
 
-  &:before {
-    content: '';
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 20%, rgba(0, 0, 0, 0) 100%);
-    transition: $transition-base;
-  }
-
-  &-inverse:before {
-    opacity: 0;
-  }
-
-  & &-mobile-menu {
-    display: none;
-
-    @include breakpoint(xs) {
-      display: inline-block;
+  &-collapse {
+    @include media-breakpoint-down(sm) {
+      background: darken($main-color, 10);
     }
   }
-
-  & &-navigation-menu {
-    display: block;
-    background: rgba(0, 0, 0, 0.8);
-
-    @include breakpoint(md) {
-      margin-right: -15px;
-    }
-
-    @include breakpoint(sm) {
-      background: transparent;
-    }
-
-    @include breakpoint(xs) {
-      display: none;
-      width: 100%;
-
-      li {
-        width: 100%;
-      }
-    }
-  }
-}
-
-.body-container {
 }
 
 .header-additional {
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 1rem;
+  line-height: 1.25rem;
   text-transform: uppercase;
   font-weight: 600;
   background: #000;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   color: #898989;
 
   span {
@@ -125,72 +101,54 @@
     white-space: nowrap;
   }
 
-  .navbar-right {
-    margin: 0 -5px;
-
-    a {
-      text-decoration: none;
-      display: inline-block;
-      color: $navbar-default-link-color;
-      font-weight: normal;
-      margin: 0 5px;
-    }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    color: $navbar-default-link-color;
+    font-weight: normal;
+    margin: 0 0.25rem;
   }
 }
 
 header {
-  background: center top no-repeat #343434 fixed;
+  background: center center no-repeat #343434 fixed;
   background-size: cover;
   position: relative;
 
+  h1 {
+    font-size: 1.75rem;
+    margin: 2rem 0 0;
+
+    @include media-breakpoint-up(sm) {
+      font-size: 2.5rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin: 4rem 0 0;
+      font-size: 3.5rem;
+    }
+  }
+
   .header-content {
     padding-top: 80px;
-    font-size: 19px;
+    font-size: 1.25rem;
     font-weight: 100;
-
-    h1 {
-      font-size: 28px;
-      margin: 30px 0 20px;
-
-      @include breakpoint(sm) {
-        font-size: 40px;
-      }
-
-      @include breakpoint(md) {
-        margin: 60px 0 30px;
-        font-size: 60px;
-      }
-    }
   }
 
   &.header-main {
     background-image: url(/images/header-main.jpg);
-    min-height: 550px;
+    min-height: 435px;
     margin-bottom: 200px;
-
-    h1 {
-      margin: 60px 0 30px;
-    }
   }
 
   &.header-schedule {
     background-image: url(/images/header-main.jpg);
     min-height: 300px;
-
-    h1 {
-      font-size: 40px;
-      margin: 60px 0 30px;
-    }
   }
 
   &.header-quest {
     background-image: url(/images/header-main.jpg);
     min-height: 300px;
-
-    h1 {
-      font-size: 40px;
-      margin: 60px 0 30px;
-    }
 
     .header-content {
       padding-top: 0;
@@ -207,7 +165,7 @@ header {
   .carousel-main.owl-theme {
     .carousel-main-item {
       height: 240px;
-      padding: 20px;
+      padding: 1.25rem;
       background: lighten($main-color, 5) center center no-repeat;
       background-size: cover;
       display: block;
@@ -235,7 +193,7 @@ header {
       }
 
       p {
-        margin: 10px 0 0;
+        margin: 0.625rem 0 0;
         width: 70%;
       }
 
@@ -243,10 +201,11 @@ header {
         background: transparent;
         border: 1px solid #fff;
         transition: $transition-base;
-        padding: 10px 15px;
+        padding: 0.625rem 1rem;
         position: absolute;
-        bottom: 20px;
-        left: 20px;
+        bottom: 1.25rem;
+        left: 1.25rem;
+        color: $body-inverse-color;
 
         &.carousel-main-highlight {
           background: $second-color-darker;

@@ -18,6 +18,7 @@ export default class App extends React.Component {
             booking: null,
             bookingShow: false,
             phone: '',
+            amount: 4,
         };
     }
 
@@ -49,7 +50,7 @@ export default class App extends React.Component {
                     questName: quest.name,
                     date: time.realDay,
                     time: time.time,
-                    price: time.price + ' р.',
+                    price: time.price,
                     dateTime: time.date,
                     questId: quest.id,
                 },
@@ -70,6 +71,12 @@ export default class App extends React.Component {
         });
     }
 
+    setAmount(amount) {
+        this.setState({
+            amount: amount,
+        });
+    }
+
     book(e) {
         e.preventDefault();
         let booking = this.state.booking;
@@ -82,6 +89,7 @@ export default class App extends React.Component {
         });
         self.getData(bookRoute, {
             phone: this.state.phone,
+            amount: this.state.amount,
             time: booking.dateTime,
             quest: booking.questId,
         }, 'post', function (result, status) {
@@ -170,6 +178,9 @@ export default class App extends React.Component {
                                     })
                                 }
                             </ul>
+                            <div className="schedule-hint">
+                                Цены указаны для команды до 4-х человек
+                            </div>
                         </div>
                         <div className="schedule-quests">
                             {
@@ -203,7 +214,10 @@ export default class App extends React.Component {
                         </div>
                         <ModalBooking show={this.state.bookingShow} onHide={this.hideBooking.bind(this)}
                                       booking={this.state.booking} book={this.book.bind(this)}
-                                      phone={this.state.phone} setPhone={this.setPhone.bind(this)}/>
+                                      phone={this.state.phone}
+                                      amount={this.state.amount}
+                                      setPhone={this.setPhone.bind(this)}
+                                      setAmount={this.setAmount.bind(this)}/>
                     </div>
                 }
                 <ToastContainer/>
