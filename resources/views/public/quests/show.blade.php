@@ -110,12 +110,12 @@
             place = new ymaps.Placemark(coords, {}, {
                 preset: 'islands#redIcon'
             });
-            map.behaviors.disable('scrollZoom');
+            map.behaviors.disable(['scrollZoom', 'drag']);
             map.geoObjects.add(place);
         });
 
         var scheduleUrl = '{{ $quest->scheduleUrl }}';
         var bookRoute = '{{ route('schedule.book') }}';
     </script>
-    <script type="text/javascript" src="/js/schedule-single.js?v=3"></script>
+    <script type="text/javascript" src="/js/schedule-single.js?v=4"></script>
 @endpush

@@ -34,7 +34,7 @@ export default class App extends React.Component {
 
     updateSchedule(loading = true) {
         let self = this;
-        if(loading) {
+        if (loading) {
             self.setState({
                 view: 'loading',
             });
@@ -49,7 +49,7 @@ export default class App extends React.Component {
                 view: 'normal',
             });
             let day = self.state.day;
-            if(!day) {
+            if (!day) {
                 day = scheduleItems[0].day;
             }
             self.setDay(day);
@@ -60,7 +60,7 @@ export default class App extends React.Component {
         let dayPosition = 0;
         let scheduleItems = this.state.scheduleItems.map((item, i) => {
             item.active = (item.day === day);
-            if(item.active) {
+            if (item.active) {
                 dayPosition = i;
             }
             return item;
@@ -77,7 +77,7 @@ export default class App extends React.Component {
             questsActive: questsActive,
             day: day,
             dayPosition: dayPosition,
-        });
+        }, this.forceUpdate);
     }
 
     setBooking(quest, time) {
@@ -269,7 +269,8 @@ export default class App extends React.Component {
                                                                         <img src={quest.thumb_path} alt=""/>
                                                                     </div>
                                                                     <div className="schedule-quests-item-title">
-                                                                        <a href={quest.url} target={vkAccountId ? '_blank' : '_self'}>
+                                                                        <a href={quest.url}
+                                                                           target={vkAccountId ? '_blank' : '_self'}>
                                                                             {quest.name}
                                                                         </a>
                                                                         <div>

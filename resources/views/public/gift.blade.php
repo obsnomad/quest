@@ -58,5 +58,5 @@
     <script>
         var giftRoute = '{{ route('gift.send') }}';
     </script>
-    <script type="text/javascript" src="/js/certificate.js?v=3"></script>
+    <script type="text/javascript" src="/js/certificate.js?v=4"></script>
 @endpush
