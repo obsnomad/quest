@@ -16,7 +16,6 @@ export default class ModalBooking extends React.Component {
                     this.props.booking &&
                     <ModalHeader toggle={this.props.onHide}>
                         Запись на квест<br/>«<span>{this.props.booking.questName}</span>»
-                        <Button close/>
                     </ModalHeader>
                 }
                 <ModalBody>
