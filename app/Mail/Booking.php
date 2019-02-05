@@ -38,7 +38,7 @@ class Booking extends Mailable
             ->text('email.booking', [
                 'booking' => $this->booking,
                 'client' => $this->client,
-                'vkAccountId' => $this->client->vkAccountId ? "https://vk.com/{$this->client->vkAccountId}" : '',
+                'vkAccountId' => $this->client->vkAccountId ? "https://vk.com/id{$this->client->vkAccountId}" : '',
             ]);
     }
 }
