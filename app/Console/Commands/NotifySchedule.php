@@ -22,11 +22,6 @@ class NotifySchedule extends Command
      */
     protected $description = 'Notification of today schedule';
 
-    public function __invoke()
-    {
-        $this->handle();
-    }
-
     /**
      * Execute the console command.
      */

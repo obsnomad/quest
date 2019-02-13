@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(new NotifyBooking())->everyMinute();
-        $schedule->call(new NotifySchedule())->dailyAt('09:00');
+        $schedule->command('notify:booking')->everyMinute();
+        $schedule->command('notify:schedule')->dailyAt('09:00');
     }
 
     /**
