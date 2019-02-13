@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\NotifyBooking;
+use App\Console\Commands\NotifySchedule;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        NotifyBooking::class,
+        NotifySchedule::class,
     ];
 
     /**
@@ -24,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(new NotifyBooking())->everyFiveMinutes();
+        $schedule->call(new NotifySchedule())->dailyAt('09:00');
     }
 
     /**

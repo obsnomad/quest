@@ -90,7 +90,7 @@ class ScheduleController extends Controller
             ? ['vk_account_id' => $data['vkAccountId']]
             : ['phone' => Client::cleanPhone($data['phone'])];
         $client = Client::firstOrCreate($clientData);
-        $booking = Booking::create([
+        Booking::create([
             'quest_id' => $data['quest'],
             'client_id' => $client->id,
             'date' => $data['time'],
@@ -98,34 +98,6 @@ class ScheduleController extends Controller
             'amount' => $data['amount'],
             'status_id' => 1,
         ]);
-        $vkAccountId = $client->vkAccountId ? "https://vk.com/id{$client->vkAccountId}" : '';
-        try {
-            $message = "НОВАЯ РЕГИСТРАЦИЯ
-            Квест: {$booking->quest->name}
-            Дата: {$booking->dateFormatted}
-            Количество человек: {$booking->amount}
-            Цена: {$booking->price} р.";
-            if($client->phoneFormatted) {
-                $message .= "\nНомер телефона: {$client->phoneFormatted}";
-            }
-            if($client->fullName) {
-                $message .= "\nИмя: {$client->fullName}";
-            }
-            if($vkAccountId) {
-                $message .= "\nСтраница VK: {$vkAccountId}";
-            }
-            \VKAPI::call('messages.send', [
-                'domain' => 'obscurus',
-                'message' => $message,
-            ]);
-        } catch (\Exception $e) {
-
-        }
-        try {
-            \Mail::send(new MailBooking($booking, $client));
-        } catch (\Exception $e) {
-
-        }
         \DB::commit();
         return response()->json([
             'result' => 'Вы успешно забронировали квест. Мы позвоним Вам в ближайшее время для подтверждения.'

@@ -26,6 +26,7 @@ use Illuminate\Support\Collection;
  * @property User $user
  * @property \Carbon\Carbon $createdAt
  * @property \Carbon\Carbon $updatedAt
+ * @property boolean $notified
  * @method static Builder|Booking whereId($value)
  * @method static Builder|Booking whereQuestId($value)
  * @method static Builder|Booking whereClientId($value)
@@ -38,6 +39,8 @@ use Illuminate\Support\Collection;
  * @method static Builder|Booking whereComment($value)
  * @method static Builder|Booking whereUpdatedBy($value)
  * @method static Builder|Quest active()
+ * @method static Builder|Quest new()
+ * @method static Builder|Quest today()
  * @mixin \Eloquent
  */
 class Booking extends Eloquent
@@ -48,7 +51,8 @@ class Booking extends Eloquent
         'quest_id' => 'int',
         'client_id' => 'int',
         'status_id' => 'int',
-        'price' => 'int'
+        'price' => 'int',
+        'notified' => 'boolean',
     ];
 
     protected $dates = [
@@ -109,5 +113,23 @@ class Booking extends Eloquent
     public function scopeActive($query)
     {
         return $query->whereIn('status_id', [1, 2, 3]);
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopeNew($query)
+    {
+        return $query->where('notified', '<>', 1);
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopeToday($query)
+    {
+        return $query->where(\DB::raw('DATE(date)'), \DB::raw('DATE(NOW())'));
     }
 }

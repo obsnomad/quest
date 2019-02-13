@@ -19,10 +19,10 @@ class Booking extends Mailable
      * @param $booking
      * @param $client
      */
-    public function __construct($booking, $client)
+    public function __construct($booking, $client = null)
     {
         $this->booking = $booking;
-        $this->client = $client;
+        $this->client = $client ?: $booking->client;
     }
 
     /**
