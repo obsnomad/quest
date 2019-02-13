@@ -22,6 +22,11 @@ class NotifyBooking extends Command
      */
     protected $description = 'Notification of booking';
 
+    public function __invoke()
+    {
+        $this->handle();
+    }
+
     /**
      * Execute the console command.
      */
