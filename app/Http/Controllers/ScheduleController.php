@@ -89,6 +89,9 @@ class ScheduleController extends Controller
         $clientData = !empty($data['vkAccountId'])
             ? ['vk_account_id' => $data['vkAccountId']]
             : ['phone' => Client::cleanPhone($data['phone'])];
+        $verb = !empty($data['vkAccountId'])
+            ? 'напишем'
+            : 'позвоним';
         $client = Client::firstOrCreate($clientData);
         Booking::create([
             'quest_id' => $data['quest'],
@@ -100,7 +103,7 @@ class ScheduleController extends Controller
         ]);
         \DB::commit();
         return response()->json([
-            'result' => 'Вы успешно забронировали квест. Мы позвоним Вам в ближайшее время для подтверждения.'
+            'result' => "Вы успешно забронировали квест. Мы $verb Вам в ближайшее время для подтверждения.",
         ]);
     }
 }
