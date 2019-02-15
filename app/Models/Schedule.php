@@ -215,7 +215,7 @@ class Schedule extends Eloquent
         }
         $scheduleItem = self::query()
             ->where('quest_id', $questId)
-            ->where('week_day', (int)$date->format('w') + 1)
+            ->where('week_day', (int)$date->format('N'))
             ->where('time', $date->format('H:i'))
             ->first();
         if($scheduleItem) {
