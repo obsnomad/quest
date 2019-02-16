@@ -54,7 +54,7 @@ class NotifySchedule extends Command
             $date = Carbon::now()->format('d.m.Y');
             \VKAPI::call('messages.send', [
                 'domain' => 'obscurus',
-                'message' => $messages
+                'message' => $messages->count() > 0
                     ? "БРОНИ НА {$date}\n" . $messages->implode("\n")
                     : "ОТЧЕТ НА {$date} - НА СЕГОДНЯ БРОНЕЙ ПОКА НЕТ",
             ]);
