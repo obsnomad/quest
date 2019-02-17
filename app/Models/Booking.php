@@ -130,6 +130,8 @@ class Booking extends Eloquent
      */
     public function scopeToday($query)
     {
-        return $query->where(\DB::raw('DATE(date)'), \DB::raw('DATE(NOW())'));
+        return $query
+            ->where(\DB::raw('DATE(date)'), \DB::raw('DATE(NOW())'))
+            ->where('status_id', 1);
     }
 }

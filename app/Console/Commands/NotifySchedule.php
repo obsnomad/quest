@@ -24,39 +24,19 @@ class NotifySchedule extends Command
 
     /**
      * Execute the console command.
+     * @throws \Throwable
      */
     public function handle()
     {
-        $messages = Booking::today()
-            ->with('client')
-            ->get()
-            ->map(function (Booking $booking) {
-                $vkAccountId = !empty($booking->client->vkAccountId)
-                    ? "https://vk.com/id{$booking->client->vkAccountId}"
-                    : '';
-                $message = "
-                        Квест: {$booking->quest->name}
-                        Дата: {$booking->dateFormatted}
-                        Количество человек: {$booking->amount}
-                        Цена: {$booking->price} р.";
-                if ($booking->client->phoneFormatted) {
-                    $message .= "\nНомер телефона: {$booking->client->phoneFormatted}";
-                }
-                if ($booking->client->fullName) {
-                    $message .= "\nИмя: {$booking->client->fullName}";
-                }
-                if ($vkAccountId) {
-                    $message .= "\nСтраница VK: {$vkAccountId}";
-                }
-                return $message;
-            });
         try {
-            $date = Carbon::now()->format('d.m.Y');
             \VKAPI::call('messages.send', [
                 'domain' => 'obscurus',
-                'message' => $messages->count() > 0
-                    ? "БРОНИ НА {$date}\n" . $messages->implode("\n")
-                    : "ОТЧЕТ НА {$date} - НА СЕГОДНЯ БРОНЕЙ ПОКА НЕТ",
+                'message' => view('email.schedule', [
+                    'bookings' => Booking::today()
+                        ->with('client')
+                        ->get(),
+                    'date' => Carbon::now()->format('d.m.Y'),
+                ])->render(),
             ]);
         } catch (\Exception $e) {
             $this->error('VK message was not send');

@@ -1,14 +1,18 @@
+@php
+/** @var \App\Models\Booking $booking */
+@endphp
 НОВАЯ РЕГИСТРАЦИЯ
+
 Квест: {{ $booking->quest->name }}
 Дата: {{ $booking->dateFormatted }}
 Количество человек: {{ $booking->amount}}
 Цена: {{ $booking->price }} р.
-@if($client->phoneFormatted)
-Номер телефона: {{ $client->phoneFormatted }}
+@if($booking->client->phoneFormatted)
+Номер телефона: {{ $booking->client->phoneFormatted }}
 @endif
-@if($client->fullName)
-Имя: {{ $client->fullName }}
+@if($booking->client->vkAccountId)
+Страница VK: https://vk.com/id{{ $booking->client->vkAccountId }}
 @endif
-@if($vkAccountId)
-Страница VK: {{ $vkAccountId }}
+@if($booking->client->fullName)
+Имя: {{ $booking->client->fullName }}
 @endif

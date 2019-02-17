@@ -31,28 +31,12 @@ class NotifyBooking extends Command
             ->with('client')
             ->get()
             ->map(function (Booking $booking) {
-                $vkAccountId = !empty($booking->client->vkAccountId)
-                    ? "https://vk.com/id{$booking->client->vkAccountId}"
-                    : '';
                 try {
-                    $message = "НОВАЯ РЕГИСТРАЦИЯ
-                    
-                        Квест: {$booking->quest->name}
-                        Дата: {$booking->dateFormatted}
-                        Количество человек: {$booking->amount}
-                        Цена: {$booking->price} р.";
-                    if ($booking->client->phoneFormatted) {
-                        $message .= "\nНомер телефона: {$booking->client->phoneFormatted}";
-                    }
-                    if ($booking->client->fullName) {
-                        $message .= "\nИмя: {$booking->client->fullName}";
-                    }
-                    if ($vkAccountId) {
-                        $message .= "\nСтраница VK: {$vkAccountId}";
-                    }
                     \VKAPI::call('messages.send', [
                         'domain' => 'obscurus',
-                        'message' => $message,
+                        'message' => view('email.booking', [
+                            'booking' => $booking,
+                        ])->render(),
                     ]);
                 } catch (\Exception $e) {
                     $this->error('VK message was not send');
