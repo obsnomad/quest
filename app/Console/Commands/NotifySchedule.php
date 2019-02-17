@@ -34,6 +34,7 @@ class NotifySchedule extends Command
                 'message' => view('email.schedule', [
                     'bookings' => Booking::today()
                         ->with('client')
+                        ->orderBy('date')
                         ->get(),
                     'date' => Carbon::now()->format('d.m.Y'),
                 ])->render(),
