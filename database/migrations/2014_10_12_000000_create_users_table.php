@@ -24,9 +24,9 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert([
             'id' => 1,
             'role_id' => 1,
-            'name' => 'Obscurus',
-            'email' => 'akatelnikov@yandex.ru',
-            'password' => bcrypt('rrs137RR'),
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('admin'),
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
         ]);
