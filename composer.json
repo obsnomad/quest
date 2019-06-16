@@ -8,6 +8,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/obsnomad/laravel-menu"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/dimaspace/laravel-vkapi"
         }
     ],
     "require": {
