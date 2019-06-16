@@ -22,7 +22,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.2",
         "lavary/laravel-menu": "dev-master",
-        "bafoed/vkapi": "^1.0@dev"
+        "bafoed/vkapi": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.3",
